@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Basics\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyLibrary.Creater\MyLibrary.Creater.csproj" />
+    <ProjectReference Include="..\MyLibrary.Standard20\MyLibrary.Standard20.csproj" />
+  </ItemGroup>
+
+</Project>
