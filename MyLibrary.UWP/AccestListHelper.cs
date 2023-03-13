@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -13,6 +15,24 @@ namespace MyLibrary.UWP
     /// </summary>
     public static class AccestListHelper
     {
+        public static async Task<StorageFile> GetStorageFile ( this string path)
+        {
+            var folder = await path.GetStorageFolder();
+            var file = Path.GetFileName(path);
+
+            var targetfile = await folder.GetFileAsync(file);
+            return targetfile;
+
+        }
+
+        public static async Task<StorageFolder> GetStorageFolder(this string path)
+        {
+            var list = await GetAvailableFutureFolder();
+
+            var folder=Path.GetDirectoryName(path);
+            var targetfolder=list.Single(x=>x.Path == folder);
+            return targetfolder;
+        }
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
