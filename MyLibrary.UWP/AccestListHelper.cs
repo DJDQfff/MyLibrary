@@ -25,6 +25,11 @@ namespace MyLibrary.UWP
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static async Task<StorageFolder> GetStorageFolder(this string path)
         {
             var list = await GetAvailableFutureFolder();
