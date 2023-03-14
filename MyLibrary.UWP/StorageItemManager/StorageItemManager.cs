@@ -6,22 +6,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Org.BouncyCastle.Asn1.X509;
+
 using Windows.Storage;
 
-namespace MyUWPLibrary.StorageItemManager
+using static Windows.Storage.AccessCache.StorageApplicationPermissions;
+namespace MyLibrary.UWP.StorageItemManager
 {
     public class StorageItemManager
     {
+        public Dictionary<string , StorageFolder> AccessDictionary { get; private set; }
         public ObservableCollection<StorageFolder> Folders = new ObservableCollection<StorageFolder>();
-        public void InitialFolders(IEnumerable<StorageFolder> folders)
+        public void InitialFolders ( Dictionary<string,StorageFolder> folders)
         {
+            AccessDictionary = folders;
+
             Folders.Clear();
-            foreach(var folder in folders)
+            foreach(var folder in folders.Values)
             {
                 Folders.Add(folder);
             }
         }
 
+        public void RemoveToken(string folder)
+        {
+            var pair=AccessDictionary.Single(x=>x.Value.Path==folder);
+            var token = pair.Key;
+            FutureAccessList.Remove(token); // 从系统未来访问列表里删除
+
+        }
+        public  StorageFolder GetStorageFolder(string folderpath)
+        {
+           return Folders.SingleOrDefault(f => f.Path == folderpath);
+
+        }
         public async Task<StorageFile> GetStorageFile(string filepath)
         {
             string folderpath = Path.GetDirectoryName(filepath);
@@ -39,6 +57,23 @@ namespace MyUWPLibrary.StorageItemManager
             }
         }
 
+        public async Task RenameStorageFile(string filepath ,string newname)
+        {
+            var storagefile= await GetStorageFile(filepath);
+            if(storagefile != null)
+            {
+                await storagefile.RenameAsync(newname);
+            }
+        }
+
+        public async Task DeleteStorageFile(string path, StorageDeleteOption storageDeleteOption)
+        {
+            var storagefile=await GetStorageFile(path);
+            if(storagefile != null)
+            {
+                await storagefile.DeleteAsync(storageDeleteOption);
+            }
+        }
         
     }
 }

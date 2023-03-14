@@ -15,42 +15,19 @@ namespace MyLibrary.UWP
     /// </summary>
     public static class AccestListHelper
     {
-        public static async Task<StorageFile> GetStorageFile ( this string path)
-        {
-            var folder = await path.GetStorageFolder();
-            var file = Path.GetFileName(path);
-
-            var targetfile = await folder.GetFileAsync(file);
-            return targetfile;
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static async Task<StorageFolder> GetStorageFolder(this string path)
-        {
-            var list = await GetAvailableFutureFolder();
-
-            var folder=Path.GetDirectoryName(path);
-            var targetfolder=list.Single(x=>x.Path == folder);
-            return targetfolder;
-        }
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
-        public static async Task<List<StorageFolder>> GetAvailableFutureFolder ()
+        public static async Task<Dictionary<string , StorageFolder>> GetAvailableFutureFolder ()
         {
-            List<StorageFolder> result = new List<StorageFolder>();
+            Dictionary<string,StorageFolder> result = new Dictionary<string, StorageFolder>();
 
             foreach (var item in FutureAccessList.Entries)
             {
                 try
                 {
                     StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(item.Token);
-                    result.Add(storageFolder);
+                    result.Add( item.Token, storageFolder);
                 }
                 catch (Exception)
                 {
