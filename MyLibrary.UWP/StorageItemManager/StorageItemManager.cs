@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Org.BouncyCastle.Asn1.X509;
-
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 
@@ -39,7 +37,7 @@ namespace MyLibrary.UWP.StorageItemManager
             var pair=AccessDictionary.Single(x=>x.Value.Path==folder);
             var token = pair.Key;
             FutureAccessList.Remove(token); // 从系统未来访问列表里删除
-
+            AccessDictionary.Remove(token);
         }
         public  StorageFolder GetStorageFolder(string folderpath)
         {
