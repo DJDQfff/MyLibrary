@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Org.BouncyCastle.Asn1.X509;
 
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 
 using static Windows.Storage.AccessCache.StorageApplicationPermissions;
 namespace MyLibrary.UWP.StorageItemManager
@@ -28,6 +29,11 @@ namespace MyLibrary.UWP.StorageItemManager
             }
         }
 
+        public void AddToken(StorageFolder folder)
+        {
+            var token = StorageApplicationPermissions.FutureAccessList.Add(folder);
+            AccessDictionary.Add(token, folder);
+        }
         public void RemoveToken(string folder)
         {
             var pair=AccessDictionary.Single(x=>x.Value.Path==folder);
