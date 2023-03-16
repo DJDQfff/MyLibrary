@@ -14,7 +14,7 @@ namespace MyLibrary.UWP
         /// <summary> 在app临时文件夹获取子文件夹 </summary>
         /// <param name="foldername"> 子文件夹的名称 </param>
         /// <returns> </returns>
-        public static async Task<StorageFolder> GetChildTemporaryFolder (string foldername)
+        public static async Task<StorageFolder> GetChildTemporaryFolder(string foldername)
         {
             StorageFolder LocalCacheFolder = ApplicationData.Current.TemporaryFolder;
 
@@ -28,13 +28,13 @@ namespace MyLibrary.UWP
         /// </summary>
         /// <param name="foldernames"> 子文件夹名称 </param>
         /// <returns> </returns>
-        public static async Task EnsureChildTemporaryFolders (params string[] foldernames)
+        public static async Task EnsureChildTemporaryFolders(params string[] foldernames)
         {
             StorageFolder LocalCacheFolder = ApplicationData.Current.TemporaryFolder;
 
             foreach (var name in foldernames)
             {
-                _ = await LocalCacheFolder.CreateFolderAsync(name , CreationCollisionOption.OpenIfExists);
+                _ = await LocalCacheFolder.CreateFolderAsync(name, CreationCollisionOption.OpenIfExists);
             }
         }
 
@@ -44,7 +44,7 @@ namespace MyLibrary.UWP
         /// <param name="Items"></param>
         /// <param name="check"> </param>
         /// <returns> </returns>
-        public static bool Contain (this IEnumerable<IStorageItem> Items , StorageFolder check)
+        public static bool Contain(this IEnumerable<IStorageItem> Items, StorageFolder check)
         {
             foreach (var item in Items)
             {

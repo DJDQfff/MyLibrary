@@ -17,12 +17,12 @@ namespace MyLibrary.UWP
         /// </param>
         /// <param name="collisiontag"> 若重名，则此补后缀 </param>
         /// <returns> </returns>
-        public static async Task ReSetDisplayName_perhaps_UniqueName (this StorageFile storageFile , string newdisplayname , string collisiontag = "_副本")
+        public static async Task ReSetDisplayName_perhaps_UniqueName(this StorageFile storageFile, string newdisplayname, string collisiontag = "_副本")
         {
             string extensionname = storageFile.FileType;
             try
             {
-                await storageFile.RenameAsync(newdisplayname + extensionname , NameCollisionOption.FailIfExists);
+                await storageFile.RenameAsync(newdisplayname + extensionname, NameCollisionOption.FailIfExists);
             }
             catch (Exception)
             {

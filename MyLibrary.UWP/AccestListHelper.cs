@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -18,16 +16,16 @@ namespace MyLibrary.UWP
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
-        public static async Task<Dictionary<string , StorageFolder>> GetAvailableFutureFolder ()
+        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder()
         {
-            Dictionary<string,StorageFolder> result = new Dictionary<string, StorageFolder>();
+            Dictionary<string, StorageFolder> result = new Dictionary<string, StorageFolder>();
 
             foreach (var item in FutureAccessList.Entries)
             {
                 try
                 {
                     StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(item.Token);
-                    result.Add( item.Token, storageFolder);
+                    result.Add(item.Token, storageFolder);
                 }
                 catch (Exception)
                 {

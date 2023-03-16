@@ -15,7 +15,7 @@ namespace MyLibrary.UWP
         /// 获取随机颜色SolidColorBrush
         /// </summary>
         /// <returns></returns>
-        public static SolidColorBrush GetRandomSolidColorBrush ()
+        public static SolidColorBrush GetRandomSolidColorBrush()
         {
             //Type type = typeof(Windows.UI.Colors);
             //var a = type.GetProperties();
@@ -30,7 +30,7 @@ namespace MyLibrary.UWP
 
             random2.NextBytes(ragb);
 
-            Color color = Color.FromArgb(ragb[0] , ragb[1] , ragb[2] , ragb[3]);
+            Color color = Color.FromArgb(ragb[0], ragb[1], ragb[2], ragb[3]);
             SolidColorBrush solidColorBrush = new SolidColorBrush(color);
 
             return solidColorBrush;

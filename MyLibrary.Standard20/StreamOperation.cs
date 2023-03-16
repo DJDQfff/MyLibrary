@@ -13,7 +13,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="stream">stream，必须是由文本打开的流</param>
         /// <returns>字符串集合</returns>
-        public static List<string> ReadAllLines (this Stream stream)
+        public static List<string> ReadAllLines(this Stream stream)
         {
             List<string> lines = new List<string>();
 

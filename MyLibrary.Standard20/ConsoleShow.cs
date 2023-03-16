@@ -8,7 +8,7 @@ namespace MyLibrary.Standard20
     {
         /// <summary> 显示错误信息 </summary>
         /// <param name="str"> </param>
-        public static void ShowErrorLine (string str)
+        public static void ShowErrorLine(string str)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(str);
@@ -24,7 +24,7 @@ namespace MyLibrary.Standard20
         /// </param>
         /// <param name="beforemessage"> </param>
         /// <param name="aftermessage"> </param>
-        public static void ShowList<T> (this IList<T> list , string front = "\t" , string behind = "\n" , string beforemessage = "数组为:" , string aftermessage = "")
+        public static void ShowList<T>(this IList<T> list, string front = "\t", string behind = "\n", string beforemessage = "数组为:", string aftermessage = "")
         {
             System.Console.WriteLine(beforemessage);
             foreach (var t in list)
@@ -37,14 +37,14 @@ namespace MyLibrary.Standard20
         /// <summary> 单个对象显示在控制台上 </summary>
         /// <typeparam name="T"> </typeparam>
         /// <param name="t"> </param>
-        public static void Show<T> (this T t)
+        public static void Show<T>(this T t)
         {
             System.Console.WriteLine(t);
         }
 
         /// <summary> 在控制台上显示异常的信息 </summary>
         /// <param name="exception"> </param>
-        public static void Show (this Exception exception)
+        public static void Show(this Exception exception)
         {
             System.Console.WriteLine(exception.Message);
         }
@@ -52,13 +52,13 @@ namespace MyLibrary.Standard20
         /// <summary> 在控制台上显示二维数组 </summary>
         /// <typeparam name="T"> </typeparam>
         /// <param name="array"> 要操作的二维数组 </param>
-        public static void Show<T> (this T[,] array)
+        public static void Show<T>(this T[,] array)
         {
-            for (int i = 0 ; i < array.GetLength(0) ; i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                for (int j = 0 ; j < array.GetLength(1) ; j++)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    Console.Write(array[i , j]);
+                    Console.Write(array[i, j]);
                 }
                 Console.Write('\n');
             }
