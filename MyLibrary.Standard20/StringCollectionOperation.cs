@@ -10,6 +10,11 @@ namespace MyLibrary.Standard20
     /// </summary>
     public static class StringCollectionOperation
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         public static bool ContainRepeat(this string[] items)
         {
             for (int index = 0; index < items.Count() - 1; index++)
