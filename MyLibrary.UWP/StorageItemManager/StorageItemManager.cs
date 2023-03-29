@@ -11,11 +11,18 @@ using Windows.Storage.AccessCache;
 using static Windows.Storage.AccessCache.StorageApplicationPermissions;
 namespace MyLibrary.UWP.StorageItemManager
 {
+    /// <summary>
+    /// 存放StorageFolder权限
+    /// </summary>
     public class StorageItemManager
     {
         public Dictionary<string, StorageFolder> AccessDictionary { get; private set; }
         public ObservableCollection<StorageFolder> Folders = new ObservableCollection<StorageFolder>();
-        public void InitialFolders(Dictionary<string, StorageFolder> folders)
+        /// <summary>
+        /// 初始化管理器的文件夹，这些文件夹都是根文件夹
+        /// </summary>
+        /// <param name="folders"></param>
+        public void InitialRootFolders(Dictionary<string, StorageFolder> folders)
         {
             AccessDictionary = folders;
 
@@ -30,6 +37,14 @@ namespace MyLibrary.UWP.StorageItemManager
         {
             var token = StorageApplicationPermissions.FutureAccessList.Add(folder);
             AccessDictionary.Add(token, folder);
+        }
+
+        public void AddTokenRange(IEnumerable<StorageFolder> folders)
+        {
+            foreach(var  folder in folders)
+            {
+                AddToken(folder);
+            }
         }
         public void RemoveToken(string folder)
         {
