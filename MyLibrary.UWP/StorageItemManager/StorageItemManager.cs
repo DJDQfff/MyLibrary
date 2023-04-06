@@ -9,6 +9,7 @@ using Windows.Storage;
 using Windows.Storage.AccessCache;
 
 using static Windows.Storage.AccessCache.StorageApplicationPermissions;
+
 namespace MyLibrary.UWP.StorageItemManager
 {
     /// <summary>
@@ -18,6 +19,7 @@ namespace MyLibrary.UWP.StorageItemManager
     {
         public Dictionary<string, StorageFolder> AccessDictionary { get; private set; }
         public ObservableCollection<StorageFolder> Folders = new ObservableCollection<StorageFolder>();
+
         /// <summary>
         /// 初始化管理器的文件夹，这些文件夹都是根文件夹
         /// </summary>
@@ -41,11 +43,12 @@ namespace MyLibrary.UWP.StorageItemManager
 
         public void AddTokenRange(IEnumerable<StorageFolder> folders)
         {
-            foreach(var  folder in folders)
+            foreach (var folder in folders)
             {
                 AddToken(folder);
             }
         }
+
         public void RemoveToken(string folder)
         {
             var pair = AccessDictionary.Single(x => x.Value.Path == folder);
@@ -53,11 +56,12 @@ namespace MyLibrary.UWP.StorageItemManager
             FutureAccessList.Remove(token); // 从系统未来访问列表里删除
             AccessDictionary.Remove(token);
         }
+
         public StorageFolder GetStorageFolder(string folderpath)
         {
             return Folders.SingleOrDefault(f => f.Path == folderpath);
-
         }
+
         public async Task<StorageFile> GetStorageFile(string filepath)
         {
             string folderpath = Path.GetDirectoryName(filepath);
@@ -92,6 +96,5 @@ namespace MyLibrary.UWP.StorageItemManager
                 await storagefile.DeleteAsync(storageDeleteOption);
             }
         }
-
     }
 }

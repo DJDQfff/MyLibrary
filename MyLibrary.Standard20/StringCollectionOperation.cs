@@ -11,7 +11,7 @@ namespace MyLibrary.Standard20
     public static class StringCollectionOperation
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
