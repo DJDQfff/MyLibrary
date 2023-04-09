@@ -17,6 +17,9 @@ namespace MyLibrary.UWP.StorageItemManager
     /// </summary>
     public class StorageItemManager
     {
+        /// <summary>
+        /// 文件夹字典
+        /// </summary>
         public Dictionary<string, StorageFolder> AccessDictionary { get; private set; }
         public ObservableCollection<StorageFolder> Folders = new ObservableCollection<StorageFolder>();
 
