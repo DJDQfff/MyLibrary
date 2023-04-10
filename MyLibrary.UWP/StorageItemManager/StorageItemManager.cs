@@ -21,7 +21,6 @@ namespace MyLibrary.UWP.StorageItemManager
         /// 文件夹字典
         /// </summary>
         public Dictionary<string, StorageFolder> AccessDictionary { get; private set; }
-        public ObservableCollection<StorageFolder> Folders = new ObservableCollection<StorageFolder>();
 
         /// <summary>
         /// 初始化管理器的文件夹，这些文件夹都是根文件夹
@@ -31,11 +30,6 @@ namespace MyLibrary.UWP.StorageItemManager
         {
             AccessDictionary = folders;
 
-            Folders.Clear();
-            foreach (var folder in folders.Values)
-            {
-                Folders.Add(folder);
-            }
         }
 
         public void AddToken(StorageFolder folder)
@@ -62,7 +56,16 @@ namespace MyLibrary.UWP.StorageItemManager
 
         public StorageFolder GetStorageFolder(string folderpath)
         {
-            return Folders.SingleOrDefault(f => f.Path == folderpath);
+            try
+            {
+            var  keyValuePair=  AccessDictionary.Single(x => x.Value.Path == folderpath);
+                return keyValuePair.Value;
+            }
+            catch
+            {
+                return null;
+
+            }
         }
 
         public async Task<StorageFile> GetStorageFile(string filepath)
@@ -70,16 +73,12 @@ namespace MyLibrary.UWP.StorageItemManager
             string folderpath = Path.GetDirectoryName(filepath);
             string filename = Path.GetFileName(filepath);
 
-            var folder = Folders.SingleOrDefault(f => f.Path == folderpath);
-            if (folder == null)
-            {
-                return null;
-            }
-            else
-            {
-                var item = await folder.TryGetItemAsync(filename);
+            var folder=GetStorageFolder(folderpath);
+
+
+                var item = await folder?.TryGetItemAsync(filename);
                 return item as StorageFile;
-            }
+
         }
 
         public async Task RenameStorageFile(string filepath, string newname)
