@@ -16,9 +16,11 @@ namespace MyLibrary.UWP
         /// <returns></returns>
         public static async Task<IReadOnlyList<StorageFile>> OpenAnyFilesAsync()
         {
-            FileOpenPicker openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.List;
-            openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+            FileOpenPicker openPicker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.List,
+                SuggestedStartLocation = PickerLocationId.ComputerFolder
+            };
             openPicker.FileTypeFilter.Add("*");
 
             var storageFile = await openPicker.PickMultipleFilesAsync();

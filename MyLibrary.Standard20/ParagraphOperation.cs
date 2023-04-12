@@ -154,8 +154,10 @@ namespace MyLibrary.Standard20
         public static List<Paragraph> SplitParagraphByStartIndex(this IList<string> lines, params int[] ints)
         {
             List<Paragraph> paragraphs = new List<Paragraph>();
-            List<int> vs = new List<int>(ints);
-            vs.Add(lines.Count);
+            List<int> vs = new List<int>(ints)
+            {
+                lines.Count
+            };
 
             for (int index = 0; index < vs.Count - 1; index++)
             {
