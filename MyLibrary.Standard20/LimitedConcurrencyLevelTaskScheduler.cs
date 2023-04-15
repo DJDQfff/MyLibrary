@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MyLibrary.Standard20
 {
@@ -40,7 +39,7 @@ namespace MyLibrary.Standard20
         /// Queues a task to the scheduler.
         /// </summary>
         /// <param name="task"></param>
-        protected sealed override void QueueTask(Task task)
+        protected override sealed void QueueTask(Task task)
         {
             // Add the task to the list of tasks to be processed.  If there aren't enough
             // delegates currently queued or running to process tasks, schedule another.
@@ -101,7 +100,7 @@ namespace MyLibrary.Standard20
         /// <param name="task"></param>
         /// <param name="taskWasPreviouslyQueued"></param>
         /// <returns></returns>
-        protected sealed override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+        protected override sealed bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
         {
             // If this thread isn't already processing a task, we don't support inlining
             if (!_currentThreadIsProcessingItems) return false;
@@ -122,7 +121,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        protected sealed override bool TryDequeue(Task task)
+        protected override sealed bool TryDequeue(Task task)
         {
             lock (_tasks) return _tasks.Remove(task);
         }
@@ -130,14 +129,15 @@ namespace MyLibrary.Standard20
         /// <summary>
         /// Gets the maximum concurrency level supported by this scheduler.
         /// </summary>
-        public sealed override int MaximumConcurrencyLevel { get { return _maxDegreeOfParallelism; } }
+        public override sealed int MaximumConcurrencyLevel
+        { get { return _maxDegreeOfParallelism; } }
 
         /// <summary>
         /// Gets an enumerable of the tasks currently scheduled on this scheduler.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        protected sealed override IEnumerable<Task> GetScheduledTasks()
+        protected override sealed IEnumerable<Task> GetScheduledTasks()
         {
             bool lockTaken = false;
             try
@@ -152,5 +152,4 @@ namespace MyLibrary.Standard20
             }
         }
     }
-
 }

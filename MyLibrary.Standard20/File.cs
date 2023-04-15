@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 
 namespace MyLibrary.Standard20
 {
@@ -16,8 +13,8 @@ namespace MyLibrary.Standard20
         /// <param name="path"></param>
         public static void EnsureFileExist(string path)
         {
-             FileInfo fileInfo = new FileInfo(path);
-            if(!fileInfo.Exists)
+            FileInfo fileInfo = new FileInfo(path);
+            if (!fileInfo.Exists)
             {
                 fileInfo.Create();
             }

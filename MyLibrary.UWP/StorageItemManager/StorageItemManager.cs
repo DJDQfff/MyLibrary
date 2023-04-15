@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +28,6 @@ namespace MyLibrary.UWP.StorageItemManager
         public void InitialRootFolders(Dictionary<string, StorageFolder> folders)
         {
             AccessDictionary = folders;
-
         }
 
         public void AddToken(StorageFolder folder)
@@ -58,13 +56,12 @@ namespace MyLibrary.UWP.StorageItemManager
         {
             try
             {
-            var  keyValuePair=  AccessDictionary.Single(x => x.Value.Path == folderpath);
+                var keyValuePair = AccessDictionary.Single(x => x.Value.Path == folderpath);
                 return keyValuePair.Value;
             }
             catch
             {
                 return null;
-
             }
         }
 
@@ -73,12 +70,10 @@ namespace MyLibrary.UWP.StorageItemManager
             string folderpath = Path.GetDirectoryName(filepath);
             string filename = Path.GetFileName(filepath);
 
-            var folder=GetStorageFolder(folderpath);
+            var folder = GetStorageFolder(folderpath);
 
-
-                var item = await folder?.TryGetItemAsync(filename);
-                return item as StorageFile;
-
+            var item = await folder?.TryGetItemAsync(filename);
+            return item as StorageFile;
         }
 
         public async Task RenameStorageFile(string filepath, string newname)
