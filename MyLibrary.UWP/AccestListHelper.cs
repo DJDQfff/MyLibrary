@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -13,10 +15,81 @@ namespace MyLibrary.UWP
     /// </summary>
     public static class AccestListHelper
     {
+        public static async Task<(string,StorageFolder)> GetStorageFolder(string folderpath)
+        {
+            StorageFolder folder = null;
+            string token = null;
+            var entries = FutureAccessList.Entries;
+            foreach (var entry in entries)
+            {
+                var temptoken = entry.Token;
+                try
+                {
+                    StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(token);
+                    if (storageFolder?.Path == folderpath)
+                    {
+                        folder = storageFolder;
+                        token = temptoken ;
+                        break;
+                    }
+                }
+                catch
+                {
+                }
+
+            }
+
+            return (token,folder);
+        }
+        public static async Task<StorageFile> GetStorageFile(string filepath)
+        {
+            string folderpath = Path.GetDirectoryName(filepath);
+            string filename = Path.GetFileName(filepath);
+
+            var folder =await GetStorageFolder(folderpath);
+
+            if(folder.Item1!=null)
+            {
+            var item = await folder.Item2.TryGetItemAsync(filename);
+            return item as StorageFile;
+
+            }
+            return null;
+        }
+
+        public static async Task RenameFile(string path, string newName)
+        {
+            var folder=await GetStorageFolder(path);
+
+            if(folder.Item1 != null)
+            {
+                await folder.Item2.RenameAsync(newName);
+
+            }
+
+        }
+        public static async Task RemoveFolder(string path)
+        {
+            var folder= await GetStorageFolder(path);
+            if(folder.Item1 != null)
+            {
+                        FutureAccessList.Remove(folder.Item1);
+
+            }
+        }
+        public static async Task DeleteStorageFile(string path, StorageDeleteOption storageDeleteOption)
+        {
+            var storagefile = await GetStorageFile(path);
+            if (storagefile != null)
+            {
+                await storagefile.DeleteAsync(storageDeleteOption);
+            }
+        }
+
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
-        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder()
+        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder(params string[] paths)
         {
             Dictionary<string, StorageFolder> result = new Dictionary<string, StorageFolder>();
 
@@ -25,7 +98,21 @@ namespace MyLibrary.UWP
                 try
                 {
                     StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(item.Token);
-                    result.Add(item.Token, storageFolder);
+
+                    if (storageFolder != null)
+                    {
+                        if (paths is null)
+                        {
+                            result.Add(item.Token, storageFolder);
+                        }
+                        else
+                        {
+                            if (paths.Contains(storageFolder.Path))
+                            {
+                                result.Add(item.Token, storageFolder);
+                            }
+                        }
+                    }
                 }
                 catch (Exception)
                 {
