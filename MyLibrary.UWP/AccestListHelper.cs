@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Windows.Storage;
@@ -15,7 +14,7 @@ namespace MyLibrary.UWP
     /// </summary>
     public static class AccestListHelper
     {
-        public static async Task<(string,StorageFolder)> GetStorageFolder(string folderpath)
+        public static async Task<(string, StorageFolder)> GetStorageFolder(string folderpath)
         {
             StorageFolder folder = null;
             string token = null;
@@ -29,54 +28,52 @@ namespace MyLibrary.UWP
                     if (storageFolder?.Path == folderpath)
                     {
                         folder = storageFolder;
-                        token = temptoken ;
+                        token = temptoken;
                         break;
                     }
                 }
                 catch
                 {
                 }
-
             }
 
-            return (token,folder);
+            return (token, folder);
         }
+
         public static async Task<StorageFile> GetStorageFile(string filepath)
         {
             string folderpath = Path.GetDirectoryName(filepath);
             string filename = Path.GetFileName(filepath);
 
-            var folder =await GetStorageFolder(folderpath);
+            var folder = await GetStorageFolder(folderpath);
 
-            if(folder.Item1!=null)
+            if (folder.Item1 != null)
             {
-            var item = await folder.Item2.TryGetItemAsync(filename);
-            return item as StorageFile;
-
+                var item = await folder.Item2.TryGetItemAsync(filename);
+                return item as StorageFile;
             }
             return null;
         }
 
         public static async Task RenameFile(string path, string newName)
         {
-            var folder=await GetStorageFolder(path);
+            var folder = await GetStorageFolder(path);
 
-            if(folder.Item1 != null)
+            if (folder.Item1 != null)
             {
                 await folder.Item2.RenameAsync(newName);
-
             }
-
         }
+
         public static async Task RemoveFolder(string path)
         {
-            var folder= await GetStorageFolder(path);
-            if(folder.Item1 != null)
+            var folder = await GetStorageFolder(path);
+            if (folder.Item1 != null)
             {
-                        FutureAccessList.Remove(folder.Item1);
-
+                FutureAccessList.Remove(folder.Item1);
             }
         }
+
         public static async Task DeleteStorageFile(string path, StorageDeleteOption storageDeleteOption)
         {
             var storagefile = await GetStorageFile(path);
@@ -101,8 +98,7 @@ namespace MyLibrary.UWP
 
                     if (storageFolder != null)
                     {
-                                result.Add(item.Token, storageFolder);
-                        
+                        result.Add(item.Token, storageFolder);
                     }
                 }
                 catch (Exception)
