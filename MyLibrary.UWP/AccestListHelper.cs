@@ -25,7 +25,7 @@ namespace MyLibrary.UWP
                 var temptoken = entry.Token;
                 try
                 {
-                    StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(token);
+                    StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(temptoken);
                     if (storageFolder?.Path == folderpath)
                     {
                         folder = storageFolder;
@@ -89,7 +89,7 @@ namespace MyLibrary.UWP
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
-        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder(params string[] paths)
+        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder()
         {
             Dictionary<string, StorageFolder> result = new Dictionary<string, StorageFolder>();
 
@@ -101,17 +101,8 @@ namespace MyLibrary.UWP
 
                     if (storageFolder != null)
                     {
-                        if (paths is null)
-                        {
-                            result.Add(item.Token, storageFolder);
-                        }
-                        else
-                        {
-                            if (paths.Contains(storageFolder.Path))
-                            {
                                 result.Add(item.Token, storageFolder);
-                            }
-                        }
+                        
                     }
                 }
                 catch (Exception)
