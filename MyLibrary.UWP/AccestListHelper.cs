@@ -25,7 +25,7 @@ namespace MyLibrary.UWP
                 try
                 {
                     StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(temptoken);
-                    if (storageFolder?.Path == Path.GetDirectoryName(folderpath)) ;
+                    if (storageFolder?.Path == folderpath)
                     {
                         folder = storageFolder;
                         token = temptoken;
@@ -65,9 +65,9 @@ namespace MyLibrary.UWP
             }
         }
 
-        public static async Task RemoveFolder(string path)
+        public static async Task RemoveFolder(string folderPath)
         {
-            var folder = await GetStorageFolder(path);
+            var folder = await GetStorageFolder(folderPath);
             if (folder.Item1 != null)
             {
                 FutureAccessList.Remove(folder.Item1);
