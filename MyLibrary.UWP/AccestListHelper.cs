@@ -25,7 +25,7 @@ namespace MyLibrary.UWP
                 try
                 {
                     StorageFolder storageFolder = await FutureAccessList.GetFolderAsync(temptoken);
-                    if (storageFolder?.Path == folderpath)
+                    if (storageFolder?.Path == Path.GetDirectoryName(folderpath)) ;
                     {
                         folder = storageFolder;
                         token = temptoken;
@@ -57,11 +57,11 @@ namespace MyLibrary.UWP
 
         public static async Task RenameFile(string path, string newName)
         {
-            var folder = await GetStorageFolder(path);
+            var folder = await GetStorageFile(path);
 
-            if (folder.Item1 != null)
+            if (folder != null)
             {
-                await folder.Item2.RenameAsync(newName);
+                await folder.RenameAsync(newName);
             }
         }
 
