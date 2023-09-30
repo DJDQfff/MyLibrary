@@ -122,7 +122,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AccestListHelper.cs" />
+    <Compile Include="StorageItemManager\AccestListHelper.cs" />
     <Compile Include="StorageFolderHelper.cs" />
     <Compile Include="StorageItemIterator.cs" />
     <Compile Include="StorageItemPicker.cs" />
@@ -142,9 +142,7 @@
       <Version>4.7.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StorageItemManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
