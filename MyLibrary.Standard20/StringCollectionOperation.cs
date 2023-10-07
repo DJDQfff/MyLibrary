@@ -15,11 +15,11 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public static bool ContainRepeat(this string[] items)
+        public static bool ContainRepeat (this string[] items)
         {
-            for (int index = 0; index < items.Count() - 1; index++)
+            for (int index = 0 ; index < items.Count() - 1 ; index++)
             {
-                for (int j = index + 1; j < items.Count(); j++)
+                for (int j = index + 1 ; j < items.Count() ; j++)
                 {
                     if (items[index] == items[j])
                     {
@@ -36,7 +36,7 @@ namespace MyLibrary.Standard20
         /// <param name="str"></param>
         /// <param name="sub"></param>
         /// <returns></returns>
-        public static bool AnyLineContains(this IEnumerable<string> str, string sub)
+        public static bool AnyLineContains (this IEnumerable<string> str , string sub)
         {
             if (string.IsNullOrEmpty(sub))
             {
@@ -60,12 +60,12 @@ namespace MyLibrary.Standard20
         /// <param name="list"></param>
         /// <param name="regex"></param>
         /// <returns></returns>
-        public static List<int> EachLineRegexIndex(this IList<string> list, string regex)
+        public static List<int> EachLineRegexIndex (this IList<string> list , string regex)
         {
             List<int> vs = new List<int>();
             foreach (var l in list)
             {
-                var match = Regex.Match(l, regex);
+                var match = Regex.Match(l , regex);
                 int index = match.Success ? match.Index : -1;
                 vs.Add(index);
             }
@@ -76,9 +76,9 @@ namespace MyLibrary.Standard20
         /// 从字符串集合中移除null、空字符串、全空白符的字符串
         /// </summary>
         /// <param name="list"></param>
-        public static void RemoveEmptyLine(this IList<string> list)
+        public static void RemoveEmptyLine (this IList<string> list)
         {
-            for (int index = list.Count - 1; index >= 0; index--)
+            for (int index = list.Count - 1 ; index >= 0 ; index--)
             {
                 if (string.IsNullOrWhiteSpace(list[index]))
                 {
@@ -92,15 +92,15 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="lines"></param>
         /// <returns></returns>
-        public static List<int> GetEmptyIndex(this IList<string> lines)
+        public static List<int> GetEmptyIndex (this IList<string> lines)
         {
             List<string> newlines = new List<string>(lines);            // lines必须是可以添加项的集合
-            newlines.Insert(0, string.Empty);
+            newlines.Insert(0 , string.Empty);
             newlines.Add(string.Empty);
 
             List<int> emptyIndex = new List<int>();
 
-            for (int index = 0; index < newlines.Count; index++)
+            for (int index = 0 ; index < newlines.Count ; index++)
             {
                 string line = newlines[index];
 
@@ -118,11 +118,11 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="list"></param>
         /// <param name="regex"></param>
-        public static void RemoveItemMatchRegex(this IList<string> list, string regex)
+        public static void RemoveItemMatchRegex (this IList<string> list , string regex)
         {
-            for (int index = list.Count - 1; index >= 0; index--)
+            for (int index = list.Count - 1 ; index >= 0 ; index--)
             {
-                if (Regex.Match(list[index], regex).Success)
+                if (Regex.Match(list[index] , regex).Success)
                 {
                     list.RemoveAt(index);
                 }

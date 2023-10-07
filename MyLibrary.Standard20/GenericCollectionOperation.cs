@@ -15,7 +15,7 @@ namespace MyLibrary.Standard20
         /// <typeparam name="T"></typeparam>
         /// <param name="ts"></param>
         /// <returns></returns>
-        public static T LastItem<T>(this IList<T> ts)
+        public static T LastItem<T> (this IList<T> ts)
         {
             int count = ts.Count;
 
@@ -27,7 +27,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="vs"></param>
         /// <returns></returns>
-        public static string ConnectString(this IEnumerable<string> vs)
+        public static string ConnectString (this IEnumerable<string> vs)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var str in vs)
@@ -43,7 +43,7 @@ namespace MyLibrary.Standard20
         /// <typeparam name="T">任意类型</typeparam>
         /// <param name="t">发送元素的集合</param>
         /// <param name="ts">接收元素的集合</param>
-        public static void AddTo<T>(this T t, IList<T> ts)
+        public static void AddTo<T> (this T t , IList<T> ts)
         {
             ts.Add(t);
         }
@@ -56,9 +56,9 @@ namespace MyLibrary.Standard20
         /// <param name="targetList">接收元素的集合</param>
         /// <param name="startIndex">发送元素的起始索引</param>
         /// <param name="endIndex">发送元素的结束索引</param>
-        public static void SelectRange<T>(this IList<T> sourcelist, IList<T> targetList, int startIndex, int endIndex)
+        public static void SelectRange<T> (this IList<T> sourcelist , IList<T> targetList , int startIndex , int endIndex)
         {
-            for (int i = startIndex; i <= endIndex; i++)
+            for (int i = startIndex ; i <= endIndex ; i++)
             {
                 targetList.Add(sourcelist[i]);
             }
@@ -73,14 +73,14 @@ namespace MyLibrary.Standard20
         /// <param name="startIndex">起始索引</param>
         /// <param name="endIndex">结束索引</param>
         /// <returns></returns>
-        public static List<T> SubList<T>(this IList<T> sourceList, int startIndex, int endIndex)
+        public static List<T> SubList<T> (this IList<T> sourceList , int startIndex , int endIndex)
         {
             if (startIndex > endIndex)
             {
                 throw new InvalidOperationException("起始索引必须不大于结束索引！");
             }
             List<T> ts = new List<T>();
-            for (int i = startIndex; i <= endIndex; i++)
+            for (int i = startIndex ; i <= endIndex ; i++)
             {
                 ts.Add(sourceList[i]);
             }

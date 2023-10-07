@@ -12,7 +12,7 @@ namespace MyLibrary.Standard20
         /// 开始的段落，至下一个缩进相同段落。如果下一个不存在，则至最后一个
         /// </param>
         /// <returns> </returns>
-        public static List<T> UntilSameIndent<T>(this IList<T> paragraphs, int offset) where T : IParagraph
+        public static List<T> UntilSameIndent<T> (this IList<T> paragraphs , int offset) where T : IParagraph
         {
             List<T> ts = new List<T>();
             var currentParagraph = paragraphs[offset];                 // 当前段落
@@ -42,13 +42,13 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> </param>
         /// <param name="regex"> </param>
         /// <returns> </returns>
-        public static List<int> RegexIndexList(this IParagraph paragraph, string regex)
+        public static List<int> RegexIndexList (this IParagraph paragraph , string regex)
         {
             List<int> vs = new List<int>();
-            for (int index = 0; index < paragraph.Lines.Count; index++)
+            for (int index = 0 ; index < paragraph.Lines.Count ; index++)
             {
                 string line = paragraph.Lines[index];
-                Match match = Regex.Match(line, regex);
+                Match match = Regex.Match(line , regex);
                 if (match.Success)
                 {
                     vs.Add(index);
@@ -61,11 +61,11 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> </param>
         /// <param name="regex"> </param>
         /// <returns> </returns>
-        public static bool IsAllLinesMatchRegex(this IParagraph paragraph, string regex)
+        public static bool IsAllLinesMatchRegex (this IParagraph paragraph , string regex)
         {
             foreach (string line in paragraph.Lines)
             {
-                if (!Regex.Match(line, regex).Success)
+                if (!Regex.Match(line , regex).Success)
                 {
                     return false;
                 }
@@ -77,10 +77,10 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> 要匹配的段落 </param>
         /// <param name="regex"> 要匹配的正则 </param>
         /// <returns> 匹配存在，则返回索引；不存在，则返回-1 </returns>
-        public static int LastLineRegexMatchIndex(this IParagraph paragraph, string regex)
+        public static int LastLineRegexMatchIndex (this IParagraph paragraph , string regex)
         {
             string line = paragraph.Lines.LastItem();
-            var match = Regex.Match(line, regex);
+            var match = Regex.Match(line , regex);
             return match.Success ? match.Index : -1;
         }
 
@@ -88,12 +88,12 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> </param>
         /// <param name="regex"> </param>
         /// <returns> </returns>
-        public static int LinesMatchRegexAmount(this IParagraph paragraph, string regex)
+        public static int LinesMatchRegexAmount (this IParagraph paragraph , string regex)
         {
             int count = 0;
             foreach (var line in paragraph.Lines)
             {
-                if (Regex.Match(line, regex).Success)
+                if (Regex.Match(line , regex).Success)
                 {
                     count++;
                 }
@@ -105,11 +105,11 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> </param>
         /// <param name="regex"> </param>
         /// <returns> </returns>
-        public static bool AnyLineMatchRegex(this IParagraph paragraph, string regex)
+        public static bool AnyLineMatchRegex (this IParagraph paragraph , string regex)
         {
             foreach (var line in paragraph.Lines)
             {
-                if (Regex.Match(line, regex).Success)
+                if (Regex.Match(line , regex).Success)
                 {
                     return true;
                 }
@@ -121,16 +121,16 @@ namespace MyLibrary.Standard20
         /// <param name="paragraph"> 要查找的段落 </param>
         /// <param name="regex"> 要匹配的正则 </param>
         /// <returns> 匹配存在，则返回索引；不存在，则返回-1 </returns>
-        public static int FirstLineRegexMatchIndex(this IParagraph paragraph, string regex)
+        public static int FirstLineRegexMatchIndex (this IParagraph paragraph , string regex)
         {
-            var match = Regex.Match(paragraph.Lines[0], regex);
+            var match = Regex.Match(paragraph.Lines[0] , regex);
             return match.Success ? match.Index : -1;
         }
 
         /// <summary> 拼接各个字符串集合，返回一个新的字符串列表 </summary>
         /// <param name="contents"> 要拼接的内容 </param>
         /// <returns> 新的List </returns>
-        public static List<string> ConnectList(params IList<string>[] contents)
+        public static List<string> ConnectList (params IList<string>[] contents)
         {
             List<string> vs = new List<string>();
             foreach (var list in contents)
@@ -151,7 +151,7 @@ namespace MyLibrary.Standard20
         /// <param name="lines"> </param>
         /// <param name="ints"> 必须依次递增 </param>
         /// <returns> </returns>
-        public static List<Paragraph> SplitParagraphByStartIndex(this IList<string> lines, params int[] ints)
+        public static List<Paragraph> SplitParagraphByStartIndex (this IList<string> lines , params int[] ints)
         {
             List<Paragraph> paragraphs = new List<Paragraph>();
             List<int> vs = new List<int>(ints)
@@ -159,9 +159,9 @@ namespace MyLibrary.Standard20
                 lines.Count
             };
 
-            for (int index = 0; index < vs.Count - 1; index++)
+            for (int index = 0 ; index < vs.Count - 1 ; index++)
             {
-                List<string> vs1 = lines.SubList(vs[index], vs[index + 1] - 1);
+                List<string> vs1 = lines.SubList(vs[index] , vs[index + 1] - 1);
                 Paragraph paragraph = new Paragraph(vs1);
                 paragraphs.Add(paragraph);
             }
@@ -175,15 +175,15 @@ namespace MyLibrary.Standard20
         /// <param name="lines"> </param>
         /// <param name="Indexes"> </param>
         /// <returns> </returns>
-        public static List<Paragraph> SplitParagraphBySperateIndex(this IList<string> lines, params int[] Indexes)
+        public static List<Paragraph> SplitParagraphBySperateIndex (this IList<string> lines , params int[] Indexes)
         {
             List<string> newlines = new List<string>(lines);            // lines必须是可以添加项的集合
-            newlines.Insert(0, string.Empty);
+            newlines.Insert(0 , string.Empty);
             newlines.Add(string.Empty);
 
             List<Paragraph> paragraphs = new List<Paragraph>();
 
-            for (int index = 0; index < Indexes.Length - 1; index++)
+            for (int index = 0 ; index < Indexes.Length - 1 ; index++)
             {
                 int emptystart = Indexes[index];             // 首空行
                 int emptyend = Indexes[index + 1];           // 尾空行
@@ -191,7 +191,7 @@ namespace MyLibrary.Standard20
 
                 if (lcount > 1)               // 中间存在内容
                 {
-                    var vs = newlines.SubList(emptystart + 1, emptyend - 1);
+                    var vs = newlines.SubList(emptystart + 1 , emptyend - 1);
 
                     Paragraph paragraph = new Paragraph(vs);
 
@@ -204,7 +204,7 @@ namespace MyLibrary.Standard20
         /// <summary> 将可枚举字符串视为分离行，切分为各个段落 </summary>
         /// <param name="lines"> 源字符串 </param>
         /// <returns> 段落 </returns>
-        public static List<Paragraph> SplitParagraphByEmptyLines(this IList<string> lines)
+        public static List<Paragraph> SplitParagraphByEmptyLines (this IList<string> lines)
         {
             var emptyIndex = lines.GetEmptyIndex().ToArray();
 
@@ -234,7 +234,7 @@ namespace MyLibrary.Standard20
 
         /// <summary> 构造函数 </summary>
         /// <param name="_content"> 内容 </param>
-        public Paragraph(IList<string> _content)
+        public Paragraph (IList<string> _content)
         {
             Lines = _content;
 

@@ -15,27 +15,27 @@ namespace MyLibrary.Standard20
         /// <param name="rank"></param>
         /// <param name="index"></param>
         /// <param name="value"></param>
-        public static void SetLineValue<T>(this T[,] array, int rank, int index, T[] value)
+        public static void SetLineValue<T> (this T[,] array , int rank , int index , T[] value)
         {
             int row = array.GetLength(0);
             int col = array.GetLength(1);
 
-            int minRow = Math.Min(row, value.Length);
-            int minCol = Math.Min(col, value.Length);
+            int minRow = Math.Min(row , value.Length);
+            int minCol = Math.Min(col , value.Length);
 
             switch (rank)
             {
                 case 0:
-                    for (int i = 0; i < minCol; i++)
+                    for (int i = 0 ; i < minCol ; i++)
                     {
-                        array[index, i] = value[i];
+                        array[index , i] = value[i];
                     }
                     break;
 
                 case 1:
-                    for (int i = 0; i < minRow; i++)
+                    for (int i = 0 ; i < minRow ; i++)
                     {
-                        array[i, index] = value[i];
+                        array[i , index] = value[i];
                     }
                     break;
             }
@@ -44,18 +44,18 @@ namespace MyLibrary.Standard20
         /// <summary> 未添加对null字符的验证，须自行保证无null字符 </summary>
         /// <param name="vs"> </param>
         /// <returns> </returns>
-        public static char[,] StringListToArray(this List<string> vs)
+        public static char[,] StringListToArray (this List<string> vs)
         {
             int row = vs.Count;
             int col = vs.Max(n => n.Length);
 
-            char[,] array = new char[row, col];
+            char[,] array = new char[row , col];
 
-            for (int i = 0; i < row; i++)
+            for (int i = 0 ; i < row ; i++)
             {
-                for (int j = 0; j < col; j++)
+                for (int j = 0 ; j < col ; j++)
                 {
-                    array[i, j] = vs[i][j];
+                    array[i , j] = vs[i][j];
                 }
             }
 

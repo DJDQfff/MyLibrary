@@ -13,11 +13,11 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="stream"> 文件流 </param>
         /// <returns> </returns>
-        public static string ComputeHash(this Stream stream)
+        public static string ComputeHash (this Stream stream)
         {
             SHA256 sHA256 = SHA256.Create();
             byte[] vs = sHA256.ComputeHash(stream);
-            string hash = BitConverter.ToString(vs).Replace("-", "");
+            string hash = BitConverter.ToString(vs).Replace("-" , "");
             sHA256.Dispose();
             return hash;
         }
@@ -27,7 +27,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="entry"> </param>
         /// <returns> </returns>
-        public static string ComputeHash(this ZipArchiveEntry entry)
+        public static string ComputeHash (this ZipArchiveEntry entry)
         {
             string hash;
             using (Stream stream = entry?.Open())
@@ -42,7 +42,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="entry"></param>
         /// <returns></returns>
-        public static string ComputeHash(this SharpCompress.Archives.IArchiveEntry entry)
+        public static string ComputeHash (this SharpCompress.Archives.IArchiveEntry entry)
         {
             string hash;
             using (Stream stream = entry?.OpenEntryStream())

@@ -16,7 +16,7 @@ namespace MyLibrary.UWP
         /// </summary>
         /// <param name="rootFolder">要遍历的根路径</param>
         /// <returns>子StorageFolder集合</returns>
-        public static async Task<List<StorageFolder>> GetAllStorageFolder(this StorageFolder rootFolder)
+        public static async Task<List<StorageFolder>> GetAllStorageFolder (this StorageFolder rootFolder)
         {
             List<StorageFolder> targetFolders = new List<StorageFolder>();
 
@@ -24,7 +24,7 @@ namespace MyLibrary.UWP
 
             return targetFolders;
 
-            async Task Loop(StorageFolder storageFolder)
+            async Task Loop (StorageFolder storageFolder)
             {
                 var childFolders = await storageFolder.GetFoldersAsync();
 
@@ -43,7 +43,7 @@ namespace MyLibrary.UWP
         /// <param name="rootFolder">根文件夹</param>
         /// <returns></returns>
         [Obsolete("请选择具体要遍历的类型，不要用这个，这个把所有的都遍历了，性能不好。")]
-        public static async Task<(List<StorageFolder>, List<StorageFile>)> GetAllStorageItems(this StorageFolder rootFolder)
+        public static async Task<(List<StorageFolder>, List<StorageFile>)> GetAllStorageItems (this StorageFolder rootFolder)
         {
             List<StorageFolder> targetFolders = new List<StorageFolder>();
             List<StorageFile> targetFiles = new List<StorageFile>();
@@ -52,7 +52,7 @@ namespace MyLibrary.UWP
 
             return (targetFolders, targetFiles);
 
-            async Task Loop(StorageFolder storageFolder)
+            async Task Loop (StorageFolder storageFolder)
             {
                 var childFolders = await storageFolder.GetFoldersAsync();
 

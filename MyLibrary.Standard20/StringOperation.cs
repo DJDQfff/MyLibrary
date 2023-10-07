@@ -10,10 +10,10 @@ namespace MyLibrary.Standard20
         /// <param name="str"> 要重复的内容 </param>
         /// <param name="count"> 重复次数 </param>
         /// <returns> </returns>
-        public static string Repeat<T>(this T str, int count)
+        public static string Repeat<T> (this T str , int count)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < count; i++)
+            for (int i = 0 ; i < count ; i++)
             {
                 sb.Append(str.ToString());
             }

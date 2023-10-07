@@ -14,11 +14,11 @@ namespace MyLibrary.UWP
         /// 打开任意文件
         /// </summary>
         /// <returns></returns>
-        public static async Task<IReadOnlyList<StorageFile>> OpenAnyFilesAsync()
+        public static async Task<IReadOnlyList<StorageFile>> OpenAnyFilesAsync ()
         {
             FileOpenPicker openPicker = new FileOpenPicker
             {
-                ViewMode = PickerViewMode.List,
+                ViewMode = PickerViewMode.List ,
                 SuggestedStartLocation = PickerLocationId.ComputerFolder
             };
             openPicker.FileTypeFilter.Add("*");
@@ -30,7 +30,7 @@ namespace MyLibrary.UWP
         /// <summary> 打开单个文件 </summary>
         /// <param name="types"> 要打开的文件类型 </param>
         /// <returns> </returns>
-        public static async Task<StorageFile> OpenSingleFileAsync(params string[] types)
+        public static async Task<StorageFile> OpenSingleFileAsync (params string[] types)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
             foreach (var t in types)
@@ -46,7 +46,7 @@ namespace MyLibrary.UWP
 
         /// <summary> 打开多个文件 </summary>
         /// <returns> </returns>
-        public static async Task<IReadOnlyList<StorageFile>> OpenMultiFilesAsync(params string[] types)
+        public static async Task<IReadOnlyList<StorageFile>> OpenMultiFilesAsync (params string[] types)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
 
@@ -63,7 +63,7 @@ namespace MyLibrary.UWP
 
         /// <summary> 打开单个文件夹 </summary>
         /// <returns> </returns>
-        public static async Task<StorageFolder> OpenSingleFolderAsync()
+        public static async Task<StorageFolder> OpenSingleFolderAsync ()
         {
             FolderPicker folderPicker = new FolderPicker();
             folderPicker.FileTypeFilter.Add(".");
@@ -75,10 +75,10 @@ namespace MyLibrary.UWP
 
         /// <summary> 保存图片文件（仅限jpg、png格式） </summary>
         /// <returns> </returns>
-        public static async Task<StorageFile> SavePictureAsync()
+        public static async Task<StorageFile> SavePictureAsync ()
         {
             FileSavePicker file = new FileSavePicker();
-            file.FileTypeChoices.Add("图片", new List<string>() { ".jpg", ".png" });
+            file.FileTypeChoices.Add("图片" , new List<string>() { ".jpg" , ".png" });
             file.SuggestedStartLocation = PickerLocationId.ComputerFolder;
             StorageFile storageFile = await file.PickSaveFileAsync();
             return storageFile;
@@ -89,10 +89,10 @@ namespace MyLibrary.UWP
         /// </summary>
         /// <param name="types">文件类型</param>
         /// <returns></returns>
-        public static async Task<StorageFile> SaveFileAsync(params string[] types)
+        public static async Task<StorageFile> SaveFileAsync (params string[] types)
         {
             FileSavePicker file = new FileSavePicker();
-            file.FileTypeChoices.Add("类型", types);
+            file.FileTypeChoices.Add("类型" , types);
             file.SuggestedStartLocation = PickerLocationId.ComputerFolder;
             StorageFile storageFile = await file.PickSaveFileAsync();
             return storageFile;

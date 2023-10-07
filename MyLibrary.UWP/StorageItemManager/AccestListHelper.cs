@@ -14,7 +14,7 @@ namespace MyLibrary.UWP
     /// </summary>
     public static class AccestListHelper
     {
-        public static async Task<(string, StorageFolder)> GetStorageFolder(string folderpath)
+        public static async Task<(string, StorageFolder)> GetStorageFolder (string folderpath)
         {
             StorageFolder folder = null;
             string token = null;
@@ -40,7 +40,7 @@ namespace MyLibrary.UWP
             return (token, folder);
         }
 
-        public static async Task<StorageFile> GetStorageFile(string filepath)
+        public static async Task<StorageFile> GetStorageFile (string filepath)
         {
             string folderpath = Path.GetDirectoryName(filepath);
             string filename = Path.GetFileName(filepath);
@@ -55,7 +55,7 @@ namespace MyLibrary.UWP
             return null;
         }
 
-        public static async Task RenameFile(string path, string newName)
+        public static async Task RenameFile (string path , string newName)
         {
             var folder = await GetStorageFile(path);
 
@@ -65,7 +65,7 @@ namespace MyLibrary.UWP
             }
         }
 
-        public static async Task RemoveFolder(string folderPath)
+        public static async Task RemoveFolder (string folderPath)
         {
             var folder = await GetStorageFolder(folderPath);
             if (folder.Item1 != null)
@@ -74,7 +74,7 @@ namespace MyLibrary.UWP
             }
         }
 
-        public static async Task DeleteStorageFile(string path, StorageDeleteOption storageDeleteOption)
+        public static async Task DeleteStorageFile (string path , StorageDeleteOption storageDeleteOption)
         {
             var storagefile = await GetStorageFile(path);
             if (storagefile != null)
@@ -86,9 +86,9 @@ namespace MyLibrary.UWP
         /// <summary>
         /// 查找FutureAccestList中依然存在的可用StorageFolder
         /// </summary>
-        public static async Task<Dictionary<string, StorageFolder>> GetAvailableFutureFolder()
+        public static async Task<Dictionary<string , StorageFolder>> GetAvailableFutureFolder ()
         {
-            Dictionary<string, StorageFolder> result = new Dictionary<string, StorageFolder>();
+            Dictionary<string , StorageFolder> result = new Dictionary<string , StorageFolder>();
 
             foreach (var item in FutureAccessList.Entries)
             {
@@ -98,7 +98,7 @@ namespace MyLibrary.UWP
 
                     if (storageFolder != null)
                     {
-                        result.Add(item.Token, storageFolder);
+                        result.Add(item.Token , storageFolder);
                     }
                 }
                 catch (Exception)

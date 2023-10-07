@@ -29,9 +29,10 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="maxDegreeOfParallelism"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
+        public LimitedConcurrencyLevelTaskScheduler (int maxDegreeOfParallelism)
         {
-            if (maxDegreeOfParallelism < 1) throw new ArgumentOutOfRangeException("maxDegreeOfParallelism");
+            if (maxDegreeOfParallelism < 1)
+                throw new ArgumentOutOfRangeException("maxDegreeOfParallelism");
             _maxDegreeOfParallelism = maxDegreeOfParallelism;
         }
 
@@ -39,7 +40,7 @@ namespace MyLibrary.Standard20
         /// Queues a task to the scheduler.
         /// </summary>
         /// <param name="task"></param>
-        protected override sealed void QueueTask(Task task)
+        protected override sealed void QueueTask (Task task)
         {
             // Add the task to the list of tasks to be processed.  If there aren't enough
             // delegates currently queued or running to process tasks, schedule another.
@@ -57,7 +58,7 @@ namespace MyLibrary.Standard20
         /// <summary>
         /// Inform the ThreadPool that there's work to be executed for this scheduler.
         /// </summary>
-        private void NotifyThreadPoolOfPendingWork()
+        private void NotifyThreadPoolOfPendingWork ()
         {
             ThreadPool.UnsafeQueueUserWorkItem(_ =>
             {
@@ -91,7 +92,7 @@ namespace MyLibrary.Standard20
                 }
                 // We're done processing items on the current thread
                 finally { _currentThreadIsProcessingItems = false; }
-            }, null);
+            } , null);
         }
 
         /// <summary>
@@ -100,10 +101,11 @@ namespace MyLibrary.Standard20
         /// <param name="task"></param>
         /// <param name="taskWasPreviouslyQueued"></param>
         /// <returns></returns>
-        protected override sealed bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+        protected override sealed bool TryExecuteTaskInline (Task task , bool taskWasPreviouslyQueued)
         {
             // If this thread isn't already processing a task, we don't support inlining
-            if (!_currentThreadIsProcessingItems) return false;
+            if (!_currentThreadIsProcessingItems)
+                return false;
 
             // If the task was previously queued, remove it from the queue
             if (taskWasPreviouslyQueued)
@@ -121,9 +123,10 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        protected override sealed bool TryDequeue(Task task)
+        protected override sealed bool TryDequeue (Task task)
         {
-            lock (_tasks) return _tasks.Remove(task);
+            lock (_tasks)
+                return _tasks.Remove(task);
         }
 
         /// <summary>
@@ -137,18 +140,21 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
-        protected override sealed IEnumerable<Task> GetScheduledTasks()
+        protected override sealed IEnumerable<Task> GetScheduledTasks ()
         {
             bool lockTaken = false;
             try
             {
-                Monitor.TryEnter(_tasks, ref lockTaken);
-                if (lockTaken) return _tasks;
-                else throw new NotSupportedException();
+                Monitor.TryEnter(_tasks , ref lockTaken);
+                if (lockTaken)
+                    return _tasks;
+                else
+                    throw new NotSupportedException();
             }
             finally
             {
-                if (lockTaken) Monitor.Exit(_tasks);
+                if (lockTaken)
+                    Monitor.Exit(_tasks);
             }
         }
     }

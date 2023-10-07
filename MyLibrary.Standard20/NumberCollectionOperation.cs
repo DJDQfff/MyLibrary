@@ -15,10 +15,10 @@ namespace MyLibrary.Standard20
         /// <param name="list"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static List<int> SearchValueIndex(this IList<int> list, int n)
+        public static List<int> SearchValueIndex (this IList<int> list , int n)
         {
             List<int> vs = new List<int>();
-            for (int index = 0; index < list.Count; index++)
+            for (int index = 0 ; index < list.Count ; index++)
             {
                 if (list[index] == n)
                 {
@@ -33,7 +33,7 @@ namespace MyLibrary.Standard20
         /// </summary>
         /// <param name="ints"></param>
         /// <returns></returns>
-        public static bool IsSame(this IList<int> ints)
+        public static bool IsSame (this IList<int> ints)
         {
             int index = 0;
             while (index < ints.Count - 1)
