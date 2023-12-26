@@ -1,0 +1,828 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>歌词找歌名_根据歌词搜索歌曲_一句歌词找歌名的网站</title>
+		<meta name="keywords" content="歌词找歌名,歌词搜索歌曲,歌词搜索,搜歌词" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+			<meta name="description" content="8LRC歌词网歌词找歌名提供便捷的根据歌词搜索歌名强大功能，让用户最快捷最方便的根据歌词关键字查找到歌曲名，数百万首中外歌词库找歌名，8LRC歌词网【歌词找歌名】帮助您根据歌词快速寻找目标歌曲，是最好的歌词找歌名的网站。" />
+			<meta http-equiv="x-ua-compatible" content="IE=edge" />
+			<link rel="canonical" href="https://www.8lrc.com/search/">
+				<link href="/style/base20211029.css?v2" type="text/css" rel="stylesheet" />
+				<script type="text/javascript" src="/js/jquery.min.js"></script>
+				<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+				<script type="text/javascript" src="/js/base.js"></script>
+				<script>
+					var _hmt = _hmt || [];
+					(function() {
+					var hm = document.createElement("script");
+					hm.src = "https://hm.baidu.com/hm.js?6016c3c91cd44104f1be8cf6cce1d690";
+					var s = document.getElementsByTagName("script")[0];
+					s.parentNode.insertBefore(hm, s);
+					})();
+				</script>
+				<!-- script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6455897696964536" crossorigin="anonymous"></script -->
+			</head>
+	<body>
+		<div class="pc-header">
+			<div class="page">
+				<div class="header clearfix">
+					<div class="logo">
+						<a href="/">
+							<img src="/images/logo.png" />
+						</a>
+					</div>
+					<div class="search">
+						<div class="searchWrap">
+							<form action="/search/" method="get">
+								<input type="text" placeholder="请输入歌手/歌名/一句歌词" id="keyword" name="key" onblur="if(this.value == ''){this.value ='请输入歌手/歌名/一句歌词';this.style.color='#999';}" onfocus="if(this.value == '请输入歌手/歌名/一句歌词'){this.value ='';this.style.color='#999';}" style="color:rgb(153, 153, 153);" value="请输入歌手/歌名/一句歌词" class="soText" />
+								<input type="button" value="搜索" class="soBtn" onclick="sear2()" />
+							</form>
+						</div>
+						<!--<div class="searchHot"> <span>热门搜索：</span>-->
+					</div>
+				</div>
+			</div>
+			<div class="navWrap">
+				<ul class="nav clearfix">
+					<li>
+						<a href="/">首页</a>
+					</li>
+					<li>
+						<a href="/new/">最新歌词</a>
+					</li>
+					<li class="current">
+						<a href="/search/">歌词找歌名</a>
+					</li>
+					<li>
+						<a href="/hot/">歌词排行榜</a>
+					</li>
+					<li>
+						<a href="/singer/">歌词大全</a>
+					</li>
+					<li>
+						<a href="/tuijian/">推荐歌词</a>
+					</li>
+					<li>
+						<a href="/jingdian/">经典歌词</a>
+					</li>
+					<li>
+						<a href="/diylrc/diylrc.php">Lrc歌词编辑器</a>
+					</li>
+					<!--
+            <li><a href="/daren.php">歌词达人榜</a></li>
+            <li><a href="/upload.php" style="color:#f6ff00;">上传歌词</a></li>
+             -->
+				</ul>
+			</div>
+		</div>
+
+		<div class="mobile-header">
+			<header>
+				<a href="/">
+					<span class="logo">8LRC歌词网</span>
+				</a>
+				<div class="btn_nav_slide" id="btnNavSlide">
+					<i class="draw"></i>
+				</div>
+			</header>
+			<div id="commonNav" class="common_nav">
+				<div class="lanCateAll">
+					<dl>
+						<dt>导航</dt>
+						<dd>
+							<span>
+								<a href="/">首页</a>
+							</span>
+							<span>
+								<a href="/new/">最新歌词</a>
+							</span>
+							<span>
+								<a href="/search/">歌词找歌名</a>
+							</span>
+							<span>
+								<a href="/hot/">歌词排行榜</a>
+							</span>
+							<span>
+								<a href="/singer/">歌词大全</a>
+							</span>
+							<span>
+								<a href="/tuijian/">推荐歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/">经典歌词</a>
+							</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>歌词排行榜</dt>
+						<dd>
+							<span>
+								<a href="/hot/dianji/">歌词点击榜</a>
+							</span>
+							<span>
+								<a href="/hot/down/">歌词下载榜</a>
+							</span>
+							<span>
+								<a href="/hot/search/">歌词搜索榜</a>
+							</span>
+						</dd>
+					</dl>
+					<dl>
+						<dt>经典歌词</dt>
+						<dd>
+							<span>
+								<a href="/jingdian/26/">80后经典歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/32/">90后经典歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/38/">70后经典歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/63/">影视经典歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/10/">粤语经典歌词</a>
+							</span>
+							<span>
+								<a href="/jingdian/210/">英文经典歌词</a>
+							</span>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<nav id="wap_nav">
+				<ul>
+					<li>
+						<a  href="/">首页</a>
+					</li>
+					<li>
+						<a class="active" href="/search/">歌词找歌名</a>
+					</li>
+					<li>
+						<a  href="/hot/search/">歌词排行</a>
+					</li>
+					<li>
+						<a  href="/new/">最新歌词</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+		<script>
+			function sear2() {
+			var k = document.getElementById("keyword").value;
+			if (k == "" || k=='请输入歌手/歌名/一句歌词') {
+			alert("请输入歌曲或者歌手名称!");
+			document.getElementById("keyword").focus();
+			return false;
+			}else{
+			location.href="/search/?key="+k;
+			}
+			};
+		</script>
+		<div class="box mb10">
+			<div class="main clearfix">
+				<div class="mainL">
+					<div class="Lbox mb10">
+						<div class="LboxHd">
+							<span class="title_line"></span>
+							<h2>歌词找歌名【歌词搜索】</h2>
+						</div>
+						<div class="LboxBd">
+							<div class="searchGeci">
+								<div class="searchGeciWrap">
+									<script>
+										function sgc(){
+										var q=$("#so360_keyword").val().trim();
+										if(q=="" || q=="请输入关键词")return;
+										location.href="?key="+q;
+										}
+									</script>
+									<div id="so360" class="clearfix">
+										<form class="clearfix" action="/search/">
+											<div class="input">
+												<input type="text" autocomplete="off" name="key" id="so360_keyword" value="东风破" placeholder="请输入歌手/歌名/一句歌词">
+											</div>
+
+											<input type="button" name="key" onclick="javascript:sgc();" id="so360_submit" value="搜 索">
+    </form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="Lbox mb10">
+						<div class="LboxHd">
+							<span class="title_line"></span>
+							<h2>搜索结果：</h2>
+						</div>
+						<div class="ciList">
+							<div class="cicont">
+								<h2>
+									<a href="/geci/41815.htm" class="tGequ">
+										<font color='red'>东风破</font> - 周杰伦
+									</a>
+								</h2>
+								<p>
+									一盏离愁孤单伫立在窗口
+									<br />我在门后假装你人还没走
+									<br />旧地如重游月圆更寂寞
+									<br />夜半清醒的烛火不忍苛责我
+									<br />一壶漂泊浪迹天涯难入喉
+									<br />你走之后酒暖回忆思念瘦
+									<br />水向东流时间怎么偷
+									<br />花开就一次成熟我却错过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽
+									<br />我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟漫草的年头
+									<br />就连分手都很沉默
+									<br />一壶漂泊浪迹天涯难入喉
+									<br />你走之后酒暖回忆思念瘦
+									<br />水向东流时间怎么偷
+									<br />花开就一次成熟我却错过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽
+									<br />我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟漫草的年头
+									<br />就连分手都...<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽
+									<br />我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟漫草的年头
+									<br />就连分手都很沉默
+									<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/178824.htm" class="tGequ">
+										再叙<font color='red'>再叙东风破</font> - 马忠
+									</a>
+								</h2>
+								<p>
+									歌手：马忠  专集：《天使之恋》
+									<br />发行公司：华纳唱片
+									<br />歌曲名称：再叙<font color='red'>东风破</font>
+									<br />没有用钢琴伴奏
+									<br />静静清唱你远走
+									<br />离愁依然在窗口
+									<br />往事随枫叶落
+									<br />我独自饮尽漂泊
+									<br />梦又曲折
+									<br />是谁在徒劳思念
+									<br />望水东流
+									<br />你偏爱<font color='red'>东风破</font>
+									<br />说有忧愁的清涩
+									<br />在心头缓缓流过
+									<br />却把我淹没
+									<br />琵琶 被东风吹断弦
+									<br />立在墙边
+									<br />结局 让晚霞所渲染
+									<br />使我去留恋
+									<br />凝望 你篱笆外的身影
+									<br />越走越远
+									<br />消失在漆黑夜晚
+									<br />我才把<font color='red'>东风破</font>唱完
+									<br />没有用钢琴伴奏
+									<br />静静清唱你远走
+									<br />离愁依然在窗口
+									<br />往事随枫叶落
+									<br />我独自饮尽漂泊
+									<br />梦又曲折
+									<br />是谁在徒劳思念
+									<br />望水东流
+									<br />你偏爱<font color='red'>东风破</font>
+									<br />说有忧愁的清涩
+									<br />在心头缓缓流过
+									<br />却把我淹没
+									<br />琵琶 被东风吹断弦
+									<br />立在墙边
+									<br />结局 让晚霞所渲染
+									<br />使我去留恋
+									<br />凝望 你篱笆外的身影
+									<br />越走越远
+									<br />消失在漆黑夜晚
+									<br />我才把<font color='red'>东风破</font>唱完
+									<br />琵琶 被东风吹断弦
+									<br />立在墙边
+									<br />结局 让晚霞所渲染
+									<br />使我去留恋
+									<br />凝望 你篱笆外的身影
+									<br />越走越远
+									<br />消失在漆黑夜晚
+									<br />我才把<font color='red'>东风破</font>唱完
+									<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/1151045.htm" class="tGequ">
+										<font color='red'>东风破周杰伦</font>周杰伦 - 周杰伦
+									</a>
+								</h2>
+								<p>
+									<font color='red'>东风破</font> - 周杰伦 (Jay Chou)
+									<br />词：方文山
+									<br />曲：周杰伦
+									<br />编曲：林迈可
+									<br />一盏离愁孤灯伫立在窗口
+									<br />我在门后假装你人还没走
+									<br />旧地如重游月圆更寂寞
+									<br />夜半清醒的烛火不忍苛责我
+									<br />一壶漂泊浪迹天涯难入喉
+									<br />你走之后酒暖回忆思念瘦
+									<br />水向东流时间怎么偷
+									<br />花开就一次成熟我却错过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟蔓草的年头就连分手都很沉默
+									<br />一壶漂泊浪迹天涯难入喉
+									<br />你走之后酒暖回忆思念瘦
+									<br />水向东流时间怎么偷
+									<br />花开就一次成熟我却错过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟蔓草的年头就连分手都
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />岁月在墙上剥落看见小时候
+									<br />犹记得那年我们都还很年幼
+									<br />而如今琴声幽幽我的等候你没听过
+									<br />谁在用琵琶弹奏一曲<font color='red'>东风破</font>
+									<br />枫叶将故事染色结局我看透
+									<br />篱笆外的古道我牵着你走过
+									<br />荒烟蔓草的年头就连分手都很沉默<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/256141.htm" class="tGequ">渔舟晚唱 - 纯音乐合辑</a>
+								</h2>
+								<p>
+									梦忆江南<br /> 作词：安 华<br /> 作曲：小李音乐<br /> 演唱：吴彦凝<br /> LRC歌词制作：吉时雨<br /> QQ：132 7269 041<br />[02:28.86] [00:30.25] 轻风柔语 杨柳青依依<br />[02:34.24] [00:35.66] 烟波千里 荷塘飘飞絮<br />[02:40.05] [00:41.52] 都说好雨知时节<br />[02:45.72] [00:47.19] 总是春来洒落相思意 <br />[02:52.98] [00:54.41] <br />[02:54.23] [00:55.67] 曲岸小桥 山水情悠悠<br />[02:59.76] [01:01.25] 渔舟晚唱 小楼听玉笛<br />[03:05.49] [01:06.87] 都说长夜不能寐<br />[03:11.12] [01:12.38] 会有好梦相伴到晨曦 <br />[03:18.45] [01:19.76] <br />[03:19.68] [01:21.10] 春雨一曲<font color='red'>东风破</font><br />[03:25.13] [01:26.52] 淅淅沥沥 悄悄话儿对谁说<br />[03:30.89] [01:32.39] 江南好呀 好江南<br />[03:36.44] [01:37.89] 人在画中自婀娜 <br />[03:41.83] [01:43.23] <br />[03:42.29] [01:43.77] 秋雨一曲西风烈<br />[03:47.79] [01:49.16] 春去花落 几许情愁为谁叙 <br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />[02:28.86] [00:30.25] 轻风柔语 杨柳青依依<br />[02:34.24] [00:35.66] 烟波千里 荷塘飘飞絮<br />[02:40.05] [00:41.52] 都说好雨知时节<br />[02:45.72] [00:47.19] 总是春来洒落相思意 <br />[02:52.98] [00:54.41] <br />[02:54.23] [00:55.67] 曲岸小桥 山水情悠悠<br />[02:59.76] [01:01.25] 渔舟晚唱 小楼听玉笛<br />[03:05.49] [01:06.87] 都说长夜不能寐<br />[03:11.12] [01:12.38] 会有好梦相伴到晨曦 <br />[03:18.45] [01:19.76] <br />[03:19.68] [01:21.10] 春雨一曲<font color='red'>东风破</font><br />[03:25.13] [01:26.52] 淅淅沥沥 悄悄话儿对谁说<br />[03:30.89] [01:32.39] 江南好呀 好江南<br />[03:36.44] [01:37.89] 人在画中自婀娜 <br />[03:41.83] [01:43.23] <br />[03:42.29] [01:43.77] 秋雨一曲西风烈<br />[03:47.79] [01:49.16] 春去花落 几许情愁为谁叙 <br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/589771.htm" class="tGequ">梦忆江南 - 张燕</a>
+								</h2>
+								<p>
+									梦忆江南<br /> 作词：安 华<br /> 作曲：小李音乐<br /> 演唱：吴彦凝<br /> LRC歌词制作：吉时雨<br /> QQ：132 7269 041<br />[02:28.86] [00:30.25] 轻风柔语 杨柳青依依<br />[02:34.24] [00:35.66] 烟波千里 荷塘飘飞絮<br />[02:40.05] [00:41.52] 都说好雨知时节<br />[02:45.72] [00:47.19] 总是春来洒落相思意 <br />[02:52.98] [00:54.41] <br />[02:54.23] [00:55.67] 曲岸小桥 山水情悠悠<br />[02:59.76] [01:01.25] 渔舟晚唱 小楼听玉笛<br />[03:05.49] [01:06.87] 都说长夜不能寐<br />[03:11.12] [01:12.38] 会有好梦相伴到晨曦 <br />[03:18.45] [01:19.76] <br />[03:19.68] [01:21.10] 春雨一曲<font color='red'>东风破</font><br />[03:25.13] [01:26.52] 淅淅沥沥 悄悄话儿对谁说<br />[03:30.89] [01:32.39] 江南好呀 好江南<br />[03:36.44] [01:37.89] 人在画中自婀娜 <br />[03:41.83] [01:43.23] <br />[03:42.29] [01:43.77] 秋雨一曲西风烈<br />[03:47.79] [01:49.16] 春去花落 几许情愁为谁叙 <br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />[02:28.86] [00:30.25] 轻风柔语 杨柳青依依<br />[02:34.24] [00:35.66] 烟波千里 荷塘飘飞絮<br />[02:40.05] [00:41.52] 都说好雨知时节<br />[02:45.72] [00:47.19] 总是春来洒落相思意 <br />[02:52.98] [00:54.41] <br />[02:54.23] [00:55.67] 曲岸小桥 山水情悠悠<br />[02:59.76] [01:01.25] 渔舟晚唱 小楼听玉笛<br />[03:05.49] [01:06.87] 都说长夜不能寐<br />[03:11.12] [01:12.38] 会有好梦相伴到晨曦 <br />[03:18.45] [01:19.76] <br />[03:19.68] [01:21.10] 春雨一曲<font color='red'>东风破</font><br />[03:25.13] [01:26.52] 淅淅沥沥 悄悄话儿对谁说<br />[03:30.89] [01:32.39] 江南好呀 好江南<br />[03:36.44] [01:37.89] 人在画中自婀娜 <br />[03:41.83] [01:43.23] <br />[03:42.29] [01:43.77] 秋雨一曲西风烈<br />[03:47.79] [01:49.16] 春去花落 几许情愁为谁叙 <br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />[04:04.96] [03:53.54] [01:54.89] 烟雨梦啊 梦烟雨<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:16.26] [04:10.61] [03:58.89] [02:00.36] 帎上听雨心头绿<br />[04:29.94] [04:04.40] [02:07.58]
+									<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/656781.htm" class="tGequ">梦忆江南 - 吴彦凝</a>
+								</h2>
+								<p>
+									梦忆江南
+									<br />作词：安华
+									<br />作曲：李旭辉
+									<br />编曲：小 岛
+									<br />演唱：吴彦凝
+									<br />轻风柔语 杨柳青依依
+									<br />烟波千里 荷塘飘飞絮
+									<br />都说好雨知时节
+									<br />总是春来洒落相思意
+									<br />曲岸小桥 山水情悠悠
+									<br />渔舟唱晚小楼听玉笛
+									<br />都说长夜不能寐
+									<br />会有好梦相伴到晨曦
+									<br />春雨一曲<font color='red'>东风破</font>
+									<br />淅淅沥沥 悄悄话儿对谁说
+									<br />江南好呀好江南
+									<br />人在画中自婀娜
+									<br />秋雨一曲西风烈
+									<br />春去花落 几许情愁为谁叙
+									<br />烟雨梦呀梦烟雨
+									<br />帎上听雨心头绿
+									<br />轻风柔语 杨柳青依依
+									<br />烟波千里 荷塘飘飞絮
+									<br />都说好雨知时节
+									<br />总是春来洒落相思意
+									<br />曲岸小桥 山水情悠悠
+									<br />渔舟唱晚小楼听玉笛
+									<br />都说长夜不能寐
+									<br />会有好梦相伴到晨曦
+									<br />春雨一曲<font color='red'>东风破</font>
+									<br />淅淅沥沥 悄悄话儿对谁说
+									<br />江南好呀好江南
+									<br />人在画中自婀娜
+									<br />秋雨一曲西风烈
+									<br />春去花落 几许情愁为谁叙
+									<br />烟雨梦呀梦烟雨
+									<br />帎上听雨心头绿
+									<br />烟雨梦呀梦烟雨
+									<br />帎上听雨心头绿
+									<br />帎上听雨心头绿
+									<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/872751.htm" class="tGequ">梦里中国 - 李勤</a>
+								</h2>
+								<p>
+									梦里中国
+									<br />作词 何超群
+									<br />作曲 张旭东
+									<br />演唱 李  勤
+									<br />铮铮琴声 烟雨中飘过
+									<br />龙的故乡续写着传说
+									<br />疏影横斜中梅花朵朵
+									<br />一曲<font color='red'>东风破</font>醉了中国
+									<br />风中驼铃 唤醒了大漠
+									<br />五千文字轮回皆说破
+									<br />暮然回眸处雄关如昨
+									<br />江山如画最美中国
+									<br />啊梦里中国 有你也有我
+									<br />袅袅炊烟是五千年不断的香火
+									<br />梦里中国 风雨都经过
+									<br />心在中国梦在中国
+									<br />啊
+									<br />风中驼铃 唤醒了大漠
+									<br />五千文字轮回皆说破
+									<br />暮然回眸处雄关如昨
+									<br />江山如画最美中国
+									<br />啊梦里中国英雄留传说
+									<br />壶里乾坤是九万里天下的辽阔
+									<br />梦里中国辉煌又坎坷
+									<br />情在中国梦在中国
+									<br />梦里中国英雄留传说
+									<br />壶里乾坤是九万里天下的辽阔
+									<br />梦里中国有你也有我
+									<br />心在中国梦在中国<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/882562.htm" class="tGequ">梦里中国 - 华语群星</a>
+								</h2>
+								<p>
+									梦里中国
+									<br />作词：何超群
+									<br />作曲：张旭东
+									<br />演唱：李勤
+									<br />铮铮琴声 烟雨中飘过
+									<br />龙的故乡续写着传说
+									<br />疏影横斜中梅花朵朵
+									<br />一曲<font color='red'>东风破</font>醉了中国
+									<br />风中驼铃 唤醒了大漠
+									<br />五千文字轮回皆说破
+									<br />暮然回眸处雄关如昨
+									<br />江山如画最美中国
+									<br />啊梦里中国 有你也有我
+									<br />袅袅炊烟是五千年不断的香火
+									<br />梦里中国 风雨都经过
+									<br />心在中国梦在中国
+									<br />啊
+									<br />风中驼铃 唤醒了大漠
+									<br />五千文字轮回皆说破
+									<br />暮然回眸处雄关如昨
+									<br />江山如画最美中国
+									<br />啊梦里中国英雄留传说
+									<br />壶里乾坤是九万里天下的辽阔
+									<br />梦里中国辉煌又坎坷
+									<br />情在中国梦在中国
+									<br />梦里中国英雄留传说
+									<br />壶里乾坤是九万里天下的辽阔
+									<br />梦里中国有你也有我
+									<br />心在中国梦在中国<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/865805.htm" class="tGequ">破泪 - 熊梓淇/黄伟晋</a>
+								</h2>
+								<p>
+									破泪 - 熊梓淇/黄伟晋
+									<br />词：筱玖
+									<br />曲：陈宇
+									<br />编曲：杨任衔
+									<br />和音：田跃君
+									<br />混音：江安
+									<br />熊梓淇：
+									<br />沉落在河底的剑佩
+									<br />再多的轮回 还没退去它光辉
+									<br />一场东风借箭结尾 英雄变孤鬼
+									<br />铜雀春深锁了泪
+									<br />伟晋：
+									<br />花前月下饮酒几杯
+									<br />公瑾几分醉 细数琴音乱几回
+									<br />硝烟弥漫血如流水
+									<br />谁人刀剑飞 三国怨鲜血描绘
+									<br />熊梓淇：
+									<br />胭脂井边醉 等良人归
+									<br />伟晋：
+									<br />粉红香味 孤女泪
+									<br />合：
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪
+									<br />伟晋：
+									<br />听闻国色琉璃的美
+									<br />君子多追随
+									<br />空阁独守她等谁
+									<br />弹一曲东风的破碎
+									<br />笑送酒香味 离别迷盖了帐围
+									<br />熊梓淇：
+									<br />羽扇纶巾换作剑盔
+									<br />绝杀多卑微 冷眼看灵魂安睡
+									<br />故事结尾物是人非
+									<br />留剩几分罪 吊念一世的伤悲
+									<br />伟晋：
+									<br />冬雪太妖媚 伊人憔悴
+									<br />熊梓淇：
+									<br />弯叶细眉 心破碎
+									<br />合：
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪
+									<br />熊梓淇：
+									<br />沙场中烟火飞
+									<br />伟晋：
+									<br />刀剑不认我是谁
+									<br />合：
+									<br />不畏惧苦与累
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪<br />
+								</p>
+							</div>
+							<div class="cicont">
+								<h2>
+									<a href="/geci/1150389.htm" class="tGequ">破泪 - 熊梓淇</a>
+								</h2>
+								<p>
+									破泪 - 熊梓淇/黄伟晋 (Naruto Huang)
+									<br />词：筱玖
+									<br />曲：陈宇
+									<br />编曲：杨任衔
+									<br />和音：田跃君
+									<br />混音：江安
+									<br />熊梓淇：
+									<br />沉落在河底的剑佩
+									<br />再多的轮回 还没退去它光辉
+									<br />一场东风借箭结尾 英雄变孤鬼
+									<br />铜雀春深锁了泪
+									<br />黄伟晋：
+									<br />花前月下饮酒几杯
+									<br />公瑾几分醉 细数琴音乱几回
+									<br />硝烟弥漫血如流水
+									<br />谁人刀剑飞 三国怨鲜血描绘
+									<br />熊梓淇：
+									<br />胭脂井边醉 等良人归
+									<br />黄伟晋：
+									<br />粉红香味 孤女泪
+									<br />合：
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪
+									<br />黄伟晋：
+									<br />听闻国色琉璃的美
+									<br />君子多追随
+									<br />空阁独守她等谁
+									<br />弹一曲东风的破碎
+									<br />笑送酒香味 离别迷盖了帐围
+									<br />熊梓淇：
+									<br />羽扇纶巾换作剑盔
+									<br />绝杀多卑微 冷眼看灵魂安睡
+									<br />故事结尾物是人非
+									<br />留剩几分罪 吊念一世的伤悲
+									<br />黄伟晋：
+									<br />冬雪太妖媚 伊人憔悴
+									<br />熊梓淇：
+									<br />弯叶细眉 心破碎
+									<br />合：
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪
+									<br />熊梓淇：
+									<br />沙场中烟火飞
+									<br />黄伟晋：
+									<br />刀剑不认我是谁
+									<br />合：
+									<br />不畏惧苦与累
+									<br />合：
+									<br />逃不开事与愿违 无所谓
+									<br />到底是谁是谁非 不理会
+									<br />喟然长叹只盼乱世安宁一回
+									<br />告别了心碎
+									<br />选择流离颠沛 不后悔
+									<br />舒城中埋葬了谁 刻墓碑
+									<br />樯橹灰飞为了梦想无坚不摧
+									<br />别再为我流泪<br />
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mainR">
+					<div class="Rbox mb10 Rbox2">
+						<div class="RboxHd">
+							<div class="title_line"></div>
+							<a href="/hot/search/" class="more">更多></a>
+							<h2>歌词搜索排行榜</h2>
+						</div>
+						<div class="RboxBd">
+							<ul class="Rhot">
+								<li class="clearfix">
+									<span class="hotT3">1</span>
+									<a class="tGequ" href="/lrc/415edxv9k5002b22i20677.htm" title="人生就像一场戏">人生就像一场戏</a>
+									<a class="tGeshou" href="/geshou/65563.htm" title="陈柯宇歌词大全">陈柯宇</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT3">2</span>
+									<a class="tGequ" href="/lrc/03p41kxy58890e17t14w072.htm" title="妈妈说">妈妈说</a>
+									<a class="tGeshou" href="/geshou/71953.htm" title="蜡笔小心歌词大全">蜡笔小心</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT3">3</span>
+									<a class="tGequ" href="/lrc/d15m8ig8yc39o18x3649.htm" title="你那里">你那里</a>
+									<a class="tGeshou" href="/geshou/59072.htm" title="华语群星歌词大全">华语群星</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">4</span>
+									<a class="tGequ" href="/lrc/w1z65j8ub83j8l5yjn0578fl4.htm" title="行李箱里装不下">行李箱里装不下</a>
+									<a class="tGeshou" href="/geshou/64095.htm" title="毛不易歌词大全">毛不易</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">5</span>
+									<a class="tGequ" href="/lrc/dg1159026v222pal607tu9.htm" title="人生就像">人生就像</a>
+									<a class="tGeshou" href="/geshou/65563.htm" title="陈柯宇歌词大全">陈柯宇</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">6</span>
+									<a class="tGequ" href="/lrc/u1ra5s9tfo8839v6sj286.htm" title="开始的">开始的</a>
+									<a class="tGeshou" href="/geshou/70990.htm" title="阿冗歌词大全">阿冗</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">7</span>
+									<a class="tGequ" href="/lrc/5ljxd1588t3xp8h54vv0by166.htm" title="有天">有天</a>
+									<a class="tGeshou" href="/geshou/66966.htm" title="鞠文娴歌词大全">鞠文娴</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">8</span>
+									<a class="tGequ" href="/lrc/zpuh71kl5900u5fs7h23n71.htm" title="嘲笑自己">嘲笑自己</a>
+									<a class="tGeshou" href="/geshou/71171.htm" title="井胧歌词大全">井胧</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">9</span>
+									<a class="tGequ" href="/lrc/952159347xe4wc4y25r11m8.htm" title="李宗盛">李宗盛</a>
+									<a class="tGeshou" href="/geshou/45133.htm" title="王韵歌词大全">王韵</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">10</span>
+									<a class="tGequ" href="/lrc/xo9159s5i8z220z99573za01.htm" title="是想念">是想念</a>
+									<a class="tGeshou" href="/geshou/61975.htm" title="白小白歌词大全">白小白</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="Rbox mb10 Rbox3">
+						<div class="RboxHd">
+							<div class="title_line"></div>
+							<a href="/hot/down/" class="more">更多></a>
+							<h2>歌词下载排行榜</h2>
+						</div>
+						<div class="RboxBd">
+							<ul class="Rhot">
+								<li class="clearfix">
+									<span class="hotT3">1</span>
+									<a class="tGequ" href="/lrc/03p41kxy58890e17t14w072.htm" title="妈妈说宝贝我没给你个完美的家">妈妈说宝贝我没给你个完美的家</a>
+									<a class="tGeshou" href="/geshou/71953.htm" title="蜡笔小心歌词大全">蜡笔小心</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT3">2</span>
+									<a class="tGequ" href="/lrc/86x1j55a885537u219crb1.htm" title="做操 操 操操 操 操操 操 操">做操 操 操操 操 操操 操 操</a>
+									<a class="tGeshou" href="/geshou/7091.htm" title="田跃君歌词大全">田跃君</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT3">3</span>
+									<a class="tGequ" href="/lrc/dg1159026v222pal607tu9.htm" title="人生就像一场戏 今世有缘才相聚">人生就像一场戏 今世有缘才相聚</a>
+									<a class="tGeshou" href="/geshou/65563.htm" title="陈柯宇歌词大全">陈柯宇</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">4</span>
+									<a class="tGequ" href="/lrc/7g315934zftp255qn8115.htm" title="爱，存在 (原唱：魏奇奇)  王靖雯不胖">爱，存在 (原唱：魏奇奇)  王靖雯不胖</a>
+									<a class="tGeshou" href="/geshou/72398.htm" title="王靖雯不歌词大全">王靖雯不</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">5</span>
+									<a class="tGequ" href="/lrc/xo9159s5i8z220z99573za01.htm" title="是想念如你温柔过境">是想念如你温柔过境</a>
+									<a class="tGeshou" href="/geshou/61975.htm" title="白小白歌词大全">白小白</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">6</span>
+									<a class="tGequ" href="/lrc/s1588312hio4s3jhj77.htm" title="主啊！你爱我！">主啊！你爱我！</a>
+									<a class="tGeshou" href="/geshou/40629.htm" title="橄榄枝乐歌词大全">橄榄枝乐</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">7</span>
+									<a class="tGequ" href="/lrc/ec158k8f394cn60c8e823cpa5.htm" title="就请你给我多一点点时间">就请你给我多一点点时间</a>
+									<a class="tGeshou" href="/geshou/71024.htm" title="杨小壮歌词大全">杨小壮</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">8</span>
+									<a class="tGequ" href="/lrc/x15x46yyslyy8hi83f9d68ld36.htm" title="三月来百草开盈香满袖万物苏">三月来百草开盈香满袖万物苏</a>
+									<a class="tGeshou" href="/geshou/70674.htm" title="司南歌词大全">司南</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">9</span>
+									<a class="tGequ" href="/lrc/fmk81n825o388l3e7r8bvmk993.htm" title="逐幅逐幅恋爱定格">逐幅逐幅恋爱定格</a>
+									<a class="tGeshou" href="/geshou/2514.htm" title="卫兰歌词大全">卫兰</a>
+								</li>
+								<li class="clearfix">
+									<span class="hotT4">10</span>
+									<a class="tGequ" href="/lrc/pgnl158b8eh63f891348.htm" title="其实我知道这一世缘份尽了">其实我知道这一世缘份尽了</a>
+									<a class="tGeshou" href="/geshou/59072.htm" title="华语群星歌词大全">华语群星</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="/count.js?20211014"></script>
+		<script>
+			(function(){
+			var bp = document.createElement('script');
+			var curProtocol = window.location.protocol.split(':')[0];
+			if (curProtocol === 'https'){
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+			}
+			else{
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+			}
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(bp, s);
+			})();
+		</script>
+		<div class="footer">
+			<p>
+				欢迎来到8LRC歌词网！我们免费提供LRC歌词下载，歌词搜索，歌词找歌名，歌词大全等服务。<br>
+					本站歌词资源全部由网友上传，如果有侵犯您的权益，请用下方联系方式告知我们，我们将会即刻删除相关内容！<br />www.8lrc.com 8LRC歌词网版权所有
+			</p>
+		</div>
+		<div id="backTop" style="display: block;"></div>
+	</body>
+</html>
