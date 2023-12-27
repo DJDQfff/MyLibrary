@@ -9,7 +9,7 @@ while (true)
     if (show != null)
     {
         var b = show.Split(' ');
-        var a = await tranlator.CommonTranslateAsync(b);
+        var a = await tranlator.CommonTextTranslateAsync(b);
         foreach (var c in a)
         {
             Console.WriteLine(c.dst);

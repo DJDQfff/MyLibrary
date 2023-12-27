@@ -1,8 +1,0 @@
-﻿HttpApi
-    "http://api.fanyi.baidu.com/api/trans/vip/translate";
-HttpsApi
-    "https://fanyi-api.baidu.com/api/trans/vip/translate";
-AppID
-    "20210219000701366";
-Key
-    "VkerV4o1qG1TK6mUlbr_";

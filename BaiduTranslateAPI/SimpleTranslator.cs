@@ -16,36 +16,47 @@ namespace DJDQfff.BaiduTranslateAPI
         /// <summary>
         /// 百度翻译开发平台开发者APPID
         /// </summary>
-        public string APPID { get; }
+        private string APPID { get; }
 
         /// <summary>
         /// 密钥
         /// </summary>
-        public string KEY { get; }
+        private string KEY { get; }
 
-        private string HttpsAPI { get; } = "https://fanyi-api.baidu.com/api/trans/vip/translate";
+        private string ApiServerHost { get; }
 
         /// <summary>
         /// 百度翻译api简单封装
         /// </summary>
         /// <param name="appid">注册成为开发者，获取 APPID</param>
         /// <param name="key">开通通用翻译API服务，获取 Key</param>
-        public SimpleTranslator (string appid , string key)
+        /// <param name="apiHost"></param>
+        public SimpleTranslator (string appid , string key , ServerHost apiHost = ServerHost.Http)
         {
             APPID = appid;
             KEY = key;
+            switch (apiHost)
+            {
+                case ServerHost.Http:
+                    ApiServerHost = "http://api.fanyi.baidu.com/api/trans/vip/translate";
+                    break;
+
+                case ServerHost.Https:
+                    ApiServerHost = "https://fanyi-api.baidu.com/api/trans/vip/translate";
+                    break;
+            }
         }
 
         private readonly HttpClient httpClient = new HttpClient();
 
-        /// <summary> 单个通用文本翻译</summary>
+        /// <summary> 通用文本翻译，单个</summary>
         /// <param name="query">翻译内容 </param>
         /// <param name="to">目标语种，默认简中 </param>
         /// <param name="from">原语种，默认自动识别 </param>
         /// <returns> 翻译结果</returns>
-        public async Task<string> CommonTranslateAsync (string query , string to = "zh" , string from = "auto")
+        public async Task<string> CommonTextTranslateAsync (string query , string to = "zh" , string from = "auto")
         {
-            var requestMessage = new CommonTranslate_RequestMessage(HttpsAPI , query , to , from , APPID , KEY);
+            var requestMessage = new CommonTranslate_RequestMessage(ApiServerHost , query , to , from , APPID , KEY);
             try
             {
                 var httpResponseMessage = await httpClient.SendAsync(requestMessage);
@@ -60,14 +71,14 @@ namespace DJDQfff.BaiduTranslateAPI
             }
         }
 
-        /// <summary> 批量通用文本翻译l </summary>
+        /// <summary> 通用文本翻译，多个</summary>
         /// <param name="queryList"> 翻译内容</param>
         /// <param name="to">目标语种，默认简中 </param>
         /// <param name="from"> 原语种，默认自动识别</param>
         /// <returns>翻译结果 </returns>
-        public async Task<List<trans_result>> CommonTranslateAsync (IEnumerable<string> queryList , string to = "zh" , string from = "auto")
+        public async Task<List<trans_result>> CommonTextTranslateAsync (IEnumerable<string> queryList , string to = "zh" , string from = "auto")
         {
-            var requestMessage = new CommonTranslate_RequestMessage(queryList , HttpsAPI , to , from , APPID , KEY);
+            var requestMessage = new CommonTranslate_RequestMessage(queryList , ApiServerHost , to , from , APPID , KEY);
 
             try
             {
