@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Collections;
-using MyLibrary.Standard20;
 
-namespace MyLibrary.Algorithm.Sort
+namespace DJDQfff.CommonLibrary.Algorithm.Sort
 {
     /// <summary> 自己写的排序 </summary>
     public static class SortByCloseLength
@@ -17,7 +12,7 @@ namespace MyLibrary.Algorithm.Sort
         /// </summary>
         /// <param name="list"> </param>
         /// <param name="length"> 要比较的长度 </param>
-        public static List<T[]> FromCloseToFarAbs<T> (this List<T[]> list, int length)
+        public static List<T[]> FromCloseToFarAbs<T>(this List<T[]> list, int length)
         {
             int[] ints = list.Select(n => Math.Abs(n.Count() - length)).ToArray();
             List<(int, T[])> tuples = new List<(int, T[])>();

@@ -1,17 +1,15 @@
-﻿using System.IO;
-
-namespace MyLibrary.Standard20
+﻿namespace DJDQfff.CommonLibrary
 {
     /// <summary>
     /// 文件操作封装
     /// </summary>
-    public static class File
+    public static class FileWrap
     {
         /// <summary>
         /// 确保存在文件，如果没有则生成一个
         /// </summary>
         /// <param name="path"></param>
-        public static void EnsureFileExist (string path)
+        public static void EnsureFileExist(string path)
         {
             FileInfo fileInfo = new FileInfo(path);
             if (!fileInfo.Exists)

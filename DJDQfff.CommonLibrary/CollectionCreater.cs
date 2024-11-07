@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MyLibrary.Standard20;
-namespace MyLibrary.Creater
-{
 
+namespace DJDQfff.CommonLibrary
+{
     /// <summary> 随机数据创建机 </summary>
     public static class CollectionCreater
     {
-        public static List<string> GetSequenceNumberList(int startnumber,int endnumber,int repeatcount)
+        public static List<string> GetSequenceNumberList(
+            int startnumber,
+            int endnumber,
+            int repeatcount
+        )
         {
             List<string> strings = new List<string>();
             while (startnumber <= endnumber)
@@ -17,14 +20,18 @@ namespace MyLibrary.Creater
                 strings.Add(str);
             }
             return strings;
-
         }
+
         /// <summary> 创建随机ASCII可见字符串 </summary>
         /// <param name="minLength"> 字符串最小长度 </param>
         /// <param name="maxLength"> 字符串最大长度 </param>
         /// <param name="count"> 字符串个数 </param>
         /// <returns> </returns>
-        public static List<string> GetAsciiStringList (int minLength = 5, int maxLength = 20, int count = 10)
+        public static List<string> GetAsciiStringList(
+            int minLength = 5,
+            int maxLength = 20,
+            int count = 10
+        )
         {
             Random random = new Random();
 
@@ -38,7 +45,7 @@ namespace MyLibrary.Creater
                 while (length-- > 0)
                 {
                     int r = random.Next(33, 126);
-                    char c = (char) r;
+                    char c = (char)r;
                     stringBuilder.Append(c);
                 }
 
@@ -53,7 +60,7 @@ namespace MyLibrary.Creater
         /// <param name="maxcount"> </param>
         /// <param name="range"> </param>
         /// <returns> </returns>
-        public static List<int> GetIntList (int mincount = 5, int maxcount = 20, int range = 1000)
+        public static List<int> GetIntList(int mincount = 5, int maxcount = 20, int range = 1000)
         {
             Random random = new Random();
             int r = random.Next(mincount, maxcount);

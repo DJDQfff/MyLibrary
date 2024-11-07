@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Linq;
-using MyLibrary.Algorithm.Sort;
+﻿using DJDQfff.CommonLibrary.Algorithm.Sort;
 
-namespace MyLibrary.Algorithm.Compare.EnglishSentence
+namespace DJDQfff.CommonLibrary.Algorithm.Compare.EnglishSentence
 {
     /// <summary> 按单词出现的顺序进行比较，需要调参，没弄，麻烦 </summary>
     public static class EnglishWordsSequence
@@ -21,15 +15,21 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sentencesense"> 句子灵敏度 </param>
         /// <param name="wordsense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static string SelectByWordsSequence (this string source, IEnumerable<string> stringpool, CompareSense sentencesense, CompareSense wordsense)
+        public static string SelectByWordsSequence(
+            this string source,
+            IEnumerable<string> stringpool,
+            CompareSense sentencesense,
+            CompareSense wordsense
+        )
         {
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            Func<string[], bool> func = (n) => Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
+            Func<string[], bool> func = (n) =>
+                Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
-            var SortedSentences = filteredSentences.FromCloseToFarAbs(sourceSentence.Length);              // 按目标长度排序
+            var SortedSentences = filteredSentences.FromCloseToFarAbs(sourceSentence.Length); // 按目标长度排序
 
             foreach (var Sentence in SortedSentences)
             {
@@ -48,7 +48,12 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sentencesense"> 句子灵敏度 </param>
         /// <param name="wordsense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static bool SentenceSimilar (IList<string> vs1, IList<string> vs2, CompareSense sentencesense, CompareSense wordsense)
+        public static bool SentenceSimilar(
+            IList<string> vs1,
+            IList<string> vs2,
+            CompareSense sentencesense,
+            CompareSense wordsense
+        )
         {
             Func<string, string, bool> wordCompare = (a, b) => WordSimilar(a, b, wordsense);
             Func<string, string, bool> test = (a, b) => a == b;
@@ -61,7 +66,7 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="word2"> </param>
         /// <param name="compareSense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static bool WordSimilar (string word1, string word2, CompareSense compareSense)
+        public static bool WordSimilar(string word1, string word2, CompareSense compareSense)
         {
             Func<char, char, bool> func = (a, b) => a == b;
 
@@ -85,16 +90,21 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sense"> 元素灵敏度比较 </param>
         /// <param name="compareFunc"> 元素相等性比较的方法 </param>
         /// <returns> </returns>
-        public static bool CompareEachItem<T> (IList<T> ts1, IList<T> ts2, CompareSense sense, Func<T, T, bool> compareFunc)
+        public static bool CompareEachItem<T>(
+            IList<T> ts1,
+            IList<T> ts2,
+            CompareSense sense,
+            Func<T, T, bool> compareFunc
+        )
         {
             int item1ignore = sense.IgnoreThreshold;
             int sense2 = sense.SkipThreshold;
 
-            for (int j = 0, k = 0; (j < ts1.Count) && (k < ts2.Count); j++, k++)   // j是ts1的位置
-            {                                                                      // k是ts2的位置
-                int delay = sense.Delay;                                     // 忽略1还是2的临界值
-                int tempk = k;                                                   // k的临时位置
-                while (sense2 > 0 && tempk < ts2.Count)              // 循环条件：k值没到顶，且灵敏度未到阈值
+            for (int j = 0, k = 0; j < ts1.Count && k < ts2.Count; j++, k++) // j是ts1的位置
+            { // k是ts2的位置
+                int delay = sense.Delay; // 忽略1还是2的临界值
+                int tempk = k; // k的临时位置
+                while (sense2 > 0 && tempk < ts2.Count) // 循环条件：k值没到顶，且灵敏度未到阈值
                 {
                     if (delay >= 0)
                     {
@@ -116,9 +126,9 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
                     }
                 }
 
-                if (sense2 < 0 || (item1ignore < 0))
+                if (sense2 < 0 || item1ignore < 0)
                 {
-                    return false;                       // 灵敏度耗尽
+                    return false; // 灵敏度耗尽
                 }
             }
             return true;
@@ -149,7 +159,7 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="ts"> </param>
         /// <param name="percent"> </param>
         /// <returns> </returns>
-        public static CompareSense ByLengthAuto (string ts, int percent)
+        public static CompareSense ByLengthAuto(string ts, int percent)
         {
             int length = ts.Split(' ').Length;
             double f = percent / 100.0 * length;
@@ -170,7 +180,7 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="t3"> 元素2跳过上限 </param>
         /// <param name="t4"> 长度最大差值 </param>
         /// <returns> </returns>
-        public static CompareSense Creat (int t1, int t2, int t3, int t4)
+        public static CompareSense Creat(int t1, int t2, int t3, int t4)
         {
             return new CompareSense()
             {

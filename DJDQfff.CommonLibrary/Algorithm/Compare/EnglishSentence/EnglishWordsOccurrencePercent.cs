@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-using MyLibrary.Algorithm.Compare.EnglishSentence;
-
-using static System.Console;
-
-namespace MyLibrary.Algorithm.Compare.EnglishSentence
+﻿namespace DJDQfff.CommonLibrary.Algorithm.Compare.EnglishSentence
 {
     /// <summary> 按句子的出现百分比进行选择 </summary>
     public static class EnglishWordsOccurrencePercent
@@ -24,23 +13,29 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
         /// 必须满足的概率，低于此概率，返回null
         /// </param>
         /// <returns> </returns>
-        public static string SelectByWordsFrequency (this string source, IEnumerable<string> stringpool, int lengthdiff, double least)
+        public static string SelectByWordsFrequency(
+            this string source,
+            IEnumerable<string> stringpool,
+            int lengthdiff,
+            double least
+        )
         {
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            Func<string[], bool> func = (n) => Math.Abs(sourceSentence.Length - n.Length) <= lengthdiff;
+            Func<string[], bool> func = (n) =>
+                Math.Abs(sourceSentence.Length - n.Length) <= lengthdiff;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
 
-            if (filteredSentences.Count == 0)// 有可能筛选出来的个数为0
+            if (filteredSentences.Count == 0) // 有可能筛选出来的个数为0
             {
                 lengthdiff += 100;
                 filteredSentences = sentencePool.Where(n => func(n)).ToList();
             }
 
-            List<int> vs = new List<int>();                       // 词频集合
-            foreach (var sentence in filteredSentences)                 // 每个Key
+            List<int> vs = new List<int>(); // 词频集合
+            foreach (var sentence in filteredSentences) // 每个Key
             {
                 int count = 0;
 
@@ -54,7 +49,7 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
                     int k = sentenceList.Count() - 1;
                     while (j >= 0 && k >= 0)
                     {
-                        if ((sourceList[j] == sentenceList[k]))
+                        if (sourceList[j] == sentenceList[k])
                         {
                             count++;
 
@@ -77,14 +72,14 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
 
                 vs.Add(count);
             }
-            if (vs.Count == 0)                                              // 一个符合的都没有，返回null
+            if (vs.Count == 0) // 一个符合的都没有，返回null
             {
                 return null;
             }
             int p = 0;
             if (vs.Count > 1)
             {
-                for (int j = 1; j < vs.Count; j++)                           // 选出频率最高的
+                for (int j = 1; j < vs.Count; j++) // 选出频率最高的
                 {
                     if (vs[p] < vs[j])
                     {
@@ -106,7 +101,7 @@ namespace MyLibrary.Algorithm.Compare.EnglishSentence
             //WriteLine(hithest);
             //WriteLine(source);
 
-            if (percent >= least)                               // 必须大于最小值
+            if (percent >= least) // 必须大于最小值
             {
                 return hithest;
             }

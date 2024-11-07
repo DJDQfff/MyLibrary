@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿namespace DJDQfff.CommonLibrary;
 
-namespace MyLibrary.Standard20
+/// <summary>
+/// 对ObservableCollection集合操作
+/// </summary>
+public static class ObservableCollectionOperation
 {
     /// <summary>
-    /// 对ObservableCollection集合操作
+    /// 添加一个集合
     /// </summary>
-    public static class ObservableCollectionOperation
+    /// <typeparam name="T"></typeparam>
+    /// <param name="target"></param>
+    /// <param name="values"></param>
+    public static void AddRange<T>(this ObservableCollection<T> target, IEnumerable<T> values)
     {
-        /// <summary>
-        /// 添加一个集合
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="target"></param>
-        /// <param name="values"></param>
-        public static void AddRange<T> (this ObservableCollection<T> target , IEnumerable<T> values)
+        foreach (var item in values)
         {
-            foreach (var item in values)
-            {
-                target.Add(item);
-            }
+            target.Add(item);
         }
     }
 }

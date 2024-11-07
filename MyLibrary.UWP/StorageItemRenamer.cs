@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-namespace MyLibrary.UWP
+namespace DJDQfff.UWP
 {
     /// <summary> StorageItem重命名 </summary>
     public static class StorageItemRenamer
@@ -17,16 +17,25 @@ namespace MyLibrary.UWP
         /// </param>
         /// <param name="collisiontag"> 若重名，则此补后缀 </param>
         /// <returns> </returns>
-        public static async Task ReSetDisplayName_perhaps_UniqueName (this StorageFile storageFile , string newdisplayname , string collisiontag = "_副本")
+        public static async Task ReSetDisplayName_perhaps_UniqueName(
+            this StorageFile storageFile,
+            string newdisplayname,
+            string collisiontag = "_副本"
+        )
         {
             string extensionname = storageFile.FileType;
             try
             {
-                await storageFile.RenameAsync(newdisplayname + extensionname , NameCollisionOption.FailIfExists);
+                await storageFile.RenameAsync(
+                    newdisplayname + extensionname,
+                    NameCollisionOption.FailIfExists
+                );
             }
             catch (Exception)
             {
-                await storageFile.ReSetDisplayName_perhaps_UniqueName(newdisplayname + collisiontag);
+                await storageFile.ReSetDisplayName_perhaps_UniqueName(
+                    newdisplayname + collisiontag
+                );
             }
         }
     }
