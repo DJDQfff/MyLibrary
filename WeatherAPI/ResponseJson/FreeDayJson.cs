@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DJDQfff.Weather.Core.ResponseJson
+namespace Weather.Core.ResponseJson
 {
     public class FreeDayJson
     {
@@ -19,5 +19,4 @@ namespace DJDQfff.Weather.Core.ResponseJson
         public string win_meter { get; set; }
         public string air { get; set; }
     }
-
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-namespace DJDQfff.UWP
+namespace UWPLibrary
 {
     /// <summary> StorageItem重命名 </summary>
     public static class StorageItemRenamer

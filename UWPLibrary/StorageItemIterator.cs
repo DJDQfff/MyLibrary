@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Windows.Storage;
 
-namespace DJDQfff.UWP
+namespace UWPLibrary
 {
     /// <summary>
     /// 存储项遍历工具类

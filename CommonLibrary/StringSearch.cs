@@ -64,7 +64,9 @@ public static class StringSearch
         var count = 0;
         for (int index = start; index + item.Length <= parserContent.Length; index++)
         {
-            var comparor = parserContent[index..(index + item.Length)];
+            // TODO 须安装system.index和system.range包
+            //var comparor = parserContent[index..(index + item.Length)];
+            var comparor = parserContent.Substring(index, item.Length);
             if (item == comparor)
             {
                 count++;

@@ -3,7 +3,7 @@
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-namespace DJDQfff.UWP
+namespace UWPLibrary
 {
     /// <summary>
     /// WindowsColor帮助类

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DJDQfff.Weather.Core
+﻿namespace Weather.Core
 {
     public class CityIDs
     {

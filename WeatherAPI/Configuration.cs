@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DJDQfff.Weather.Core
+namespace Weather.Core
 {
     internal static class Configuration
     {

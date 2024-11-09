@@ -7,7 +7,7 @@ using Windows.Storage;
 
 using static Windows.Storage.AccessCache.StorageApplicationPermissions;
 
-namespace DJDQfff.UWP
+namespace UWPLibrary
 {
     /// <summary>
     /// Windows系统可访问列表帮助类

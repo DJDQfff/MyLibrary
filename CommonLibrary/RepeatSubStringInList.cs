@@ -2,15 +2,25 @@
 
 namespace CommonLibrary;
 
-internal class Class3
+public class RepeatSubStringInList
 {
-    internal static int minLength = 3;
+    public int minLength = 3;
+    public List<string> StringsPool { get; } = new();
 
-    internal static void Run(List<string> File_ersheng)
+    public void Add(string str) => StringsPool.Add(str);
+
+    public void Add(IEnumerable<string> strs) => StringsPool.AddRange(strs);
+
+    public void Clear() => StringsPool.Clear();
+
+    /// <summary>
+    // 增字查找
+    /// </summary>
+    public void Run()
     {
         var checkList = new List<CheckString>();
         var repeatList = new List<RepeatItem>();
-        foreach (var file in File_ersheng)
+        foreach (var file in StringsPool)
         {
             var fdj = new CheckString(file);
             checkList.Add(fdj);
@@ -56,6 +66,14 @@ internal class Class3
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 减字查找
+    /// </summary>
+    public void Run2()
+    {
+        // TODO
     }
 }
 

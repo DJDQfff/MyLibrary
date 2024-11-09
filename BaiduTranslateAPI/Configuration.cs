@@ -1,4 +1,4 @@
-﻿namespace DJDQfff.BaiduTranslateAPI
+﻿namespace BaiduTranslateAPI
 {
     /// <summary>
     /// 百度翻译api服务器

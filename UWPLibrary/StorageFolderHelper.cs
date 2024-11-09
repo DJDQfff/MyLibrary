@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Windows.Storage;
-
-namespace DJDQfff.UWP
+﻿namespace UWPLibrary
 {
     /// <summary>
     /// 应用程序数据文件夹帮助类

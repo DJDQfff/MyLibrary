@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace DJDQfff.UWP
+namespace UWPLibrary
 {
     /// <summary> StorageItem选取器 </summary>
     public static class StorageItemPicker

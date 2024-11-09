@@ -1,4 +1,4 @@
-﻿namespace DJDQfff.BaiduTranslateAPI.Models.ResponseJSON
+﻿namespace BaiduTranslateAPI.Models.ResponseJSON
 {
     /// <summary> 百度服务器返回的翻译结果JSON </summary>
     public class CommonTranslate_ResponseMessage

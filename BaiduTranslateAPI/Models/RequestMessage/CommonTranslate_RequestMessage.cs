@@ -3,14 +3,21 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-using DJDQfff.BaiduTranslateAPI.Helpers;
+using BaiduTranslateAPI.Helpers;
 
-namespace DJDQfff.BaiduTranslateAPI.Models.RequestMessage
+namespace BaiduTranslateAPI.Models.RequestMessage
 {
     /// <summary> 通用翻译 请求头 </summary>
     internal class CommonTranslate_RequestMessage : HttpRequestMessage
     {
-        internal CommonTranslate_RequestMessage (IEnumerable<string> queryList , string httpuri , string to , string from , string appid , string key)
+        internal CommonTranslate_RequestMessage(
+            IEnumerable<string> queryList,
+            string httpuri,
+            string to,
+            string from,
+            string appid,
+            string key
+        )
         {
             Method = HttpMethod.Post;
             RequestUri = new Uri(httpuri);
@@ -18,12 +25,12 @@ namespace DJDQfff.BaiduTranslateAPI.Models.RequestMessage
             string q = queryList.ToMultiplyQ();
 
             string salt = Helper.Salt();
-            string sign = Helper.Sign(appid , q , salt , key);
+            string sign = Helper.Sign(appid, q, salt, key);
 
-            Dictionary<string , string> keyValuePairs = new Dictionary<string , string>(6)
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>(6)
             {
                 { "q", q },
-                { "from", from},
+                { "from", from },
                 { "to", to },
                 { "appid", appid },
                 { "salt", salt },
@@ -32,21 +39,30 @@ namespace DJDQfff.BaiduTranslateAPI.Models.RequestMessage
             HttpContent formUrlEncodedContent = new FormUrlEncodedContent(keyValuePairs);
             Content = formUrlEncodedContent;
 
-            Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            Content.Headers.ContentType = new MediaTypeHeaderValue(
+                "application/x-www-form-urlencoded"
+            );
         }
 
-        internal CommonTranslate_RequestMessage (string httpapi , string q , string to , string from , string appid , string key)
+        internal CommonTranslate_RequestMessage(
+            string httpapi,
+            string q,
+            string to,
+            string from,
+            string appid,
+            string key
+        )
         {
             Method = HttpMethod.Post;
             RequestUri = new Uri(httpapi);
 
             string salt = Helper.Salt();
-            string sign = Helper.Sign(appid , q , salt , key);
+            string sign = Helper.Sign(appid, q, salt, key);
 
-            Dictionary<string , string> keyValuePairs = new Dictionary<string , string>(6)
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>(6)
             {
                 { "q", q },
-                { "from", from},
+                { "from", from },
                 { "to", to },
                 { "appid", appid },
                 { "salt", salt },
@@ -55,7 +71,9 @@ namespace DJDQfff.BaiduTranslateAPI.Models.RequestMessage
             HttpContent formUrlEncodedContent = new FormUrlEncodedContent(keyValuePairs);
             Content = formUrlEncodedContent;
 
-            Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            Content.Headers.ContentType = new MediaTypeHeaderValue(
+                "application/x-www-form-urlencoded"
+            );
         }
     }
 }
