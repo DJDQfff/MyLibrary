@@ -1,1 +1,1 @@
-﻿Class1.Run();
+﻿Class1.Run2();
