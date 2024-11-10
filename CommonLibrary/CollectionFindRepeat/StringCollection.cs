@@ -3,7 +3,7 @@
 /// <summary>
 /// 对一个较长字符串的集合，查找重复出现的短字符串
 /// </summary>
-public class StringCollection
+public class StringCollection<T>
 {
     /// <summary>
     /// 短字符串最短长度
@@ -18,28 +18,32 @@ public class StringCollection
     /// <summary>
     /// 字符串集合
     /// </summary>
-    public List<string> StringsList { get; } = new();
+    public List<T> StringsList { get; } = new();
+
+    public Func<T, string> Action { set; get; }
 
     /// <summary>
     /// 增字查找
     /// </summary>
     public void Run()
     {
-        var checkList = new List<string>();
+        var checkList = new List<CheckTarget<T>>();
         var repeatList = new List<RepeatItem>();
-        var a = StringsList.OrderBy(x => x.Length).ToList();
+        var a = StringsList.Select(x => new CheckTarget<T>(x)).ToList();
+        a.ForEach(x => x.SetParserContent(Action));
+        a = a.OrderBy(x => x.ParserString.Length).ToList();
         checkList.AddRange(a);
         var repeatitems = new List<string>();
         for (int index = 0; index < checkList.Count; index++)
         {
             var currentCheckItem = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
-            var maxLength = currentCheckItem.Length;
+            var maxLength = currentCheckItem.ParserString.Length;
             for (int start = 0; start < maxLength; start++)
             {
                 for (int length = MinItemLength; start + length <= maxLength; length++)
                 {
-                    var item = currentCheckItem.Substring(start, length);
+                    var item = currentCheckItem.ParserString.Substring(start, length);
                     CountBehind(checkList, repeatList, index, item);
                 }
             }
@@ -51,9 +55,11 @@ public class StringCollection
     /// </summary>
     public void Run2()
     {
-        var checkList = new List<string>();
+        var checkList = new List<CheckTarget<T>>();
         var repeatList = new List<RepeatItem>();
-        var a = StringsList.OrderBy(x => x.Length).ToList();
+        var a = StringsList.Select(x => new CheckTarget<T>(x)).ToList();
+        a.ForEach(x => x.SetParserContent(Action));
+        a = a.OrderBy(x => x.ParserString.Length).ToList();
         checkList.AddRange(a);
 
         var repeatitems = new List<string>();
@@ -61,7 +67,7 @@ public class StringCollection
         {
             var currentCheckString = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
-            var currentStringLength = currentCheckString.Length;
+            var currentStringLength = currentCheckString.ParserString.Length;
             for (int start = 0; start < currentStringLength; start++)
             {
                 for (
@@ -70,7 +76,7 @@ public class StringCollection
                     length--
                 )
                 {
-                    var item = currentCheckString.Substring(start, length);
+                    var item = currentCheckString.ParserString.Substring(start, length);
 
                     if (CountBehind(checkList, repeatList, index, item))
                     {
@@ -91,7 +97,7 @@ public class StringCollection
     /// <param name="index"></param>
     /// <param name="item"></param>
     private bool CountBehind(
-        List<string> checkList,
+        List<CheckTarget<T>> checkList,
         List<RepeatItem> repeatList,
         int index,
         string item
@@ -104,7 +110,9 @@ public class StringCollection
             var repeatitem = new RepeatItem(item);
             for (var behindIndex = index + 1; behindIndex < checkList.Count; behindIndex++)
             {
-                var checkstring = checkList[behindIndex];
+                var checktarget = checkList[behindIndex];
+                var checkstring = checktarget.ParserString;
+
                 var count = StringSearch.CountRepeat(checkstring, item);
                 if (count > 0)
                 {
@@ -137,26 +145,18 @@ internal class RepeatItem
     }
 }
 
-[Obsolete("多此一举", true)]
-internal class CheckString
+public class CheckTarget<T>
 {
-    public string fullString;
-    public string ParserContent { get; private set; }
-    public string[] Pieces { get; private set; }
+    public T Source;
+    public string ParserString { get; private set; }
 
-    public void SetPieces(Func<string, string[]> action)
+    public void SetParserContent(Func<T, string> action)
     {
-        Pieces = action(fullString);
+        ParserString = action(Source);
     }
 
-    public void SetParserContent(Func<string, string> action)
+    public CheckTarget(T fullString)
     {
-        ParserContent = action(fullString);
-        //ParserContent = string.Join(" ", Get_OutsideContent(fullString));
-    }
-
-    public CheckString(string fullString)
-    {
-        this.fullString = fullString;
+        this.Source = fullString;
     }
 }

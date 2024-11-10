@@ -27,12 +27,13 @@ internal class Class1
 
     internal static void Run1()
     {
-        var list = Directory
-            .GetFiles(path)
-            .Select(x => Path.GetFileNameWithoutExtension(x))
-            .Select(x => string.Join(" ", Get_OutsideContent(x)));
-        var counter = new StringCollection();
+        var list = Directory.GetFiles(path).Select(x => Path.GetFileNameWithoutExtension(x));
+        var counter = new StringCollection<string>();
         counter.StringsList.AddRange(list);
+        counter.Action = (x) =>
+        {
+            return string.Join(" ", Get_OutsideContent(x));
+        };
         counter.Run2();
     }
 }

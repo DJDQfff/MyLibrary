@@ -7,12 +7,16 @@ public class StringArrayCollection
     /// </summary>
     /// <param name="arrays"></param>
     /// <returns></returns>
-    public static Dictionary<string, int> Run(IEnumerable<IEnumerable<string>> arrays)
+    public static Dictionary<string, int> Run<T>(
+        IEnumerable<T> arrays,
+        Func<T, IEnumerable<string>> func
+    )
     {
         Dictionary<string, int> Numbers = new();
-        foreach (var array in arrays)
+
+        foreach (var t in arrays)
         {
-            foreach (var item in array)
+            foreach (var item in func(t))
             {
                 if (Numbers.ContainsKey(item))
                 {
