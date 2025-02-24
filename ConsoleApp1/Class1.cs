@@ -18,7 +18,7 @@ internal class Class1
             .Select(x => Get_OutsideContent(x))
             .SelectMany(x => x)
             .Select(x => x.Split(' ', '-', '+'));
-        var result = StringArrayCollection.Run(list).OrderBy(x => x.Value);
+        var result = StringArrayCollection.Run(list, x => x).OrderBy(x => x.Value);
         foreach (var item in result)
         {
             Console.WriteLine($"{item.Value}\t{item.Key}");
