@@ -6,9 +6,9 @@
         /// <summary> 把一个字符串按空格切分。 </summary>
         /// <param name="vs"> 需要是英语句子 </param>
         /// <returns> 按空格切分的单词 </returns>
-        public static List<string[]> SplitIntoWords(this IEnumerable<string> vs)
+        public static List<string[]> SplitIntoWords (this IEnumerable<string> vs)
         {
-            List<string[]> list = new List<string[]>();
+            List<string[]> list = [];
             foreach (var str in vs)
             {
                 list.Add(str.Split(' '));

@@ -59,7 +59,7 @@ public static class StringCollectionOperation
     /// <returns></returns>
     public static List<int> EachLineRegexIndex(this IList<string> list, string regex)
     {
-        List<int> vs = new List<int>();
+        List<int> vs = [];
         foreach (var l in list)
         {
             var match = Regex.Match(l, regex);
@@ -91,11 +91,11 @@ public static class StringCollectionOperation
     /// <returns></returns>
     public static List<int> GetEmptyIndex(this IList<string> lines)
     {
-        List<string> newlines = new List<string>(lines); // lines必须是可以添加项的集合
+        List<string> newlines = new(lines); // lines必须是可以添加项的集合
         newlines.Insert(0, string.Empty);
         newlines.Add(string.Empty);
 
-        List<int> emptyIndex = new List<int>();
+        List<int> emptyIndex = [];
 
         for (int index = 0; index < newlines.Count; index++)
         {

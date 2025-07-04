@@ -12,7 +12,7 @@ public static class StringOperation
     /// <returns> </returns>
     public static string Repeat<T>(this T str, int count)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         for (int i = 0; i < count; i++)
         {
             sb.Append(str.ToString());

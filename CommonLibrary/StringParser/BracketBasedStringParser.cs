@@ -141,10 +141,10 @@ public static class BracketBasedStringParser
         for (var index = 0 ; index < pieces.Count ; index++)
         {
             var piece = pieces[index];
-            var behind = pieces.GetRange(index , pieces.Count);
+            //var behind = pieces.GetRange(index , pieces.Count);
             if (piece.IsIncludedInBracketPair())
             {
-                var piecewithoutbracket = piece.TrimBracket();
+                //var piecewithoutbracket = piece.TrimBracket();
                 //foreach(var piece in _pieces.)
             }
         }

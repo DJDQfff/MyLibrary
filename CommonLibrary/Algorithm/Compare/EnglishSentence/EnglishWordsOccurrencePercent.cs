@@ -13,17 +13,17 @@
         /// 必须满足的概率，低于此概率，返回null
         /// </param>
         /// <returns> </returns>
-        public static string SelectByWordsFrequency(
-            this string source,
-            IEnumerable<string> stringpool,
-            int lengthdiff,
+        public static string SelectByWordsFrequency (
+            this string source ,
+            IEnumerable<string> stringpool ,
+            int lengthdiff ,
             double least
         )
         {
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            Func<string[], bool> func = (n) =>
+            Func<string[] , bool> func = (n) =>
                 Math.Abs(sourceSentence.Length - n.Length) <= lengthdiff;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
@@ -34,13 +34,13 @@
                 filteredSentences = sentencePool.Where(n => func(n)).ToList();
             }
 
-            List<int> vs = new List<int>(); // 词频集合
+            List<int> vs = []; // 词频集合
             foreach (var sentence in filteredSentences) // 每个Key
             {
                 int count = 0;
 
-                List<string> sourceList = new List<string>(sourceSentence);
-                List<string> sentenceList = new List<string>(sentence);
+                List<string> sourceList = new(sourceSentence);
+                List<string> sentenceList = new(sentence);
 
                 int j = sourceList.Count() - 1;
 
@@ -79,7 +79,7 @@
             int p = 0;
             if (vs.Count > 1)
             {
-                for (int j = 1; j < vs.Count; j++) // 选出频率最高的
+                for (int j = 1 ; j < vs.Count ; j++) // 选出频率最高的
                 {
                     if (vs[p] < vs[j])
                     {
@@ -94,7 +94,7 @@
 
             int bigcount = vs[p];
             double percent = 1.0 * bigcount / sourceSentence.Length;
-            string hithest = string.Join(" ", filteredSentences[p]);
+            string hithest = string.Join(" " , filteredSentences[p]);
 
             //WriteLine(percent);
             //WriteLine(bigcount + "/" + sourceSentence.Length);

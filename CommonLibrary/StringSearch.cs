@@ -42,11 +42,11 @@ public static class StringSearch
     /// <returns>Key为被查找字符串，Values为该字符串在目标中的所有位置</returns>
     public static Dictionary<string, List<int>> IndexOfAny(this string str, params string[] words)
     {
-        Dictionary<string, List<int>> keyValuePairs = new Dictionary<string, List<int>>();
+        Dictionary<string, List<int>> keyValuePairs = [];
 
         foreach (var word in words)
         {
-            List<int> vs = new List<int>();
+            List<int> vs = [];
             int index;
             while ((index = str.IndexOf(word)) != -1)
             {

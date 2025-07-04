@@ -12,17 +12,17 @@ namespace CommonLibrary.Algorithm.Sort
         /// </summary>
         /// <param name="list"> </param>
         /// <param name="length"> 要比较的长度 </param>
-        public static List<T[]> FromCloseToFarAbs<T>(this List<T[]> list, int length)
+        public static List<T[]> FromCloseToFarAbs<T> (this List<T[]> list , int length)
         {
             int[] ints = list.Select(n => Math.Abs(n.Count() - length)).ToArray();
-            List<(int, T[])> tuples = new List<(int, T[])>();
-            for (int i = 0; i < ints.Length; i++)
+            List<(int, T[])> tuples = [];
+            for (int i = 0 ; i < ints.Length ; i++)
             {
                 tuples.Add((ints[i], list[i]));
             }
-            for (int j = 0; j < list.Count; j++)
+            for (int j = 0 ; j < list.Count ; j++)
             {
-                for (int k = 0; k < list.Count - 1; k++)
+                for (int k = 0 ; k < list.Count - 1 ; k++)
                 {
                     if (tuples[k].Item1 > tuples[k + 1].Item1)
                     {
