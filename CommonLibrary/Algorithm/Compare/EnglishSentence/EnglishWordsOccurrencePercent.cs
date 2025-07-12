@@ -42,11 +42,11 @@
                 List<string> sourceList = new(sourceSentence);
                 List<string> sentenceList = new(sentence);
 
-                int j = sourceList.Count() - 1;
+                int j = sourceList.Count - 1;
 
                 while (j >= 0)
                 {
-                    int k = sentenceList.Count() - 1;
+                    int k = sentenceList.Count - 1;
                     while (j >= 0 && k >= 0)
                     {
                         if (sourceList[j] == sentenceList[k])
