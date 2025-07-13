@@ -261,7 +261,7 @@ public static class BracketBasedStringParser
 
         if (!findmanganame)
         {
-            if (_FileDisplayName.Count(x => LeftRightBrackets.Contains(x)) == 0)
+            if (!_FileDisplayName.Any(x => LeftRightBrackets.Contains(x)))
             {
                 // 无括号，则这个文件名就是本子名，且无tag
                 manganame = _FileDisplayName;

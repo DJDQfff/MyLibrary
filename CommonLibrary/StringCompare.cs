@@ -36,10 +36,7 @@ public static class StringCompare
     /// <returns> 是否重复 </returns>
     public static bool IsRepeatCharLine(this string str, params char[] chars)
     {
-        if (string.IsNullOrEmpty(str))
-        {
-            throw new ArgumentNullException();
-        }
+        ArgumentNullException.ThrowIfNullOrEmpty(str, nameof(str));
 
         char c = str[0];
         for (int i = 1; i < str.Length - 1; i++)
