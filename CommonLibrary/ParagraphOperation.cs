@@ -233,7 +233,7 @@ public class Paragraph : IParagraph
     public IList<string> Lines { get; }
 
     /// <summary> 各行缩进集合 </summary>
-    public List<int> Indents { get; } = new List<int>();
+    public List<int> Indents { get; } = [];
 
     /// <summary> 构造函数 </summary>
     /// <param name="_content"> 内容 </param>

@@ -19,16 +19,16 @@ public static class BracketBasedStringParser
     /// 左括号
     /// </summary>
     public const string LeftBrackets = "[【（({";
+    /// <summary>
+    /// 右括号
+    /// </summary>
+    public const string RightBrackets = "]】）)}";
+
 
     /// <summary>
     /// 所有括号
     /// </summary>
     public const string LeftRightBrackets = LeftBrackets + RightBrackets;
-
-    /// <summary>
-    /// 右括号
-    /// </summary>
-    public const string RightBrackets = "]】）)}";
 
     /// <summary>
     /// 字符串中是否含有任意括号
@@ -105,7 +105,7 @@ public static class BracketBasedStringParser
             return false;
         }
         var start = name[0];
-        var end = name[name.Length - 1];
+        var end = name[^1];
         if (LeftRightBrackets.Contains(start) && LeftRightBrackets.Contains(end))
         {
             return true;
@@ -216,7 +216,7 @@ public static class BracketBasedStringParser
     {
         if (name.IsIncludedInBracketPair())
         {
-            var n = name.Substring(1 , name.Length - 2);
+            var n = name[1..^1];
             return n.TrimBracket();
         }
         return name.Trim();
@@ -323,11 +323,11 @@ public static class BracketBasedStringParser
                 var rightbracket = RightBrackets[index];
                 var rightindex = _name.IndexOf(rightbracket);
 
-                var subname = _name.Substring(rightindex + 1);
+                var subname = _name[(rightindex + 1)..];
                 return Get_OutsideContent_Recursion(subname);
 
             case > 0:
-                return _name.Substring(0 , leftbracketindex).Trim();
+                return _name[..leftbracketindex].Trim();
         }
 
         return name.Trim();
