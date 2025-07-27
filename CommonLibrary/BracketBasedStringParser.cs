@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 
-namespace CommonLibrary.StringParser;
+namespace CommonLibrary;
 
 /// <summary>
 /// 基于成对的括号进行解析,调用前，使用correctbracketpaircount方法确认括号是成对的。
@@ -94,7 +94,7 @@ public static class BracketBasedStringParser
     }
 
     /// <summary>
-    /// 是否包含在一对括号中（不要求首位括号是相对应的类型）
+    /// 是否包含在一对括号中（不要求首尾括号是相对应的类型）
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
@@ -131,7 +131,7 @@ public static class BracketBasedStringParser
     }
 
     /// <summary>
-    ///移除其中包含的重复tag
+    /// （未完成）移除其中包含的重复tag
     /// </summary>
     /// <param name="oldname">旧的名字</param>
     public static string RemoveRepeatTag (string oldname)
@@ -162,7 +162,7 @@ public static class BracketBasedStringParser
         var tagslist =
             _FileDisplayName.Trim()
             .Split(LeftRightBrackets.ToCharArray())      // 按括号分解为tag
-            .Where(x => !string.IsNullOrWhiteSpace(x))// 移除所有为空白的tag
+            .Where(x => !string.IsNullOrWhiteSpace(x))// 排除所有为空白的tag
             .Select(x => x.Trim())                  // 所有移除首尾空白
             .ToList();
         return tagslist;
@@ -297,7 +297,7 @@ public static class BracketBasedStringParser
     /// 以递归的方式获取未包含在括号内的字符串
     /// </summary>
     /// <remarks>
-    /// 1.嵌套相同括号的话无法读取
+    /// 1.嵌套相同括号则无法读取
     /// 2.只能获取第一个未包含在括号中的内容（写得时候没考虑过OutsideContent可能分成几个片段分散开来放）
     /// 基于此，使用推荐的那个
     /// </remarks>
