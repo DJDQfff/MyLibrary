@@ -40,7 +40,7 @@ namespace GroupedItemsLibrary
                 return list;
             }
         }
-        public void StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare)
+        public void StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
         {
             RepeatPairs.Clear();
             while (elements.Count > 1)
@@ -50,7 +50,7 @@ namespace GroupedItemsLibrary
                 for (int index = elements.Count - 2 ; index >= 0 ; index--)
                 {
                     var key = compare(elements[^1] , elements[index]);
-                    if (key is not null)
+                    if (filt(key))
                     {
                         if (group.Key is null)
                         {
