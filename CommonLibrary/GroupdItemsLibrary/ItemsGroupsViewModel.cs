@@ -110,7 +110,7 @@ namespace GroupedItemsLibrary
                 var group = RepeatPairs[index];
 
                 var count = group.TryRemoveItem(elment);
-
+                // 没有重复项后，会自动从集合中移除此集合
                 if (count == 1)
                 {
                     RepeatPairs.RemoveAt(index);
