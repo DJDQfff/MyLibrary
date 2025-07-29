@@ -85,11 +85,13 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
+    /// <remarks>如果这个没有括号外内容，会返回一个长度为0的list</remarks>
     public static List<string> Get_OutsideContent (string input)
     {
         return SplitByBrackets_KeepBracket(input)
      .Where(piece => !piece.IsIncludedInBracketPair())
      .RemoveBracketForEachString();
+
 
     }
 
