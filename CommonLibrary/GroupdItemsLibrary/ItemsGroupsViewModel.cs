@@ -81,9 +81,10 @@ namespace GroupedItemsLibrary
             RepeatPairs.Clear();
             var array = elements.Select(x => getkey(x));
 
-            var a = elements.GroupBy(getkey);
+            var a = elements.GroupBy(getkey).SkipWhile(x => x.Key is null);
             foreach (var cc in a)
             {
+
                 if (cc.Count() > 1)
                 {
                     var item = new TRepeatGroup();
