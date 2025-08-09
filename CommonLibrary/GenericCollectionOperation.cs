@@ -35,16 +35,6 @@ public static class GenericCollectionOperation
         return stringBuilder.ToString();
     }
 
-    /// <summary>
-    /// 把一个集合的所有元素加到另一个集合上
-    /// </summary>
-    /// <typeparam name="T">任意类型</typeparam>
-    /// <param name="t">发送元素的集合</param>
-    /// <param name="ts">接收元素的集合</param>
-    public static void AddTo<T> (this T t , IList<T> ts)
-    {
-        ts.Add(t);
-    }
 
     /// <summary>
     /// 把一个集合的部分元素加到另一个集合

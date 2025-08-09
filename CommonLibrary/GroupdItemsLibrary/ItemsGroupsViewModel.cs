@@ -34,10 +34,11 @@ namespace GroupedItemsLibrary
                 var list = new List<TElement>();
                 foreach (var item in RepeatPairs)
                 {
-                    var em = item.Collections.ToArray();
+                    var em = item.Collections;
                     list.AddRange(em);
                 }
                 return list;
+
             }
         }
         public void StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
@@ -75,7 +76,7 @@ namespace GroupedItemsLibrary
             }
         }
 
-        public void StartGroup (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
+        public void ByEachKey (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
             Func<TRepeatGroup , bool> filt)
         {
             RepeatPairs.Clear();
