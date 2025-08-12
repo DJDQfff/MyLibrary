@@ -11,8 +11,9 @@ namespace CommonLibrary.GroupdItemsLibrary;
 public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : RepeatItemsGroup<TKey , TElement , TRepeatGroup>
         where TRepeatGroup : RepeatItems<TKey , TElement>, new()
 {
-    public List<TElement> Source { set; get; }
 
+    public List<TElement> Source { set; get; }
+    public event Action<TElement> AddToResult;
 
     public void StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
     {
@@ -44,6 +45,10 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : RepeatIt
             if (group.Collections.Count >= 2)
             {
                 RepeatPairs.Add(group);
+                foreach (var manga in group.Collections)
+                {
+                    AddToResult?.Invoke(manga);
+                }
 
             }
         }
@@ -67,6 +72,11 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : RepeatIt
                 if (can)
                 {
                     RepeatPairs.Add(item);
+                    foreach (var manga in item.Collections)
+                    {
+                        AddToResult?.Invoke(manga);
+                    }
+
                 }
             }
         }
