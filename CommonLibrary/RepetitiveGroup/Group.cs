@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿
 
-namespace CommonLibrary.GroupdItemsLibrary;
+namespace CommonLibrary.RepetitiveGroup;
 
 /// <summary>
 /// 按某条件分好的组
 /// </summary>
 /// <typeparam name="TKey">重复分组依据</typeparam>
 /// <typeparam name="TElement">重复项</typeparam>
-public class RepeatItems<TKey, TElement> : IGrouping<TKey , TElement>, IDisposable
+public class Group<TKey, TElement> : IGrouping<TKey , TElement>, IDisposable
 {
     /// <summary>
     /// 重复项分组依据，
@@ -81,6 +77,7 @@ public class RepeatItems<TKey, TElement> : IGrouping<TKey , TElement>, IDisposab
     public void Dispose ()
     {
         Collections.Clear();
+        GC.SuppressFinalize(this);
     }
 
     internal void Initial ()

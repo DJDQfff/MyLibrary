@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿
 
-using ZstdSharp.Unsafe;
-
-namespace CommonLibrary.GroupdItemsLibrary;
-public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : RepeatItemsGroup<TKey , TElement , TRepeatGroup>
-        where TRepeatGroup : RepeatItems<TKey , TElement>, new()
+namespace CommonLibrary.RepetitiveGroup;
+public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsViewModel<TKey , TElement , TRepeatGroup>
+        where TRepeatGroup : Group<TKey , TElement>, new()
 {
 
     public List<TElement> Source { set; get; }
@@ -64,34 +57,35 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : RepeatIt
     {
         RepeatPairs.Clear();
         var items = new List<TRepeatGroup>();
+        //var array = elements.Select(x => getkey(x));
+        IEnumerable<IGrouping<TKey , TElement>> a = null;
+
         await Task.Run(() =>
-         {
-             //var array = elements.Select(x => getkey(x));
+        {
+            a = elements
+        .GroupBy(getkey)
+        .SkipWhile(x => x.Key is null);
 
-             var a = elements
-             .GroupBy(getkey)
-             .SkipWhile(x => x.Key is null);
+        });
+        foreach (var cc in a)
+        {
+            if (cc.Count() > 1)
+            {
+                var item = new TRepeatGroup();
+                item.Initial(cc);
+                var can = filt?.Invoke(item);
+                if (can.Value)
+                {
+                    items.Add(item);
+                    RepeatPairs.Add(item);
 
-             foreach (var cc in a)
-             {
-                 if (cc.Count() > 1)
-                 {
-                     var item = new TRepeatGroup();
-                     item.Initial(cc);
-                     var can = filt?.Invoke(item);
-                     if (can.Value)
-                     {
-                         items.Add(item);
+                }
 
-                     }
-
-                 }
-             }
-         });
+            }
+        }
 
         foreach (var item in items)
         {
-            RepeatPairs.Add(item);
             //foreach (var manga in item.Collections)
             //{
             //    AddToResult?.Invoke(manga);

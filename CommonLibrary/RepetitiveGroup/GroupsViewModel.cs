@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿
 
-namespace CommonLibrary.GroupdItemsLibrary;
+namespace CommonLibrary.RepetitiveGroup;
 
 /// <summary>
 /// 重复项组合ViewModel
 /// </summary>
 /// <typeparam name="TKey">重复项分组依据</typeparam>
 /// <typeparam name="TElement">重复项 Model</typeparam>
-/// <typeparam name="TRepeatGroup">重复项组合</typeparam>
-public class RepeatItemsGroup<TKey, TElement, TRepeatGroup>
-    where TRepeatGroup : RepeatItems<TKey , TElement>, new()
+/// <typeparam name="TGroup">重复项组合</typeparam>
+public class GroupsViewModel<TKey, TElement, TGroup>
+    where TGroup : Group<TKey , TElement>, new()
 {
     /// <summary>
     /// 重复项组合的集合
     /// </summary>
-    public ObservableCollection<TRepeatGroup> RepeatPairs { set; get; } = [];
+    public ObservableCollection<TGroup> RepeatPairs { set; get; } = [];
 
     /// <summary>
     /// 组合个数
