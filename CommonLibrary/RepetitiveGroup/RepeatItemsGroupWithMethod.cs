@@ -8,7 +8,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsVi
     public List<TElement> Source { set; get; }
     public event Action<TElement> AddToResult;
 
-    public async Task StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
+    protected async Task StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
     {
         RepeatPairs.Clear();
         while (elements.Count > 1)
@@ -52,7 +52,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsVi
         }
     }
 
-    public async Task ByEachKey (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
+    protected async Task ByEachKey (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
         Func<TRepeatGroup , bool> filt)
     {
         RepeatPairs.Clear();
