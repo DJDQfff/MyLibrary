@@ -1,19 +1,47 @@
 ﻿
 
 namespace CommonLibrary.RepetitiveGroup;
-public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsViewModel<TKey , TElement , TRepeatGroup>
-        where TRepeatGroup : Group<TKey , TElement>, new()
+public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewModel<TKey , TElement , TGroup>
+        where TGroup : Group<TKey , TElement>, new()
 {
 
     public List<TElement> Source { set; get; }
     public event Action<TElement> AddToResult;
 
+    protected async Task ParseAll_FindOut (IList<TElement> elements , Func<IEnumerable<TElement> , IEnumerable<TKey>> parse , Func<TElement , TKey , bool> elementgetkey , Func<TKey , bool> filtkey)
+    {
+        var keys = parse(elements).Where(x => filtkey(x));
+
+        foreach (var key in keys)
+        {
+            var group = new TGroup();
+            group.Key = key;
+            await Task.Run(() =>
+            {
+                for (var index = elements.Count - 1 ; index >= 0 ; index--)
+                {
+                    if (elementgetkey(elements[index] , key))
+                    {
+                        group.AddElement(elements[index]);
+                        elements.RemoveAt(index);
+                    }
+                }
+
+            });
+            if (group.Collections.Count > 1)
+                RepeatPairs.Add(group);
+
+
+
+        }
+
+    }
     protected async Task StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt)
     {
         RepeatPairs.Clear();
         while (elements.Count > 1)
         {
-            var group = new TRepeatGroup();
+            var group = new TGroup();
 
             await Task.Run(() =>
              {
@@ -53,10 +81,10 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsVi
     }
 
     protected async Task ByEachKey (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
-        Func<TRepeatGroup , bool> filt)
+        Func<TGroup , bool> filt)
     {
         RepeatPairs.Clear();
-        var items = new List<TRepeatGroup>();
+        var items = new List<TGroup>();
         //var array = elements.Select(x => getkey(x));
         IEnumerable<IGrouping<TKey , TElement>> a = null;
 
@@ -71,7 +99,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TRepeatGroup> : GroupsVi
         {
             if (cc.Count() > 1)
             {
-                var item = new TRepeatGroup();
+                var item = new TGroup();
                 item.Initial(cc);
                 var can = filt?.Invoke(item);
                 if (can.Value)

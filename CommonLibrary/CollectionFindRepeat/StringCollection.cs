@@ -18,21 +18,21 @@ public class StringCollection<T>
     /// <summary>
     /// 字符串集合
     /// </summary>
-    public List<T> StringsList { get; } = [];
+    public IEnumerable<T> Sources { get; set; } = [];
 
     public Func<T , string> Action { set; get; }
+    public List<RepeatItem> RepeatList { get; } = [];
 
     /// <summary>
     /// 增字查找
     /// </summary>
     public void Run ()
     {
-        var checkList = new List<CheckTarget<T>>();
-        var repeatList = new List<RepeatItem>();
-        var a = StringsList.Select(x => new CheckTarget<T>(x)).ToList();
-        a.ForEach(x => x.SetParserContent(Action));
-        a = a.OrderBy(x => x.ParserString.Length).ToList();
-        checkList.AddRange(a);
+        var checkList = Sources
+            .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
+           .OrderBy(x => x.ParserString.Length)
+           .ToList();
+
         var repeatitems = new List<string>();
         for (int index = 0 ; index < checkList.Count ; index++)
         {
@@ -44,7 +44,7 @@ public class StringCollection<T>
                 for (int length = MinItemLength ; start + length <= maxLength ; length++)
                 {
                     var item = currentCheckItem.ParserString.Substring(start , length);
-                    CountBehind(checkList , repeatList , index , item);
+                    CountBehind(checkList , RepeatList , index , item);
                 }
             }
         }
@@ -55,14 +55,11 @@ public class StringCollection<T>
     /// </summary>
     public void Run2 ()
     {
-        var checkList = new List<CheckTarget<T>>();
-        var repeatList = new List<RepeatItem>();
-        var a = StringsList.Select(x => new CheckTarget<T>(x)).ToList();
-        a.ForEach(x => x.SetParserContent(Action));
-        a = a.OrderBy(x => x.ParserString.Length).ToList();
-        checkList.AddRange(a);
+        var checkList = Sources
+            .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
+           .OrderBy(x => x.ParserString.Length)
+           .ToList();
 
-        var repeatitems = new List<string>();
         for (int index = 0 ; index < checkList.Count ; index++)
         {
             var currentCheckString = checkList[index];
@@ -78,7 +75,7 @@ public class StringCollection<T>
                 {
                     var item = currentCheckString.ParserString.Substring(start , length);
 
-                    if (CountBehind(checkList , repeatList , index , item))
+                    if (CountBehind(checkList , RepeatList , index , item))
                     {
                         goto JDKJFK;
                     }
@@ -123,7 +120,7 @@ public class StringCollection<T>
             if (repeatitem.Count >= MinOccurTimes)
             {
                 repeatList.Add(repeatitem);
-                WriteLine(repeatitem.Content);
+                //WriteLine(repeatitem.Content);
                 return true;
             }
         }
@@ -133,7 +130,7 @@ public class StringCollection<T>
     private void CheckResult () { }
 }
 
-internal class RepeatItem (string content)
+public class RepeatItem (string content)
 {
     public string Content { set; get; } = content;
     public int Count { set; get; } = 1;
@@ -143,10 +140,5 @@ internal class RepeatItem (string content)
 public class CheckTarget<T> (T fullString)
 {
     public T Source => fullString;
-    public string ParserString { get; private set; }
-
-    public void SetParserContent (Func<T , string> action)
-    {
-        ParserString = action(Source);
-    }
+    public string ParserString { get; set; }
 }
