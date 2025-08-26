@@ -20,13 +20,13 @@ public class StringCollection<T>
     /// </summary>
     public IEnumerable<T> Sources { get; set; } = [];
 
-    public Func<T , string> Action { set; get; }
+    public Func<T, string> Action { set; get; }
     public List<RepeatItem> RepeatList { get; } = [];
 
     /// <summary>
     /// 增字查找
     /// </summary>
-    public void Run ()
+    public void Run()
     {
         var checkList = Sources
             .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
@@ -34,17 +34,17 @@ public class StringCollection<T>
            .ToList();
 
         var repeatitems = new List<string>();
-        for (int index = 0 ; index < checkList.Count ; index++)
+        for (int index = 0; index < checkList.Count; index++)
         {
             var currentCheckItem = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
             var maxLength = currentCheckItem.ParserString.Length;
-            for (int start = 0 ; start < maxLength ; start++)
+            for (int start = 0; start < maxLength; start++)
             {
-                for (int length = MinItemLength ; start + length <= maxLength ; length++)
+                for (int length = MinItemLength; start + length <= maxLength; length++)
                 {
-                    var item = currentCheckItem.ParserString.Substring(start , length);
-                    CountBehind(checkList , RepeatList , index , item);
+                    var item = currentCheckItem.ParserString.Substring(start, length);
+                    CountBehind(checkList, RepeatList, index, item);
                 }
             }
         }
@@ -53,29 +53,29 @@ public class StringCollection<T>
     /// <summary>
     /// 减字查找
     /// </summary>
-    public void Run2 ()
+    public void Run2()
     {
         var checkList = Sources
             .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
            .OrderBy(x => x.ParserString.Length)
            .ToList();
 
-        for (int index = 0 ; index < checkList.Count ; index++)
+        for (int index = 0; index < checkList.Count; index++)
         {
             var currentCheckString = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
             var currentStringLength = currentCheckString.ParserString.Length;
-            for (int start = 0 ; start < currentStringLength ; start++)
+            for (int start = 0; start < currentStringLength; start++)
             {
                 for (
-                    int length = currentStringLength ;
-                    MinItemLength <= length && start + length <= currentStringLength ;
+                    int length = currentStringLength;
+                    MinItemLength <= length && start + length <= currentStringLength;
                     length--
                 )
                 {
-                    var item = currentCheckString.ParserString.Substring(start , length);
+                    var item = currentCheckString.ParserString.Substring(start, length);
 
-                    if (CountBehind(checkList , RepeatList , index , item))
+                    if (CountBehind(checkList, RepeatList, index, item))
                     {
                         goto JDKJFK;
                     }
@@ -93,10 +93,10 @@ public class StringCollection<T>
     /// <param name="repeatList"></param>
     /// <param name="index"></param>
     /// <param name="item"></param>
-    private bool CountBehind (
-        List<CheckTarget<T>> checkList ,
-        List<RepeatItem> repeatList ,
-        int index ,
+    private bool CountBehind(
+        List<CheckTarget<T>> checkList,
+        List<RepeatItem> repeatList,
+        int index,
         string item
     )
     {
@@ -105,12 +105,12 @@ public class StringCollection<T>
         if (repeatList.SingleOrDefault(x => x.Content == item) is null)
         {
             var repeatitem = new RepeatItem(item);
-            for (var behindIndex = index + 1 ; behindIndex < checkList.Count ; behindIndex++)
+            for (var behindIndex = index + 1; behindIndex < checkList.Count; behindIndex++)
             {
                 var checktarget = checkList[behindIndex];
                 var checkstring = checktarget.ParserString;
 
-                var count = StringSearch.CountRepeat(checkstring , item);
+                var count = StringSearch.CountRepeat(checkstring, item);
                 if (count > 0)
                 {
                     repeatitem.Count += count;
@@ -127,17 +127,18 @@ public class StringCollection<T>
         return false;
     }
 
-    private void CheckResult () { }
+    private void CheckResult()
+    { }
 }
 
-public class RepeatItem (string content)
+public class RepeatItem(string content)
 {
     public string Content { set; get; } = content;
     public int Count { set; get; } = 1;
     public List<string> CheckStrings { get; } = [];
 }
 
-public class CheckTarget<T> (T fullString)
+public class CheckTarget<T>(T fullString)
 {
     public T Source => fullString;
     public string ParserString { get; set; }

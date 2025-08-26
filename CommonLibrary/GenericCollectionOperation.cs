@@ -13,7 +13,7 @@ public static class GenericCollectionOperation
     /// <typeparam name="T"></typeparam>
     /// <param name="ts"></param>
     /// <returns></returns>
-    public static T LastItem<T> (this IList<T> ts)
+    public static T LastItem<T>(this IList<T> ts)
     {
         int count = ts.Count;
 
@@ -25,7 +25,7 @@ public static class GenericCollectionOperation
     /// </summary>
     /// <param name="vs"></param>
     /// <returns></returns>
-    public static string ConnectString (this IEnumerable<string> vs)
+    public static string ConnectString(this IEnumerable<string> vs)
     {
         StringBuilder stringBuilder = new();
         foreach (var str in vs)
@@ -35,7 +35,6 @@ public static class GenericCollectionOperation
         return stringBuilder.ToString();
     }
 
-
     /// <summary>
     /// 把一个集合的部分元素加到另一个集合
     /// </summary>
@@ -44,14 +43,14 @@ public static class GenericCollectionOperation
     /// <param name="targetList">接收元素的集合</param>
     /// <param name="startIndex">发送元素的起始索引</param>
     /// <param name="endIndex">发送元素的结束索引</param>
-    public static void SelectRange<T> (
-        this IList<T> sourcelist ,
-        IList<T> targetList ,
-        int startIndex ,
+    public static void SelectRange<T>(
+        this IList<T> sourcelist,
+        IList<T> targetList,
+        int startIndex,
         int endIndex
     )
     {
-        for (int i = startIndex ; i <= endIndex ; i++)
+        for (int i = startIndex; i <= endIndex; i++)
         {
             targetList.Add(sourcelist[i]);
         }
@@ -66,14 +65,14 @@ public static class GenericCollectionOperation
     /// <param name="startIndex">起始索引</param>
     /// <param name="endIndex">结束索引</param>
     /// <returns></returns>
-    public static List<T> SubList<T> (this IList<T> sourceList , int startIndex , int endIndex)
+    public static List<T> SubList<T>(this IList<T> sourceList, int startIndex, int endIndex)
     {
         if (startIndex > endIndex)
         {
             throw new InvalidOperationException("起始索引必须不大于结束索引！");
         }
         List<T> ts = [];
-        for (int i = startIndex ; i <= endIndex ; i++)
+        for (int i = startIndex; i <= endIndex; i++)
         {
             ts.Add(sourceList[i]);
         }

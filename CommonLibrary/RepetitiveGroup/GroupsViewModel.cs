@@ -1,6 +1,4 @@
-﻿
-
-namespace CommonLibrary.RepetitiveGroup;
+﻿namespace CommonLibrary.RepetitiveGroup;
 
 /// <summary>
 /// 重复项组合ViewModel
@@ -9,7 +7,7 @@ namespace CommonLibrary.RepetitiveGroup;
 /// <typeparam name="TElement">重复项 Model</typeparam>
 /// <typeparam name="TGroup">重复项组合</typeparam>
 public class GroupsViewModel<TKey, TElement, TGroup>
-    where TGroup : Group<TKey , TElement>, new()
+    where TGroup : Group<TKey, TElement>, new()
 {
     /// <summary>
     /// 重复项组合的集合
@@ -35,18 +33,16 @@ public class GroupsViewModel<TKey, TElement, TGroup>
                 list.AddRange(em);
             }
             return list;
-
         }
     }
-
 
     /// <summary>
     /// 删除一个项，在集合中检测删除
     /// </summary>
     /// <param name="elment"></param>
-    public void DeleteStorageFileInRootObservable (TElement elment)
+    public void DeleteStorageFileInRootObservable(TElement elment)
     {
-        for (int index = Count - 1 ; index >= 0 ; index--)
+        for (int index = Count - 1; index >= 0; index--)
         {
             var group = RepeatPairs[index];
 

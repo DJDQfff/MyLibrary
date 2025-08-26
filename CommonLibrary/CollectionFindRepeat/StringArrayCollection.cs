@@ -7,12 +7,12 @@ public class StringArrayCollection
     /// </summary>
     /// <param name="arrays"></param>
     /// <returns></returns>
-    public static Dictionary<string , int> Run<T> (
-        IEnumerable<T> arrays ,
-        Func<T , IEnumerable<string>> func
+    public static Dictionary<string, int> Run<T>(
+        IEnumerable<T> arrays,
+        Func<T, IEnumerable<string>> func
     )
     {
-        Dictionary<string , int> Numbers = [];
+        Dictionary<string, int> Numbers = [];
 
         foreach (var t in arrays)
         {
@@ -24,7 +24,7 @@ public class StringArrayCollection
                 }
                 else
                 {
-                    Numbers.Add(item , 1);
+                    Numbers.Add(item, 1);
                 }
             }
         }
