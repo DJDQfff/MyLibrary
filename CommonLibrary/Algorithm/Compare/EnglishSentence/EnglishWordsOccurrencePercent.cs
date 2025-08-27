@@ -23,8 +23,7 @@
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            Func<string[], bool> func = (n) =>
-                Math.Abs(sourceSentence.Length - n.Length) <= lengthdiff;
+            bool func(string[] n) => Math.Abs(sourceSentence.Length - n.Length) <= lengthdiff;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
 

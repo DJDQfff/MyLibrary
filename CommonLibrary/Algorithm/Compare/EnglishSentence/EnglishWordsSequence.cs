@@ -25,8 +25,7 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            Func<string[], bool> func = (n) =>
-                Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
+            bool func(string[] n) => Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
             var SortedSentences = filteredSentences.FromCloseToFarAbs(sourceSentence.Length); // 按目标长度排序
