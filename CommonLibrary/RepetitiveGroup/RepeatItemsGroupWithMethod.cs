@@ -33,7 +33,6 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
 
     protected async Task StartCompareSequence(IList<TElement> elements, Func<TElement, TElement, TKey> compare, Func<TKey, bool> filt)
     {
-        RepeatPairs.Clear();
         while (elements.Count > 1)
         {
             var group = new TGroup();
@@ -74,7 +73,6 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
     protected async Task ByEachKey(IEnumerable<TElement> elements, Func<TElement, TKey> getkey,
         Func<TGroup, bool> filt)
     {
-        RepeatPairs.Clear();
         var items = new List<TGroup>();
         //var array = elements.Select(x => getkey(x));
         IEnumerable<IGrouping<TKey, TElement>> a = null;

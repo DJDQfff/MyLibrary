@@ -77,7 +77,8 @@ public static class BracketBasedStringParser
     {
         return SplitByBrackets_KeepBracket(input)
                  .Where(piece => piece.IsIncludedInBracketPair())
-                 .RemoveBracketForEachString();
+                 .SelectMany(x => SplitByBrackets(x))  // 移除一个字符串集合的所有括号
+                 .ToList();
     }
 
     /// <summary>
@@ -90,7 +91,8 @@ public static class BracketBasedStringParser
     {
         return SplitByBrackets_KeepBracket(input)
      .Where(piece => !piece.IsIncludedInBracketPair())
-     .RemoveBracketForEachString();
+     .SelectMany(x => SplitByBrackets(x))
+     .ToList();
     }
 
     /// <summary>
@@ -111,23 +113,6 @@ public static class BracketBasedStringParser
             return true;
         }
         return false;
-    }
-
-    /// <summary>
-    /// 移除一个字符串集合的所有括号
-    /// </summary>
-    /// <param name="a"></param>
-    /// <returns></returns>
-    public static List<string> RemoveBracketForEachString(this IEnumerable<string> a)
-    {
-        var list = new List<string>();
-        foreach (var aa in a)
-        {
-            var aaa = SplitByBrackets(aa);
-            aaa.ForEach(x => list.Add(x));
-        }
-
-        return list;
     }
 
     /// <summary>
