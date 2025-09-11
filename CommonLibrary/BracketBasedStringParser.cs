@@ -17,12 +17,12 @@ public static class BracketBasedStringParser
     /// <summary>
     /// 左括号
     /// </summary>
-    public const string LeftBrackets = "[【（({";
+    public const string LeftBrackets = "[【（({〈「『《〖";
 
     /// <summary>
     /// 右括号
     /// </summary>
-    public const string RightBrackets = "]】）)}";
+    public const string RightBrackets = "]】）)}〉」』》〗";
 
     /// <summary>
     /// 所有括号
