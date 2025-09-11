@@ -42,6 +42,8 @@ public class GroupsViewModel<TKey, TElement, TGroup>
     /// <param name="elment"></param>
     public void DeleteStorageFileInRootObservable(TElement elment)
     {
+        // 曾出现bug： RepeatPairs是一个ObservableCollection，增减元素经常交替发生，使用index会出问题
+
         for (int index = Count - 1; index >= 0; index--)
         {
             var group = RepeatPairs[index];
@@ -50,7 +52,9 @@ public class GroupsViewModel<TKey, TElement, TGroup>
             // 没有重复项后，会自动从集合中移除此集合
             if (count == 0)
             {
-                RepeatPairs.RemoveAt(index);
+                RepeatPairs.Remove(group);
+
+                //RepeatPairs.RemoveAt(index);
             }
         }
     }

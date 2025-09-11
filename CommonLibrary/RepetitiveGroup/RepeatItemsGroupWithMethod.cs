@@ -7,9 +7,11 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
 
     public event Action<TElement> AddToResult;
 
+    public event Action<TGroup> AddGroup;
+
     protected async Task ParseAll_FindOut(IList<TElement> elements, Func<IEnumerable<TElement>, IEnumerable<TKey>> parse, Func<TElement, TKey, bool> elementgetkey, Func<TKey, bool> filtkey)
     {
-        var keys = parse(elements).Where(x => filtkey(x));
+        var keys = await Task.Run(() => parse(elements).Where(x => filtkey(x)));
 
         foreach (var key in keys)
         {
@@ -27,7 +29,10 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
                 }
             });
             if (group.Collections.Count > 1)
+            {
                 RepeatPairs.Add(group);
+                AddGroup?.Invoke(group);
+            }
         }
     }
 
@@ -62,6 +67,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
             if (group.Collections.Count >= 2)
             {
                 RepeatPairs.Add(group);
+                AddGroup?.Invoke(group);
                 foreach (var manga in group.Collections)
                 {
                     AddToResult?.Invoke(manga);
@@ -87,13 +93,14 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
         {
             if (cc.Count() > 1)
             {
-                var item = new TGroup();
-                item.Initial(cc);
-                var can = filt?.Invoke(item);
+                var group = new TGroup();
+                group.Initial(cc);
+                var can = filt?.Invoke(group);
                 if (can.Value)
                 {
-                    items.Add(item);
-                    RepeatPairs.Add(item);
+                    items.Add(group);
+                    RepeatPairs.Add(group);
+                    AddGroup?.Invoke(group);
                 }
             }
         }
