@@ -1,4 +1,6 @@
-﻿namespace CommonLibrary.RepetitiveGroup;
+﻿using System.Threading;
+
+namespace CommonLibrary.RepetitiveGroup;
 
 public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewModel<TKey, TElement, TGroup>
         where TGroup : Group<TKey, TElement>, new()
@@ -36,16 +38,25 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
         }
     }
 
-    protected async Task StartCompareSequence(IList<TElement> elements, Func<TElement, TElement, TKey> compare, Func<TKey, bool> filt)
+    protected async Task StartCompareSequence(IList<TElement> elements, Func<TElement, TElement, TKey> compare, Func<TKey, bool> filt, CancellationTokenSource cancellationToken)
     {
         while (elements.Count > 1)
         {
+            if (cancellationToken.Token.IsCancellationRequested)
+            {
+                return;
+            }
+
             var group = new TGroup();
 
             await Task.Run(() =>
              {
                  for (int index = elements.Count - 2; index >= 0; index--)
                  {
+                     if (cancellationToken.Token.IsCancellationRequested)
+                     {
+                         return;
+                     }
                      var key = compare(elements[^1], elements[index]);
                      if (filt(key))
                      {
@@ -62,7 +73,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
                      }
                  }
                  elements.Remove(elements[^1]);
-             });
+             }, cancellationToken.Token);
 
             if (group.Collections.Count >= 2)
             {
