@@ -3,7 +3,7 @@
 /// <summary>
 /// 对一个较长字符串的集合，查找重复出现的短字符串
 /// </summary>
-public class StringCollection<T>
+public class StringCollection<TSource, TAtom>
 {
     /// <summary>
     /// 短字符串最短长度
@@ -18,10 +18,10 @@ public class StringCollection<T>
     /// <summary>
     /// 字符串集合
     /// </summary>
-    public IEnumerable<T> Sources { get; set; } = [];
+    public IEnumerable<TSource> Sources { get; set; } = [];
 
-    public Func<T, string> Action { set; get; }
-    public List<RepeatItem> RepeatList { get; } = [];
+    public Func<TSource, IEnumerable<TAtom>> Action { set; get; }
+    public List<RepeatItem<TAtom>> RepeatList { get; } = [];
 
     /// <summary>
     /// 增字查找
@@ -29,8 +29,8 @@ public class StringCollection<T>
     public void Run()
     {
         var checkList = Sources
-            .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
-           .OrderBy(x => x.ParserString.Length)
+            .Select(x => new CheckTarget<TSource, TAtom>(x) { ParserString = Action(x) })
+           .OrderBy(x => x.ParserString.Count())
            .ToList();
 
         var repeatitems = new List<string>();
@@ -38,12 +38,12 @@ public class StringCollection<T>
         {
             var currentCheckItem = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
-            var maxLength = currentCheckItem.ParserString.Length;
+            var maxLength = currentCheckItem.ParserString.Count();
             for (int start = 0; start < maxLength; start++)
             {
                 for (int length = MinItemLength; start + length <= maxLength; length++)
                 {
-                    var item = currentCheckItem.ParserString.Substring(start, length);
+                    var item = currentCheckItem.ParserString.Skip(start).Take(length);
                     CountBehind(checkList, RepeatList, index, item);
                 }
             }
@@ -56,15 +56,15 @@ public class StringCollection<T>
     public void Run2()
     {
         var checkList = Sources
-            .Select(x => new CheckTarget<T>(x) { ParserString = Action(x) })
-           .OrderBy(x => x.ParserString.Length)
+            .Select(x => new CheckTarget<TSource, TAtom>(x) { ParserString = Action(x) })
+           .OrderBy(x => x.ParserString.Count())
            .ToList();
 
         for (int index = 0; index < checkList.Count; index++)
         {
             var currentCheckString = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
-            var currentStringLength = currentCheckString.ParserString.Length;
+            var currentStringLength = currentCheckString.ParserString.Count();
             for (int start = 0; start < currentStringLength; start++)
             {
                 for (
@@ -73,7 +73,7 @@ public class StringCollection<T>
                     length--
                 )
                 {
-                    var item = currentCheckString.ParserString.Substring(start, length);
+                    var item = currentCheckString.ParserString.Skip(start).Take(length);
 
                     if (CountBehind(checkList, RepeatList, index, item))
                     {
@@ -94,23 +94,23 @@ public class StringCollection<T>
     /// <param name="index"></param>
     /// <param name="item"></param>
     private bool CountBehind(
-        List<CheckTarget<T>> checkList,
-        List<RepeatItem> repeatList,
+        List<CheckTarget<TSource, TAtom>> checkList,
+        List<RepeatItem<TAtom>> repeatList,
         int index,
-        string item
+        IEnumerable<TAtom> item
     )
     {
         // TODO 可以再一个参数最低出现次数，返回值修改为bool（是否达到最低值）
         // TODO 还可以做一个版本，不统计所有次数，出现一定次数后停止然后返回bool
-        if (repeatList.SingleOrDefault(x => x.Content == item) is null)
+        if (repeatList.SingleOrDefault(x => object.Equals(x.Content, item)) is null)
         {
-            var repeatitem = new RepeatItem(item);
+            var repeatitem = new RepeatItem<TAtom>(item);
             for (var behindIndex = index + 1; behindIndex < checkList.Count; behindIndex++)
             {
                 var checktarget = checkList[behindIndex];
                 var checkstring = checktarget.ParserString;
 
-                var count = StringSearch.CountRepeat(checkstring, item);
+                var count = StringSearch.CountRepeat<TAtom>(checkstring.ToArray(), item.ToArray());
                 if (count > 0)
                 {
                     repeatitem.Count += count;
@@ -131,15 +131,15 @@ public class StringCollection<T>
     { }
 }
 
-public class RepeatItem(string content)
+public class RepeatItem<TAtom>(IEnumerable<TAtom> content)
 {
-    public string Content { set; get; } = content;
+    public IEnumerable<TAtom> Content { set; get; } = content;
     public int Count { set; get; } = 1;
-    public List<string> CheckStrings { get; } = [];
+    public List<IEnumerable<TAtom>> CheckStrings { get; } = [];
 }
 
-public class CheckTarget<T>(T fullString)
+public class CheckTarget<T, TAtom>(T fullString)
 {
     public T Source => fullString;
-    public string ParserString { get; set; }
+    public IEnumerable<TAtom> ParserString { get; set; }
 }

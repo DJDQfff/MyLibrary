@@ -56,14 +56,15 @@ public static class StringSearch
     }
 
     //TODO
-    public static int CountRepeat(string parserContent, string item, int start = 0)
+    public static int CountRepeat<Item>(Item[] parserContent, Item[] item, int start = 0)
     {
+
         var count = 0;
-        for (int index = start; index + item.Length <= parserContent.Length; index++)
+        for (int index = start; index + item.Count() <= parserContent.Count(); index++)
         {
             // TODO 须安装system.index和system.range包
-            //var comparor = parserContent[index..(index + item.Length)];
-            var comparor = parserContent.Substring(index, item.Length);
+            var comparor = parserContent[index..(index + item.Count())];
+            //var comparor = parserContent.Skip(index).Take(item.Count());
             if (item == comparor)
             {
                 count++;
