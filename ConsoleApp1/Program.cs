@@ -1,1 +1,1 @@
-﻿Class1.Run1();
+﻿Console.WriteLine();
