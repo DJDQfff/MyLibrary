@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CommonLibrary;
 
@@ -55,21 +56,69 @@ public static class StringSearch
         return keyValuePairs;
     }
 
-    //TODO
-    public static int CountRepeat<Item>(Item[] parserContent, Item[] item, int start = 0)
+    /// <summary>
+    /// 一个短数组在长数组中重复出现的次数
+    /// </summary>
+    /// <typeparam name="Item"></typeparam>
+    /// <param name="longArray"></param>
+    /// <param name="shortArray"></param>
+    /// <param name="start"></param>
+    /// <returns></returns>
+    public static int CountRepeat<Item>(Item[] longArray, Item[] shortArray)
     {
-
         var count = 0;
-        for (int index = start; index + item.Count() <= parserContent.Count(); index++)
+        for (int index = 0; index + shortArray.Length <= longArray.Length; index++)
         {
-            // TODO 须安装system.index和system.range包
-            var comparor = parserContent[index..(index + item.Count())];
-            //var comparor = parserContent.Skip(index).Take(item.Count());
-            if (item == comparor)
+            var comparor = longArray[index..(index + shortArray.Length)];
+            if (shortArray.SequenceEqual(comparor))
             {
+                // TODO 这里比较相同数组，还可以升级下，比较类似数组，比如相差一两个字符的那种，用下面的
                 count++;
             }
         }
         return count;
+    }
+
+    /// <summary>
+    /// 按顺序统计两个数组差异的量
+    /// </summary>
+    /// <typeparam name="T1"></typeparam>
+    /// <typeparam name="T2"></typeparam>
+    /// <param name="array1"></param>
+    /// <param name="array2"></param>
+    /// <returns></returns>
+    public static int SequenceDifferenceDelta<T>(T[] array1, T[] array2, int maxdiff = 3)
+    {
+        // TODO
+
+        int diff = 0;
+        T[] longarray;
+        T[] shortarray;
+        if (array1.Length > array2.Length)
+        {
+            longarray = array1;
+            shortarray = array2;
+        }
+        else
+        {
+            longarray = array2;
+            shortarray = array1;
+        }
+
+        for (int index = 0; index < longarray.Length; index++)
+        {
+            if (Equals(array1[index], array2[index]))
+            {
+                continue;
+            }
+            else
+            {
+                for (int i = 0; i < maxdiff && index + i < longarray.Length; i++)
+                {
+                    var sameposition = array1[index..(index + maxdiff)];
+                }
+            }
+        }
+        return diff;
     }
 }
