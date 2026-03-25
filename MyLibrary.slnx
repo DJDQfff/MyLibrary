@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/解决方案项/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="CommonLibrary/CommonLibrary.csproj" />
+  <Project Path="ConsoleApp1/ConsoleApp1.csproj" />
+</Solution>
