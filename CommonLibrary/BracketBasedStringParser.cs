@@ -73,13 +73,10 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static List<string> Get_InsideContent(string input)
-    {
-        return SplitByBrackets_KeepBracket(input)
+    public static List<string> Get_InsideContent (string input) =>
+        [.. SplitByBrackets_KeepBracket(input)
                  .Where(piece => piece.IsIncludedInBracketPair())
-                 .SelectMany(x => SplitByBrackets(x))  // 移除一个字符串集合的所有括号
-                 .ToList();
-    }
+                 .SelectMany(x => SplitByBrackets(x))];
 
     /// <summary>
     /// 获取括号外字符串 推荐用这个
@@ -87,13 +84,10 @@ public static class BracketBasedStringParser
     /// <param name="input"></param>
     /// <returns></returns>
     /// <remarks>如果这个没有括号外内容，会返回一个长度为0的list</remarks>
-    public static List<string> Get_OutsideContent(string input)
-    {
-        return SplitByBrackets_KeepBracket(input)
+    public static List<string> Get_OutsideContent (string input) =>
+        [.. SplitByBrackets_KeepBracket(input)
      .Where(piece => !piece.IsIncludedInBracketPair())
-     .SelectMany(x => SplitByBrackets(x))
-     .ToList();
-    }
+     .SelectMany(x => SplitByBrackets(x))];
 
     /// <summary>
     /// 是否包含在一对括号中（不要求首尾括号是相对应的类型）

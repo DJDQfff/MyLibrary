@@ -16,9 +16,12 @@
                 {
                     if (list[j] > list[j + 1]) //当前位置与后一位比较
                     {
-                        int temp = list[j + 1];
-                        list[j + 1] = list[j];
-                        list[j] = temp;
+                        //int temp = list[j + 1];
+                        //list[j + 1] = list[j];
+                        //list[j] = temp;
+
+                        // 使用元组交换值
+                        (list[j] , list[j + 1]) = (list[j + 1] , list[j]);
 
                         count++;
                     }
@@ -46,9 +49,7 @@
                     }
                     count++;
                 }
-                int k = list[index];
-                list[index] = list[i];
-                list[i] = k;
+                (list[i] , list[index]) = (list[index] , list[i]);
 
                 //list.ShowList(behind: "", beforemessage: "调整后：");
             }

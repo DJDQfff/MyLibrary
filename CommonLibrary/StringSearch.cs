@@ -86,22 +86,22 @@ public static class StringSearch
     /// <param name="array1"></param>
     /// <param name="array2"></param>
     /// <returns></returns>
-    public static int SequenceDifferenceDelta<T>(T[] array1, T[] array2, int maxdiff = 3)
+    public static int SequenceDifferenceDelta<T>(T[] array1, T[] array2/*, int maxdiff = 3*/)
     {
         // TODO
 
         int diff = 0;
         T[] longarray;
-        T[] shortarray;
+        //T[] shortarray;
         if (array1.Length > array2.Length)
         {
             longarray = array1;
-            shortarray = array2;
+            //shortarray = array2;
         }
         else
         {
             longarray = array2;
-            shortarray = array1;
+            //shortarray = array1;
         }
 
         for (int index = 0; index < longarray.Length; index++)
@@ -112,10 +112,10 @@ public static class StringSearch
             }
             else
             {
-                for (int i = 0; i < maxdiff && index + i < longarray.Length; i++)
-                {
-                    var sameposition = array1[index..(index + maxdiff)];
-                }
+                //for (int i = 0; i < maxdiff && index + i < longarray.Length; i++)
+                //{
+                //    var sameposition = array1[index..(index + maxdiff)];
+                //}
             }
         }
         return diff;

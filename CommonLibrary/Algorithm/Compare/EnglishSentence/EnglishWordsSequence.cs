@@ -18,8 +18,8 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         public static string SelectByWordsSequence(
             this string source,
             IEnumerable<string> stringpool,
-            CompareSense sentencesense,
-            CompareSense wordsense
+            CompareSense sentencesense
+            //,CompareSense wordsense
         )
         {
             var sentencePool = stringpool.SplitIntoWords();
@@ -32,7 +32,7 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
 
             foreach (var Sentence in SortedSentences)
             {
-                if (SentenceSimilar(sourceSentence, Sentence, sentencesense, wordsense))
+                if (SentenceSimilar(sourceSentence, Sentence, sentencesense/*, wordsense*/))
                 {
                     return string.Join(" ", Sentence);
                 }
@@ -50,13 +50,13 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         public static bool SentenceSimilar(
             IList<string> vs1,
             IList<string> vs2,
-            CompareSense sentencesense,
-            CompareSense wordsense
+            CompareSense sentencesense
+            //,CompareSense wordsense
         )
         {
-            Func<string, string, bool> wordCompare = (a, b) => WordSimilar(a, b, wordsense);
-            Func<string, string, bool> test = (a, b) => a == b;
-            bool c = CompareEachItem(vs1, vs2, sentencesense, test);
+            //bool wordCompare (string a , string b) => WordSimilar(a , b , wordsense);
+            static bool test (string a , string b) => a == b;
+            bool c = CompareEachItem(vs1, vs2, sentencesense,  test);
             return c;
         }
 
@@ -67,9 +67,9 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <returns> </returns>
         public static bool WordSimilar(string word1, string word2, CompareSense compareSense)
         {
-            Func<char, char, bool> func = (a, b) => a == b;
+            static bool func (char a , char b) => a == b;
 
-            bool c = CompareEachItem(word1.ToArray(), word2.ToArray(), compareSense, func);
+            bool c = CompareEachItem([.. word1] , [.. word2] , compareSense,  func);
 
             return c;
         }

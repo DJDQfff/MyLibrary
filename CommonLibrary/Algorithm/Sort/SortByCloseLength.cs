@@ -10,7 +10,7 @@
         /// <param name="length"> 要比较的长度 </param>
         public static List<T[]> FromCloseToFarAbs<T>(this List<T[]> list, int length)
         {
-            int[] ints = list.Select(n => Math.Abs(n.Length - length)).ToArray();
+            int[] ints = [.. list.Select(n => Math.Abs(n.Length - length))];
             List<(int, T[])> tuples = [];
             for (int i = 0; i < ints.Length; i++)
             {
@@ -22,13 +22,11 @@
                 {
                     if (tuples[k].Item1 > tuples[k + 1].Item1)
                     {
-                        var temp = tuples[k + 1];
-                        tuples[k + 1] = tuples[k];
-                        tuples[k] = temp;
+                        (tuples[k] , tuples[k + 1]) = (tuples[k + 1] , tuples[k]);
                     }
                 }
             }
-            return tuples.Select(n => n.Item2).ToList();
+            return [.. tuples.Select(n => n.Item2)];
         }
     }
 }

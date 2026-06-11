@@ -65,7 +65,7 @@ public static class ParagraphOperation
     {
         foreach (string line in paragraph.Lines)
         {
-            if (!Regex.Match(line, regex).Success)
+            if (!Regex.IsMatch(line , regex))
             {
                 return false;
             }
@@ -93,7 +93,7 @@ public static class ParagraphOperation
         int count = 0;
         foreach (var line in paragraph.Lines)
         {
-            if (Regex.Match(line, regex).Success)
+            if (Regex.IsMatch(line , regex))
             {
                 count++;
             }
@@ -109,7 +109,7 @@ public static class ParagraphOperation
     {
         foreach (var line in paragraph.Lines)
         {
-            if (Regex.Match(line, regex).Success)
+            if (Regex.IsMatch(line , regex))
             {
                 return true;
             }
@@ -157,7 +157,7 @@ public static class ParagraphFactory
     )
     {
         List<Paragraph> paragraphs = [];
-        List<int> vs = new(ints) { lines.Count };
+        List<int> vs = [with(ints), lines.Count];
 
         for (int index = 0; index < vs.Count - 1; index++)
         {
@@ -180,7 +180,7 @@ public static class ParagraphFactory
         params int[] Indexes
     )
     {
-        List<string> newlines = new(lines); // lines必须是可以添加项的集合
+        List<string> newlines = [with(lines)]; // lines必须是可以添加项的集合
         newlines.Insert(0, string.Empty);
         newlines.Add(string.Empty);
 

@@ -88,7 +88,7 @@ public static class StringCollectionOperation
     /// <returns></returns>
     public static List<int> GetEmptyIndex(this IList<string> lines)
     {
-        List<string> newlines = new(lines); // lines必须是可以添加项的集合
+        List<string> newlines = [with(lines)]; // lines必须是可以添加项的集合
         newlines.Insert(0, string.Empty);
         newlines.Add(string.Empty);
 
@@ -116,7 +116,7 @@ public static class StringCollectionOperation
     {
         for (int index = list.Count - 1; index >= 0; index--)
         {
-            if (Regex.Match(list[index], regex).Success)
+            if (Regex.IsMatch(list[index] , regex))
             {
                 list.RemoveAt(index);
             }

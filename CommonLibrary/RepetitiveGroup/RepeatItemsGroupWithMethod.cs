@@ -17,8 +17,10 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
 
         foreach (var key in keys)
         {
-            var group = new TGroup();
-            group.Key = key;
+            var group = new TGroup
+            {
+                Key = key
+            };
             await Task.Run(() =>
             {
                 for (var index = elements.Count - 1; index >= 0; index--)

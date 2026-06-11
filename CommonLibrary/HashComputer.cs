@@ -15,7 +15,7 @@ public static class HashComputer
     {
         SHA256 sHA256 = SHA256.Create();
         byte[] vs = sHA256.ComputeHash(stream);
-        string hash = BitConverter.ToString(vs).Replace("-", "");
+        string hash = Convert.ToHexString(vs);
         sHA256.Dispose();
         return hash;
     }

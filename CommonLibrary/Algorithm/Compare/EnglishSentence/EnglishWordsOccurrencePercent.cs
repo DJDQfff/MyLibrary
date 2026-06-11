@@ -30,7 +30,7 @@
             if (filteredSentences.Count == 0) // 有可能筛选出来的个数为0
             {
                 lengthdiff += 100;
-                filteredSentences = sentencePool.Where(n => func(n)).ToList();
+                filteredSentences = [.. sentencePool.Where(n => func(n))];
             }
 
             List<int> vs = []; // 词频集合
@@ -38,8 +38,8 @@
             {
                 int count = 0;
 
-                List<string> sourceList = new(sourceSentence);
-                List<string> sentenceList = new(sentence);
+                List<string> sourceList = [with(sourceSentence)];
+                List<string> sentenceList = [with(sentence)];
 
                 int j = sourceList.Count - 1;
 

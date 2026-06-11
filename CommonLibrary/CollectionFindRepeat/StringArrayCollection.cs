@@ -18,9 +18,9 @@ public class StringArrayCollection
         {
             foreach (var item in func(t))
             {
-                if (Numbers.ContainsKey(item))
+                if (Numbers.TryGetValue(item , out int value))
                 {
-                    Numbers[item]++;
+                    Numbers[item] = ++value;
                 }
                 else
                 {

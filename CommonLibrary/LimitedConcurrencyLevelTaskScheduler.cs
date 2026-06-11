@@ -28,8 +28,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
     {
-        if (maxDegreeOfParallelism < 1)
-            throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism));
+        ArgumentOutOfRangeException.ThrowIfLessThan(maxDegreeOfParallelism , 1);
         _maxDegreeOfParallelism = maxDegreeOfParallelism;
     }
 
