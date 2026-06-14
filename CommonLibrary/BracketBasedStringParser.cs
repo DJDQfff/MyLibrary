@@ -208,7 +208,7 @@ public static class BracketBasedStringParser
     /// 获取本子名和tag，同时进行，有缺陷
     /// </summary>
     /// <param name="_FileDisplayName">传入漫画文件名（不带后缀）</param>
-    /// <returns>第一个是MangaName，后面的是tag</returns>
+    /// <returns>第一个是Name，后面的是tag</returns>
     [Obsolete("有缺陷，有时候会出问题，且内部逻辑杂乱")]
     private static (string, List<string>) Get_BothContetn(string _FileDisplayName)
     {
@@ -233,7 +233,7 @@ public static class BracketBasedStringParser
                right1 == -1 && right2 == -1 && right1 < right2
             )
             {
-                tagslist.Remove(tag);              // 如果存在，则调整位置，把MangaName移到tag集合头部
+                tagslist.Remove(tag);              // 如果存在，则调整位置，把Name移到tag集合头部
                 manganame = tag;
                 findmanganame = true;
                 break;
@@ -251,12 +251,12 @@ public static class BracketBasedStringParser
             if (CorrectBracketPairConut(_FileDisplayName) != -1)
             {
                 //  所有tag都被括号包起来了，本子名应该未包含在括号里面，这样无法识别
-                Debug.WriteLine($"无法解析出MangaName：\n{_FileDisplayName}");
+                Debug.WriteLine($"无法解析出Name：\n{_FileDisplayName}");
             }
             else
             {
                 //其他情况下的bug，应该没有了
-                Debug.WriteLine($"无法解析出MangaName：\n{_FileDisplayName}");
+                Debug.WriteLine($"无法解析出Name：\n{_FileDisplayName}");
             }
         }
 
