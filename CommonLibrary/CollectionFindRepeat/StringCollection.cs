@@ -49,42 +49,80 @@ public class StringCollection<TSource, TArrayItem>
             }
         }
     }
-
     /// <summary>
-    /// 减字查找
+    /// 这个是我让ai生成的，没有测试过。下面注释掉的才是自己写的。
     /// </summary>
-    public void Run2()
+    public void Run2 ()
     {
         var checkTargets = Sources
             .Select(x => new CheckTarget(x) { ParserArray = Action(x) })
-           .OrderBy(x => x.ParserArray.Length)
-           .ToArray();
+            .OrderBy(x => x.ParserArray.Length)
+            .ToArray();
 
-        for (int index = 0; index < checkTargets.Length; index++)
+        for (int index = 0 ; index < checkTargets.Length ; index++)
         {
             var currentCheck = checkTargets[index];
-            //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
             var currentCheckArrayLength = currentCheck.ParserArray.Length;
-            for (int start = 0; start < currentCheckArrayLength; start++)
-            {
-                for (
-                    int length = currentCheckArrayLength;
-                    MinItemLength <= length && start + length <= currentCheckArrayLength;
-                    length--
-                )
-                {
-                    var item = currentCheck.ParserArray[start..(length - start)];//TODO 要检查索引是不是对的/*.Skip(start).Take(length);*/
 
-                    if (CountBehind(checkTargets, index, item))
-                    {
-                        goto JDKJFK;
-                    }
-                }
-            JDKJFK:
+            // 调用提取出来的方法，如果找到则直接跳出外层循环
+            if (FindMatch(currentCheck , currentCheckArrayLength , checkTargets , index))
+            {
                 break;
             }
         }
     }
+    //public void Run2()
+    //{
+    //    var checkTargets = Sources
+    //        .Select(x => new CheckTarget(x) { ParserArray = Action(x) })
+    //       .OrderBy(x => x.ParserArray.Length)
+    //       .ToArray();
+
+    //    for (int index = 0; index < checkTargets.Length; index++)
+    //    {
+    //        var currentCheck = checkTargets[index];
+    //        //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
+    //        var currentCheckArrayLength = currentCheck.ParserArray.Length;
+    //        for (int start = 0; start < currentCheckArrayLength; start++)
+    //        {
+    //            for (
+    //                int length = currentCheckArrayLength;
+    //                MinItemLength <= length && start + length <= currentCheckArrayLength;
+    //                length--
+    //            )
+    //            {
+    //                var item = currentCheck.ParserArray[start..(length - start)];//TODO 要检查索引是不是对的/*.Skip(start).Take(length);*/
+
+    //                if (CountBehind(checkTargets, index, item))
+    //                {
+    //                    goto JDKJFK;
+    //                }
+    //            }
+    //        JDKJFK:
+    //            break;
+    //        }
+    //    }
+    //}
+
+    // 提取出的查找逻辑
+    private bool FindMatch (CheckTarget currentCheck , int arrayLength , CheckTarget[] targets , int currentIndex)
+    {
+        for (int start = 0 ; start < arrayLength ; start++)
+        {
+            for (int length = arrayLength ; MinItemLength <= length && start + length <= arrayLength ; length--)
+            {
+                var item = currentCheck.ParserArray[start..(length - start)];
+                if (CountBehind(targets , currentIndex , item))
+                {
+                    return true; // 找到即返回，优雅地跳出所有循环
+                }
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// 减字查找
+    /// </summary>
 
     /// <summary>
     /// 检索后面的array，统计item所有出现次数
