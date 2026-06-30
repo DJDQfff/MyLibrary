@@ -13,9 +13,9 @@ public static class StringSearch
     /// <param name="str"></param>
     /// <param name="regex"></param>
     /// <returns></returns>
-    public static int SearchOrderListIndex(this string str, string regex)
+    public static int SearchOrderListIndex (this string str , string regex)
     {
-        var match = Regex.Match(str, regex);
+        var match = Regex.Match(str , regex);
         return match.Success ? match.Index : -1;
     }
 
@@ -24,11 +24,11 @@ public static class StringSearch
     /// </summary>
     /// <param name="str">字符串不能是null、空字符串、全空白符，否则报错</param>
     /// <returns>缩进</returns>
-    public static int FirstNotWhiteSpaceCharacterIndex(this string str)
+    public static int FirstNotWhiteSpaceCharacterIndex (this string str)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(str, nameof(str));
+        ArgumentException.ThrowIfNullOrWhiteSpace(str , nameof(str));
         string regex = @"[^\s]";
-        return Regex.Match(str, regex).Index;
+        return Regex.Match(str , regex).Index;
     }
 
     /// <summary>
@@ -37,9 +37,9 @@ public static class StringSearch
     /// <param name="str"></param>
     /// <param name="words">被查找字符串数组</param>
     /// <returns>Key为被查找字符串，Values为该字符串在目标中的所有位置</returns>
-    public static Dictionary<string, List<int>> IndexOfAny(this string str, params string[] words)
+    public static Dictionary<string , List<int>> IndexOfAny (this string str , params string[] words)
     {
-        Dictionary<string, List<int>> keyValuePairs = [];
+        Dictionary<string , List<int>> keyValuePairs = [];
 
         foreach (var word in words)
         {
@@ -49,7 +49,7 @@ public static class StringSearch
             {
                 vs.Add(index);
             }
-            keyValuePairs.Add(word, vs);
+            keyValuePairs.Add(word , vs);
         }
 
         return keyValuePairs;
@@ -63,10 +63,10 @@ public static class StringSearch
     /// <param name="shortArray"></param>
     /// <param name="start"></param>
     /// <returns></returns>
-    public static int CountRepeat<Item>(Item[] longArray, Item[] shortArray)
+    public static int CountRepeat<Item> (Item[] longArray , Item[] shortArray)
     {
         var count = 0;
-        for (int index = 0; index + shortArray.Length <= longArray.Length; index++)
+        for (int index = 0 ; index + shortArray.Length <= longArray.Length ; index++)
         {
             var comparor = longArray[index..(index + shortArray.Length)];
             if (shortArray.SequenceEqual(comparor))
@@ -86,7 +86,7 @@ public static class StringSearch
     /// <param name="array1"></param>
     /// <param name="array2"></param>
     /// <returns></returns>
-    public static int SequenceDifferenceDelta<T>(T[] array1, T[] array2/*, int maxdiff = 3*/)
+    public static int SequenceDifferenceDelta<T> (T[] array1 , T[] array2/*, int maxdiff = 3*/)
     {
         // TODO
 
@@ -104,9 +104,9 @@ public static class StringSearch
             //shortarray = array1;
         }
 
-        for (int index = 0; index < longarray.Length; index++)
+        for (int index = 0 ; index < longarray.Length ; index++)
         {
-            if (Equals(array1[index], array2[index]))
+            if (Equals(array1[index] , array2[index]))
             {
                 continue;
             }

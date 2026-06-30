@@ -2,8 +2,8 @@
 
 namespace CommonLibrary.RepetitiveGroup;
 
-public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewModel<TKey, TElement, TGroup>
-        where TGroup : Group<TKey, TElement>, new()
+public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewModel<TKey , TElement , TGroup>
+        where TGroup : Group<TKey , TElement>, new()
 {
     public List<TElement> Source { set; get; }
 
@@ -11,7 +11,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
 
     public event Action<TGroup> AddGroup;
 
-    protected async Task ParseAll_FindOut(IList<TElement> elements, Func<IEnumerable<TElement>, IEnumerable<TKey>> parse, Func<TElement, TKey, bool> elementgetkey, Func<TKey, bool> filtkey)
+    protected async Task ParseAll_FindOut (IList<TElement> elements , Func<IEnumerable<TElement> , IEnumerable<TKey>> parse , Func<TElement , TKey , bool> elementgetkey , Func<TKey , bool> filtkey)
     {
         var keys = await Task.Run(() => parse(elements).Where(x => filtkey(x)));
 
@@ -23,9 +23,9 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
             };
             await Task.Run(() =>
             {
-                for (var index = elements.Count - 1; index >= 0; index--)
+                for (var index = elements.Count - 1 ; index >= 0 ; index--)
                 {
-                    if (elementgetkey(elements[index], key))
+                    if (elementgetkey(elements[index] , key))
                     {
                         group.AddElement(elements[index]);
                         elements.RemoveAt(index);
@@ -40,7 +40,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
         }
     }
 
-    protected async Task StartCompareSequence(IList<TElement> elements, Func<TElement, TElement, TKey> compare, Func<TKey, bool> filt, CancellationTokenSource cancellationToken)
+    protected async Task StartCompareSequence (IList<TElement> elements , Func<TElement , TElement , TKey> compare , Func<TKey , bool> filt , CancellationTokenSource cancellationToken)
     {
         while (elements.Count > 1)
         {
@@ -53,13 +53,13 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
 
             await Task.Run(() =>
              {
-                 for (int index = elements.Count - 2; index >= 0; index--)
+                 for (int index = elements.Count - 2 ; index >= 0 ; index--)
                  {
                      if (cancellationToken.Token.IsCancellationRequested)
                      {
                          return;
                      }
-                     var key = compare(elements[^1], elements[index]);
+                     var key = compare(elements[^1] , elements[index]);
                      if (filt(key))
                      {
                          if (group.Key is null)
@@ -75,7 +75,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
                      }
                  }
                  elements.Remove(elements[^1]);
-             }, cancellationToken.Token);
+             } , cancellationToken.Token);
 
             if (group.Collections.Count >= 2)
             {
@@ -89,12 +89,12 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup> : GroupsViewMode
         }
     }
 
-    protected async Task ByEachKey(IEnumerable<TElement> elements, Func<TElement, TKey> getkey,
-        Func<TGroup, bool> filt)
+    protected async Task ByEachKey (IEnumerable<TElement> elements , Func<TElement , TKey> getkey ,
+        Func<TGroup , bool> filt)
     {
         var items = new List<TGroup>();
         //var array = elements.Select(x => getkey(x));
-        IEnumerable<IGrouping<TKey, TElement>> a = null;
+        IEnumerable<IGrouping<TKey , TElement>> a = null;
 
         await Task.Run(() =>
         {

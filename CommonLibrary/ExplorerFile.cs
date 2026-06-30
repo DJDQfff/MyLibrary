@@ -5,15 +5,15 @@ namespace CommonLibrary;
 public partial class ExplorerFile
 {
     // 1. ILFree 方法：仅涉及 IntPtr，无字符串，直接替换即可
-    [LibraryImport("shell32.dll" )]
+    [LibraryImport("shell32.dll")]
     private static partial void ILFree (IntPtr pidlList);
 
     // 2. ILCreateFromPathW 方法：包含 string 参数，必须显式指定 UTF-16 编码
-    [LibraryImport("shell32.dll" , StringMarshalling = StringMarshalling.Utf16 )]
+    [LibraryImport("shell32.dll" , StringMarshalling = StringMarshalling.Utf16)]
     private static partial IntPtr ILCreateFromPathW (string pszPath);
 
     // 3. SHOpenFolderAndSelectItems 方法：仅涉及 IntPtr 和基础值类型，直接替换即可
-    [LibraryImport("shell32.dll" )]
+    [LibraryImport("shell32.dll")]
     private static partial int SHOpenFolderAndSelectItems (
         IntPtr pidlList ,
         uint cild ,

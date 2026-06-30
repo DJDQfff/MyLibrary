@@ -7,10 +7,10 @@ public static class StringCompare
     /// <param name="str1"> </param>
     /// <param name="str2"> </param>
     /// <returns> </returns>
-    public static int DifferentIndexOf(this string str1, string str2)
+    public static int DifferentIndexOf (this string str1 , string str2)
     {
-        int length = Math.Max(str1.Length, str2.Length);
-        for (int index = 0; index < length; index++)
+        int length = Math.Max(str1.Length , str2.Length);
+        for (int index = 0 ; index < length ; index++)
         {
             if (str1[index] != str2[index])
             {
@@ -24,7 +24,7 @@ public static class StringCompare
     /// <param name="list"> </param>
     /// <param name="str"> </param>
     /// <returns> </returns>
-    public static bool IsListEqualString(this IEnumerable<string> list, string str)
+    public static bool IsListEqualString (this IEnumerable<string> list , string str)
     {
         string newstring = list.ConnectString();
         return newstring == str;
@@ -34,12 +34,12 @@ public static class StringCompare
     /// <param name="str"> 源字符串 </param>
     /// <param name="chars"> 是否是重复的指定元素 </param>
     /// <returns> 是否重复 </returns>
-    public static bool IsRepeatCharLine(this string str, params char[] chars)
+    public static bool IsRepeatCharLine (this string str , params char[] chars)
     {
-        ArgumentNullException.ThrowIfNullOrEmpty(str, nameof(str));
+        ArgumentNullException.ThrowIfNullOrEmpty(str , nameof(str));
 
         char c = str[0];
-        for (int i = 1; i < str.Length - 1; i++)
+        for (int i = 1 ; i < str.Length - 1 ; i++)
         {
             if (c != str[i])
                 return false;

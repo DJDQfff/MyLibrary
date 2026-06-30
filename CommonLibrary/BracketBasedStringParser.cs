@@ -34,7 +34,7 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-    public static bool ContainAnyBrackets(string str)
+    public static bool ContainAnyBrackets (string str)
     {
         foreach (var b in LeftRightBrackets)
         {
@@ -49,10 +49,10 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="tagstring"></param>
     /// <returns></returns>
-    public static int CorrectBracketPairConut(string tagstring)
+    public static int CorrectBracketPairConut (string tagstring)
     {
         int brackettype = 0;
-        for (int i = 0; i < Length; i++)
+        for (int i = 0 ; i < Length ; i++)
         {
             int count1 = tagstring.Count(n => n == LeftBrackets[i]);
             int count2 = tagstring.Count(n => n == RightBrackets[i]);
@@ -94,7 +94,7 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static bool IsIncludedInBracketPair(this string name)
+    public static bool IsIncludedInBracketPair (this string name)
     {
         if (name.Length < 2)
         {
@@ -113,11 +113,11 @@ public static class BracketBasedStringParser
     /// （未完成）移除其中包含的重复tag
     /// </summary>
     /// <param name="oldname">旧的名字</param>
-    public static string RemoveRepeatTag(string oldname)
+    public static string RemoveRepeatTag (string oldname)
     {
         // TODO 输入一个包含重复tag的名称，算出一个去掉重复tag的名称
         var pieces = SplitByBrackets_KeepBracket(oldname);
-        for (var index = 0; index < pieces.Count; index++)
+        for (var index = 0 ; index < pieces.Count ; index++)
         {
             var piece = pieces[index];
             //var behind = pieces.GetRange(index , pieces.Count);
@@ -136,7 +136,7 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="_FileDisplayName"></param>
     /// <returns></returns>
-    public static List<string> SplitByBrackets(string _FileDisplayName)
+    public static List<string> SplitByBrackets (string _FileDisplayName)
     {
         var tagslist =
             _FileDisplayName.Trim()
@@ -153,18 +153,18 @@ public static class BracketBasedStringParser
     ///
     /// <param name="_FileDisplayName"></param>
     /// <returns></returns>
-    public static List<string> SplitByBrackets_KeepBracket(string _FileDisplayName)
+    public static List<string> SplitByBrackets_KeepBracket (string _FileDisplayName)
     {
         var stringBuilder = new StringBuilder();
         var pieces = new List<string>();
         var n = new StringBuilder(_FileDisplayName);
-        for (int i = n.Length - 1; i > 0; i--)
+        for (int i = n.Length - 1 ; i > 0 ; i--)
         {
             if (LeftRightBrackets.Contains(n[i]))
             {
-                n.Insert(i + 1, '/');
+                n.Insert(i + 1 , '/');
 
-                n.Insert(i, '/');
+                n.Insert(i , '/');
             }
         }
         // 这一步会把tag中的空格给消除，是一个小缺陷。以前使用空格有这个问题，现在换了个字符不知道有没有
@@ -192,7 +192,7 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static string TrimBracket(this string name)
+    public static string TrimBracket (this string name)
     {
         if (name.IsIncludedInBracketPair())
         {
@@ -210,7 +210,7 @@ public static class BracketBasedStringParser
     /// <param name="_FileDisplayName">传入漫画文件名（不带后缀）</param>
     /// <returns>第一个是Name，后面的是tag</returns>
     [Obsolete("有缺陷，有时候会出问题，且内部逻辑杂乱")]
-    private static (string, List<string>) Get_BothContetn(string _FileDisplayName)
+    private static (string , List<string>) Get_BothContetn (string _FileDisplayName)
     {
         bool findmanganame = false;
         string manganame = default;
@@ -222,10 +222,10 @@ public static class BracketBasedStringParser
             var tagstart = _FileDisplayName.IndexOf(tag);
             var tagend = tagstart + tag.Length - 1;
 
-            var left1 = _FileDisplayName.LastIndexOfAny([.. RightBrackets], tagstart);
-            var left2 = _FileDisplayName.LastIndexOfAny([.. LeftBrackets], tagstart);
-            var right1 = _FileDisplayName.IndexOfAny([.. LeftBrackets], tagend);
-            var right2 = _FileDisplayName.IndexOfAny([.. RightBrackets], tagend);
+            var left1 = _FileDisplayName.LastIndexOfAny([.. RightBrackets] , tagstart);
+            var left2 = _FileDisplayName.LastIndexOfAny([.. LeftBrackets] , tagstart);
+            var right1 = _FileDisplayName.IndexOfAny([.. LeftBrackets] , tagend);
+            var right2 = _FileDisplayName.IndexOfAny([.. RightBrackets] , tagend);
             if
             (
                left1 != -1 && left2 != -1 && left1 > left2 ||
@@ -260,7 +260,7 @@ public static class BracketBasedStringParser
             }
         }
 
-        return (manganame, tagslist);
+        return (manganame , tagslist);
     }
 
     /// <summary>
@@ -268,8 +268,8 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Obsolete("功能未完成", true)]
-    private static IEnumerable<string> Get_InsideContent_Recursion(string input)
+    [Obsolete("功能未完成" , true)]
+    private static IEnumerable<string> Get_InsideContent_Recursion (string input)
     {
         return null;
     }
@@ -285,7 +285,7 @@ public static class BracketBasedStringParser
     /// </remarks>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static string Get_OutsideContent_Recursion(string name)
+    public static string Get_OutsideContent_Recursion (string name)
     {
         if (CorrectBracketPairConut(name) == -1)
         {
@@ -320,8 +320,8 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [Obsolete("功能未完成", true)]
-    private static string Get_OutsideContent_Regex(string name)
+    [Obsolete("功能未完成" , true)]
+    private static string Get_OutsideContent_Regex (string name)
     {
         var pattern = @"([\]】）\)\}]|)[^\[【（\(\{\]】）\)\}]+([\[【（\(\{]|)";
         var pattern2 = @"([\]】）\)\}]|)\S+([\[【（\(\{]|)";
@@ -334,7 +334,7 @@ public static class BracketBasedStringParser
             var str = t.Value;
             strings.Add(str);
         }
-        strings.Sort((x, y) => -x.Length + y.Length);
+        strings.Sort((x , y) => -x.Length + y.Length);
         return strings.First();
     }
 
@@ -343,8 +343,8 @@ public static class BracketBasedStringParser
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [Obsolete("功能未完成", true)]
-    private static string Get_OutsideContent_Stack(string name)
+    [Obsolete("功能未完成" , true)]
+    private static string Get_OutsideContent_Stack (string name)
     {
         //Stack<char> lefts = new();
         //List<string> pieces = [];

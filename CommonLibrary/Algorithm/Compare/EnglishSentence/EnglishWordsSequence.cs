@@ -15,26 +15,26 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sentencesense"> 句子灵敏度 </param>
         /// <param name="wordsense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static string SelectByWordsSequence(
-            this string source,
-            IEnumerable<string> stringpool,
+        public static string SelectByWordsSequence (
+            this string source ,
+            IEnumerable<string> stringpool ,
             CompareSense sentencesense
-            //,CompareSense wordsense
+        //,CompareSense wordsense
         )
         {
             var sentencePool = stringpool.SplitIntoWords();
             var sourceSentence = source.Split(' ');
 
-            bool func(string[] n) => Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
+            bool func (string[] n) => Math.Abs(sourceSentence.Length - n.Length) <= sentencesense.LengthDifference;
 
             var filteredSentences = sentencePool.Where(n => func(n)).ToList();
             var SortedSentences = filteredSentences.FromCloseToFarAbs(sourceSentence.Length); // 按目标长度排序
 
             foreach (var Sentence in SortedSentences)
             {
-                if (SentenceSimilar(sourceSentence, Sentence, sentencesense/*, wordsense*/))
+                if (SentenceSimilar(sourceSentence , Sentence , sentencesense/*, wordsense*/))
                 {
-                    return string.Join(" ", Sentence);
+                    return string.Join(" " , Sentence);
                 }
             }
 
@@ -47,16 +47,16 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sentencesense"> 句子灵敏度 </param>
         /// <param name="wordsense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static bool SentenceSimilar(
-            IList<string> vs1,
-            IList<string> vs2,
+        public static bool SentenceSimilar (
+            IList<string> vs1 ,
+            IList<string> vs2 ,
             CompareSense sentencesense
-            //,CompareSense wordsense
+        //,CompareSense wordsense
         )
         {
             //bool wordCompare (string a , string b) => WordSimilar(a , b , wordsense);
             static bool test (string a , string b) => a == b;
-            bool c = CompareEachItem(vs1, vs2, sentencesense,  test);
+            bool c = CompareEachItem(vs1 , vs2 , sentencesense , test);
             return c;
         }
 
@@ -65,11 +65,11 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="word2"> </param>
         /// <param name="compareSense"> 单词灵敏度 </param>
         /// <returns> </returns>
-        public static bool WordSimilar(string word1, string word2, CompareSense compareSense)
+        public static bool WordSimilar (string word1 , string word2 , CompareSense compareSense)
         {
             static bool func (char a , char b) => a == b;
 
-            bool c = CompareEachItem([.. word1] , [.. word2] , compareSense,  func);
+            bool c = CompareEachItem([.. word1] , [.. word2] , compareSense , func);
 
             return c;
         }
@@ -89,17 +89,17 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="sense"> 元素灵敏度比较 </param>
         /// <param name="compareFunc"> 元素相等性比较的方法 </param>
         /// <returns> </returns>
-        public static bool CompareEachItem<T>(
-            IList<T> ts1,
-            IList<T> ts2,
-            CompareSense sense,
-            Func<T, T, bool> compareFunc
+        public static bool CompareEachItem<T> (
+            IList<T> ts1 ,
+            IList<T> ts2 ,
+            CompareSense sense ,
+            Func<T , T , bool> compareFunc
         )
         {
             int item1ignore = sense.IgnoreThreshold;
             int sense2 = sense.SkipThreshold;
 
-            for (int j = 0, k = 0; j < ts1.Count && k < ts2.Count; j++, k++) // j是ts1的位置
+            for (int j = 0, k = 0 ; j < ts1.Count && k < ts2.Count ; j++, k++) // j是ts1的位置
             { // k是ts2的位置
                 int delay = sense.Delay; // 忽略1还是2的临界值
                 int tempk = k; // k的临时位置
@@ -107,7 +107,7 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
                 {
                     if (delay >= 0)
                     {
-                        if (compareFunc(ts1[j], ts2[tempk]))
+                        if (compareFunc(ts1[j] , ts2[tempk]))
                         {
                             k = tempk;
                             break;
@@ -158,7 +158,7 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="ts"> </param>
         /// <param name="percent"> </param>
         /// <returns> </returns>
-        public static CompareSense ByLengthAuto(string ts, int percent)
+        public static CompareSense ByLengthAuto (string ts , int percent)
         {
             int length = ts.Split(' ').Length;
             double f = percent / 100.0 * length;
@@ -166,9 +166,9 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
             int d = Convert.ToInt32(c);
             return new CompareSense()
             {
-                Delay = d,
-                IgnoreThreshold = d,
-                SkipThreshold = d,
+                Delay = d ,
+                IgnoreThreshold = d ,
+                SkipThreshold = d ,
                 LengthDifference = d
             };
         }
@@ -179,13 +179,13 @@ namespace CommonLibrary.Algorithm.Compare.EnglishSentence
         /// <param name="t3"> 元素2跳过上限 </param>
         /// <param name="t4"> 长度最大差值 </param>
         /// <returns> </returns>
-        public static CompareSense Creat(int t1, int t2, int t3, int t4)
+        public static CompareSense Creat (int t1 , int t2 , int t3 , int t4)
         {
             return new CompareSense()
             {
-                Delay = t2,
-                IgnoreThreshold = t1,
-                SkipThreshold = t3,
+                Delay = t2 ,
+                IgnoreThreshold = t1 ,
+                SkipThreshold = t3 ,
                 LengthDifference = t4
             };
         }

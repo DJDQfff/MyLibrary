@@ -20,13 +20,13 @@ public class StringCollection<TSource, TArrayItem>
     /// </summary>
     public IEnumerable<TSource> Sources { get; set; } = [];
 
-    public Func<TSource, TArrayItem[]> Action { set; get; }
+    public Func<TSource , TArrayItem[]> Action { set; get; }
     public List<RepeatItem> RepeatItemsList { get; } = [];
 
     /// <summary>
     /// 增字查找
     /// </summary>
-    public void Run()
+    public void Run ()
     {
         var checkList = Sources
             .Select(x => new CheckTarget(x) { ParserArray = Action(x) })
@@ -34,17 +34,17 @@ public class StringCollection<TSource, TArrayItem>
            .ToList();
 
         var repeatitems = new List<string>();
-        for (int index = 0; index < checkList.Count; index++)
+        for (int index = 0 ; index < checkList.Count ; index++)
         {
             var currentCheckItem = checkList[index];
             //var behindFdj = checkList.GetRange(index + 1, checkList.Count - index);
             var maxLength = currentCheckItem.ParserArray.Length;
-            for (int start = 0; start < maxLength; start++)
+            for (int start = 0 ; start < maxLength ; start++)
             {
-                for (int length = MinItemLength; start + length <= maxLength; length++)
+                for (int length = MinItemLength ; start + length <= maxLength ; length++)
                 {
                     var item = currentCheckItem.ParserArray[start..(length - start)];//TODO 要检查索引是不是对的/*.Skip(start).Take(length);*/
-                    CountBehind(checkList, index, item);
+                    CountBehind(checkList , index , item);
                 }
             }
         }
@@ -131,23 +131,23 @@ public class StringCollection<TSource, TArrayItem>
     /// <param name="repeatItems"></param>
     /// <param name="index"></param>
     /// <param name="item"></param>
-    private bool CountBehind(
-        IList<CheckTarget> checkTargets,
-        int index,
+    private bool CountBehind (
+        IList<CheckTarget> checkTargets ,
+        int index ,
         TArrayItem[] item
     )
     {
         // TODO 可以再一个参数最低出现次数，返回值修改为bool（是否达到最低值）
         // TODO 还可以做一个版本，不统计所有次数，出现一定次数后停止然后返回bool
-        if (RepeatItemsList.SingleOrDefault(x => object.Equals(x.Items, item)) is null)
+        if (RepeatItemsList.SingleOrDefault(x => object.Equals(x.Items , item)) is null)
         {
             var repeatitem = new RepeatItem(item);
-            for (var behindIndex = index + 1; behindIndex < checkTargets.Count; behindIndex++)
+            for (var behindIndex = index + 1 ; behindIndex < checkTargets.Count ; behindIndex++)
             {
                 var behindTarget = checkTargets[behindIndex];
 
                 //TODO 这里应该用相似匹配
-                var count = StringSearch.CountRepeat<TArrayItem>(behindTarget.ParserArray, item);
+                var count = StringSearch.CountRepeat<TArrayItem>(behindTarget.ParserArray , item);
                 if (count > 0)
                 {
                     repeatitem.Count += count;
@@ -168,7 +168,7 @@ public class StringCollection<TSource, TArrayItem>
         return false;
     }
 
-    public class RepeatItem(TArrayItem[] content)
+    public class RepeatItem (TArrayItem[] content)
     {
         /// <summary>
         /// 重复数组
@@ -186,7 +186,7 @@ public class StringCollection<TSource, TArrayItem>
         public List<CheckTarget> CheckArrays { get; } = [];
     }
 
-    public class CheckTarget(TSource source)
+    public class CheckTarget (TSource source)
     {
         /// <summary>
         /// 数据源
