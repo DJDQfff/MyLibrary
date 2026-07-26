@@ -30,8 +30,8 @@ public class StringCollection<TSource, TArrayItem>
     {
         var checkList = Sources
             .Select(x => new CheckTarget(x) { ParserArray = Action(x) })
-           .OrderBy(x => x.ParserArray.Length)
-           .ToList();
+               .OrderBy(x => x.ParserArray.Length)
+               .ToList();
 
         var repeatitems = new List<string>();
         for (int index = 0 ; index < checkList.Count ; index++)
@@ -141,7 +141,7 @@ public class StringCollection<TSource, TArrayItem>
         // TODO 还可以做一个版本，不统计所有次数，出现一定次数后停止然后返回bool
         if (RepeatItemsList.SingleOrDefault(x => object.Equals(x.Items , item)) is null)
         {
-            var repeatitem = new RepeatItem(item);
+            RepeatItem repeatitem = new(item);
             for (var behindIndex = index + 1 ; behindIndex < checkTargets.Count ; behindIndex++)
             {
                 var behindTarget = checkTargets[behindIndex];
