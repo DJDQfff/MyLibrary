@@ -11,7 +11,7 @@ public static class HashComputer
     /// </summary>
     /// <param name="stream"> 文件流 </param>
     /// <returns> </returns>
-    public static string ComputeHash (this Stream stream)
+    public static string ComputeHash(this Stream stream)
     {
         SHA256 sHA256 = SHA256.Create();
         byte[] vs = sHA256.ComputeHash(stream);
@@ -25,10 +25,10 @@ public static class HashComputer
     /// </summary>
     /// <param name="entry"> </param>
     /// <returns> </returns>
-    public static string ComputeHash (this ZipArchiveEntry entry)
+    public static string ComputeHash(this ZipArchiveEntry entry)
     {
         string hash;
-        using (Stream stream = entry?.Open())
+        using (var stream = entry.Open())
         {
             hash = stream.ComputeHash();
         }
@@ -40,10 +40,10 @@ public static class HashComputer
     /// </summary>
     /// <param name="entry"></param>
     /// <returns></returns>
-    public static string ComputeHash (this SharpCompress.Archives.IArchiveEntry entry)
+    public static string ComputeHash(this SharpCompress.Archives.IArchiveEntry entry)
     {
         string hash;
-        using (Stream stream = entry?.OpenEntryStream())
+        using (var stream = entry.OpenEntryStream())
         {
             hash = stream.ComputeHash();
         }

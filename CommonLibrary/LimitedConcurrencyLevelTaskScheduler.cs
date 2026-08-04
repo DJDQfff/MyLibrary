@@ -26,9 +26,9 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// </summary>
     /// <param name="maxDegreeOfParallelism"></param>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public LimitedConcurrencyLevelTaskScheduler (int maxDegreeOfParallelism)
+    public LimitedConcurrencyLevelTaskScheduler(int maxDegreeOfParallelism)
     {
-        ArgumentOutOfRangeException.ThrowIfLessThan(maxDegreeOfParallelism , 1);
+        ArgumentOutOfRangeException.ThrowIfLessThan(maxDegreeOfParallelism, 1);
         _maxDegreeOfParallelism = maxDegreeOfParallelism;
     }
 
@@ -36,7 +36,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// Queues a task to the scheduler.
     /// </summary>
     /// <param name="task"></param>
-    protected override sealed void QueueTask (Task task)
+    protected sealed override void QueueTask(Task task)
     {
         // Add the task to the list of tasks to be processed.  If there aren't enough
         // delegates currently queued or running to process tasks, schedule another.
@@ -54,9 +54,9 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// <summary>
     /// Inform the ThreadPool that there's work to be executed for this scheduler.
     /// </summary>
-    private void NotifyThreadPoolOfPendingWork ()
+    private void NotifyThreadPoolOfPendingWork()
     {
-        ThreadPool.UnsafeQueueUserWorkItem(
+        _ = ThreadPool.UnsafeQueueUserWorkItem(
             _ =>
             {
                 // Note that the current thread is now processing work items.
@@ -79,7 +79,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
                             }
 
                             // Get the next item from the queue
-                            item = _tasks.First.Value;
+                            item = _tasks.First!.Value;
                             _tasks.RemoveFirst();
                         }
 
@@ -92,7 +92,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
                 {
                     _currentThreadIsProcessingItems = false;
                 }
-            } ,
+            },
             null
         );
     }
@@ -103,7 +103,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// <param name="task"></param>
     /// <param name="taskWasPreviouslyQueued"></param>
     /// <returns></returns>
-    protected override sealed bool TryExecuteTaskInline (Task task , bool taskWasPreviouslyQueued)
+    protected sealed override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
     {
         // If this thread isn't already processing a task, we don't support inlining
         if (!_currentThreadIsProcessingItems)
@@ -125,7 +125,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// </summary>
     /// <param name="task"></param>
     /// <returns></returns>
-    protected override sealed bool TryDequeue (Task task)
+    protected sealed override bool TryDequeue(Task task)
     {
         lock (_tasks)
             return _tasks.Remove(task);
@@ -134,7 +134,7 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// <summary>
     /// Gets the maximum concurrency level supported by this scheduler.
     /// </summary>
-    public override sealed int MaximumConcurrencyLevel
+    public sealed override int MaximumConcurrencyLevel
     {
         get { return _maxDegreeOfParallelism; }
     }
@@ -144,12 +144,12 @@ public class LimitedConcurrencyLevelTaskScheduler : TaskScheduler
     /// </summary>
     /// <returns></returns>
     /// <exception cref="NotSupportedException"></exception>
-    protected override sealed IEnumerable<Task> GetScheduledTasks ()
+    protected sealed override IEnumerable<Task> GetScheduledTasks()
     {
         bool lockTaken = false;
         try
         {
-            Monitor.TryEnter(_tasks , ref lockTaken);
+            Monitor.TryEnter(_tasks, ref lockTaken);
             if (lockTaken)
                 return _tasks;
             else
