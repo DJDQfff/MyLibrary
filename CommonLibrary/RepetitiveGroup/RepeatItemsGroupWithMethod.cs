@@ -23,7 +23,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
 
         foreach (var key in keys)
         {
-            var group = new TGroup { Key = key };
+            TGroup group = new () { Key = key };
             await Task.Run(() =>
             {
                 for (var index = elements.Count - 1; index >= 0; index--)
@@ -57,7 +57,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
                 return;
             }
 
-            var group = new TGroup();
+            TGroup group = new ();
 
             await Task.Run(
                 () =>
@@ -105,24 +105,25 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
 
     protected async Task ByEachKey(
         IEnumerable<TElement> elements,
-        Func<TElement, TKey> getkey,
-        Func<TGroup, bool> filt
+        Func<TElement, TKey?> getkey,
+        Func<TGroup, bool> filt,
+        Func<TElement , bool> filt2
     )
     {
-        var items = new List<TGroup>();
+        List<TGroup> items = [];
         //var array = elements.Select(x => getkey(x));
-        IEnumerable<IGrouping<TKey, TElement>> a = null!;
-
-        await Task.Run(() =>
-        {
-            a = elements.GroupBy(getkey).SkipWhile(x => x.Key is null);
-        });
+        var a= await Task.Run(() => elements
+            .SkipWhile(x => filt2(x))
+            .GroupBy(getkey)
+            .Where(x => x.Key is not null)
+        );
+        
         foreach (var cc in a)
         {
             if (cc.Count() > 1)
             {
-                var group = new TGroup();
-                group.Initial(cc);
+                TGroup group = new ();
+                group.Initial(cc!);
                 var can = filt?.Invoke(group);
                 if (can.GetValueOrDefault())
                 {
