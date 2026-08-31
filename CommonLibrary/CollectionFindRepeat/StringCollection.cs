@@ -43,7 +43,7 @@ public class StringCollection<TSource, TArrayItem>
             {
                 for (int length = MinItemLength; start + length <= maxLength; length++)
                 {
-                    var item = currentCheckItem.ParserArray[start..(length - start)]; //TODO 要检查索引是不是对的/*.Skip(start).Take(length);*/
+                    var item = currentCheckItem.ParserArray[start..(length - start)]; // 这是以前的.Skip(start).Take(length);
                     CountBehind(checkList, index, item);
                 }
             }
