@@ -23,7 +23,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
 
         foreach (var key in keys)
         {
-            TGroup group = new () { Key = key };
+            TGroup group = new() { Key = key };
             await Task.Run(() =>
             {
                 for (var index = elements.Count - 1; index >= 0; index--)
@@ -57,7 +57,7 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
                 return;
             }
 
-            TGroup group = new ();
+            TGroup group = new();
 
             await Task.Run(
                 () =>
@@ -107,39 +107,50 @@ public class RepeatItemsGroupWithMethod<TKey, TElement, TGroup>
         IEnumerable<TElement> elements,
         Func<TElement, TKey?> getkey,
         Func<TGroup, bool> filt,
-        Func<TElement , bool> filt2
+        Func<TElement, bool> filt2
     )
     {
         List<TGroup> items = [];
         //var array = elements.Select(x => getkey(x));
-        var a= await Task.Run(() => elements
-            .SkipWhile(x => filt2(x))
-            .GroupBy(getkey)
-            .Where(x => x.Key is not null)
+        var a = await Task.Run(() =>
+            elements.Where(filt2).GroupBy(getkey).Where(x => x.Key is not null)
         );
-        
-        foreach (var cc in a)
+
+        //foreach (var cc in a)
+        //{
+        //    if (cc.Count() > 1)
+        //    {
+        //        TGroup group = new();
+        //        group.Initial(cc!);
+        //        var can = filt?.Invoke(group);
+        //        if (can.GetValueOrDefault())
+        //        {
+        //            items.Add(group);
+        //        }
+        //    }
+        //}
+
+        async IAsyncEnumerable<TGroup> GetGroups()
         {
-            if (cc.Count() > 1)
+            foreach (var cc in a)
             {
-                TGroup group = new ();
-                group.Initial(cc!);
-                var can = filt?.Invoke(group);
-                if (can.GetValueOrDefault())
+                if (cc.Count() > 1)
                 {
-                    items.Add(group);
-                    RepeatPairs.Add(group);
-                    AddGroup?.Invoke(group);
+                    TGroup group = new();
+                    group.Initial(cc!);
+                    var can = filt?.Invoke(group);
+                    if (can.GetValueOrDefault())
+                    {
+                        yield return group;
+                    }
                 }
             }
         }
 
-        foreach (var item in items)
+        await foreach (var group in GetGroups())
         {
-            //foreach (var manga in item.Collections)
-            //{
-            //    AddToResult?.Invoke(manga);
-            //}
+            RepeatPairs.Add(group);
+            AddGroup?.Invoke(group);
         }
     }
 }
